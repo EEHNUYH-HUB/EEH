@@ -1,0 +1,10 @@
+E:\00 EXAMPLE\EEH\EEH\bin\Debug\netstandard2.0\EEH.deps.json
+E:\00 EXAMPLE\EEH\EEH\bin\Debug\netstandard2.0\EEH.dll
+E:\00 EXAMPLE\EEH\EEH\bin\Debug\netstandard2.0\EEH.pdb
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.AssemblyReference.cache
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.GeneratedMSBuildEditorConfig.editorconfig
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfoInputs.cache
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfo.cs
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.CoreCompileInputs.cache
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.dll
+E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.pdb
