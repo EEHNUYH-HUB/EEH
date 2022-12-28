@@ -8,3 +8,15 @@ E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfo.cs
 E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.CoreCompileInputs.cache
 E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.dll
 E:\00 EXAMPLE\EEH\EEH\obj\Debug\netstandard2.0\EEH.pdb
+D:\831228 EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.deps.json
+D:\831228 EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.dll
+D:\831228 EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.pdb
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.AssemblyReference.cache
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.GeneratedMSBuildEditorConfig.editorconfig
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfoInputs.cache
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfo.cs
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.CoreCompileInputs.cache
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.dll
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.pdb
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.Properties.Resources.resources
+D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.GenerateResource.cache

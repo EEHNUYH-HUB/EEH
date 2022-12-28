@@ -1,0 +1,76 @@
+﻿<Page x:Class="EEH.WPF.UI.Pages.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EEH.WPF.UI.Pages"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid  Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30px"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="네이버 광고 API INFO" Style="{StaticResource Heading2}" Margin="0,3,0,3" ></TextBlock>
+                <Grid Margin="0,3,0,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Customer ID" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" />
+                </Grid>
+                <Grid Margin="0,3,0,3"> 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Api Key" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1" VerticalAlignment="Center" />
+                </Grid>
+                <Grid Margin="0,3,0,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Secret Key" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" />
+                </Grid>
+
+                <TextBlock Text="네이버 OPEN API INFO" Style="{StaticResource Heading2}" Margin="0,3,0,3" ></TextBlock>
+
+                <Grid Margin="0,3,0,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Client ID" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" />
+                </Grid>
+                <Grid Margin="0,3,0,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Secret Key" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1" VerticalAlignment="Center"  />
+                </Grid>
+
+                <TextBlock Text="11번가 OPEN API INFO" Style="{StaticResource Heading2}" Margin="0,3,0,3" ></TextBlock>
+                <Grid Margin="0,3,0,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Key" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1" VerticalAlignment="Center"  />
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="1" Style="{StaticResource BaseButtonStyle}" Command="{Binding SaveCommand}" Content="저장"></Button>
+            
+    </Grid>
+</Page>

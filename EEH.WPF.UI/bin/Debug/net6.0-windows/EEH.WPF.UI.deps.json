@@ -1,0 +1,84 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "EEH.WPF.UI/1.0.0": {
+        "dependencies": {
+          "EEH": "1.0.0",
+          "ModernUI.CoreWPF": "3.1.2"
+        },
+        "runtime": {
+          "EEH.WPF.UI.dll": {}
+        }
+      },
+      "ModernUI.CoreWPF/3.1.2": {
+        "runtime": {
+          "lib/netcoreapp3.1/FirstFloor.ModernUI.dll": {
+            "assemblyVersion": "3.1.2.0",
+            "fileVersion": "3.1.2.0"
+          }
+        },
+        "resources": {
+          "lib/netcoreapp3.1/fr/FirstFloor.ModernUI.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netcoreapp3.1/it/FirstFloor.ModernUI.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netcoreapp3.1/pl/FirstFloor.ModernUI.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/netcoreapp3.1/ru/FirstFloor.ModernUI.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.2": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.2.27524"
+          }
+        }
+      },
+      "EEH/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "runtime": {
+          "EEH.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EEH.WPF.UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ModernUI.CoreWPF/3.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NZouBuSqDQJJuTjCJLqciN2ueCyB5bcN5+p4Cr9FfJbubUYxeUqn5BQaqYYpTv0UD2fSvnfEgiosrXPtURlB8A==",
+      "path": "modernui.corewpf/3.1.2",
+      "hashPath": "modernui.corewpf.3.1.2.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
+      "path": "newtonsoft.json/13.0.2",
+      "hashPath": "newtonsoft.json.13.0.2.nupkg.sha512"
+    },
+    "EEH/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

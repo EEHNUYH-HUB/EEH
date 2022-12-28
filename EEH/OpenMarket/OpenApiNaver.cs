@@ -14,8 +14,8 @@ namespace EEH.OpenMarket
 
         public OpenApiNaver()
         {
-            string clientID = "YnFCdM3jGDzx3pAwNgB0";
-            string secret = "AkdZaRPfUP";
+            string clientID = Properties.APIInfoSettings.Default.OpenApiNaverClientID;
+            string secret = Properties.APIInfoSettings.Default.OpenApiNaverSecret;
             restApiClient = new RestAPIClient("https://openapi.naver.com");
             restApiClient.OnHeaderSettingDelegate = (header) =>
             {

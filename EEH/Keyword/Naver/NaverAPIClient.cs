@@ -14,6 +14,7 @@ namespace EEH.Keyword.Naver
         private string naverApiUrl = "https://api.naver.com";
         private string apiKey = string.Empty;
         private string secretKey = string.Empty;
+        private string customID = string.Empty;
 
         private RestAPIClient apiClient;
         private delegate string SignatureHandler(string timeStamp);
@@ -25,9 +26,9 @@ namespace EEH.Keyword.Naver
         void Init()
         {
 
-            apiKey = "010000000069b184f513c41bd07c3b61de224578c4bd9845b7c7812b874461361cd88b7c23";
-            secretKey = "AQAAAABpsYT1E8Qb0Hw7Yd4iRXjEwi047fhafoxiY9HG++/s+Q==";
-
+            apiKey = Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey;
+            secretKey = Properties.APIInfoSettings.Default.KeywordSearchNaverSecret;
+            customID = Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
             apiClient = new RestAPIClient(naverApiUrl);
             apiClient.OnHeaderSettingDelegate = (header) =>
             {
@@ -36,7 +37,7 @@ namespace EEH.Keyword.Naver
                     long timeStamp = DateUtils.GetTimeStamp();
                     string strTimeSTamp = timeStamp.ToString();
                     header.Add("X-API-KEY", apiKey);
-                    header.Add("X-Customer", "1631990");
+                    header.Add("X-Customer", customID);
                     header.Add("X-Timestamp", strTimeSTamp);
                     if (GetSignatureHandler != null)
                     {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\00 EXAMPLE\\EEH\\EEH\\EEH.csproj": {}
+    "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj": {}
   },
   "projects": {
-    "E:\\00 EXAMPLE\\EEH\\EEH\\EEH.csproj": {
+    "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\00 EXAMPLE\\EEH\\EEH\\EEH.csproj",
+        "projectUniqueName": "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj",
         "projectName": "EEH",
-        "projectPath": "E:\\00 EXAMPLE\\EEH\\EEH\\EEH.csproj",
+        "projectPath": "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj",
         "packagesPath": "C:\\Users\\hhlee\\.nuget\\packages\\",
-        "outputPath": "E:\\00 EXAMPLE\\EEH\\EEH\\obj\\",
+        "outputPath": "D:\\831228 EEH\\EEH\\EEH\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

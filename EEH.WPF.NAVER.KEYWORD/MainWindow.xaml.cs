@@ -1,6 +1,7 @@
 ﻿using EEH.Keyword.Naver;
 using EEH.Keyword.Naver.Models;
 using EEH.OpenMarket;
+using FirstFloor.ModernUI.Windows.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,7 @@ namespace EEH.WPF.NAVER.KEYWORD
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : ModernWindow
     {
         private NaverAPIClient client = new NaverAPIClient();
         public MainWindow()
