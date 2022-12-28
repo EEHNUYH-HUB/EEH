@@ -26,9 +26,9 @@ namespace EEH.Keyword.Naver
         void Init()
         {
 
-            apiKey = Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey;
-            secretKey = Properties.APIInfoSettings.Default.KeywordSearchNaverSecret;
-            customID = Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
+            apiKey = "";//Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey;
+            secretKey = "";// Properties.APIInfoSettings.Default.KeywordSearchNaverSecret;
+            customID = "";// Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
             apiClient = new RestAPIClient(naverApiUrl);
             apiClient.OnHeaderSettingDelegate = (header) =>
             {

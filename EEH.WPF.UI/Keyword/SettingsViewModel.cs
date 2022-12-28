@@ -23,29 +23,29 @@ namespace EEH.WPF.UI.Keyword
         {
             SaveCommand = new BaseCommand();
             SaveCommand.ExecuteHandler = (param) => {
-                EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID = NaverCustomerID;
-                EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey = NaverApiKey;
-                EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverSecret = NaverSecretKey;
+               // EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID = NaverCustomerID;
+               // EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey = NaverApiKey;
+               // EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverSecret = NaverSecretKey;
 
-                EEH.Properties.APIInfoSettings.Default.OpenApiNaverClientID = OpenApiNaverClientID;
-               EEH.Properties.APIInfoSettings.Default.OpenApiNaverSecret = OpenApiNaverSecretKey;
+               // EEH.Properties.APIInfoSettings.Default.OpenApiNaverClientID = OpenApiNaverClientID;
+               //EEH.Properties.APIInfoSettings.Default.OpenApiNaverSecret = OpenApiNaverSecretKey;
 
-               EEH.Properties.APIInfoSettings.Default.OpenApi11StKey = OpenApi11stKey;
-                EEH.Properties.APIInfoSettings.Default.
+               //EEH.Properties.APIInfoSettings.Default.OpenApi11StKey = OpenApi11stKey;
+               // EEH.Properties.APIInfoSettings.Default.
                 
             };
         }
 
         public void Init()
         {
-            NaverCustomerID = EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
-            NaverApiKey = EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey;
-            NaverSecretKey = EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverSecret;
+            //NaverCustomerID = EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
+            //NaverApiKey = EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey;
+            //NaverSecretKey = EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverSecret;
 
-            OpenApiNaverClientID = EEH.Properties.APIInfoSettings.Default.OpenApiNaverClientID;
-            OpenApiNaverSecretKey = EEH.Properties.APIInfoSettings.Default.OpenApiNaverSecret;
+            //OpenApiNaverClientID = EEH.Properties.APIInfoSettings.Default.OpenApiNaverClientID;
+            //OpenApiNaverSecretKey = EEH.Properties.APIInfoSettings.Default.OpenApiNaverSecret;
 
-            OpenApi11stKey = EEH.Properties.APIInfoSettings.Default.OpenApi11StKey;
+            //OpenApi11stKey = EEH.Properties.APIInfoSettings.Default.OpenApi11StKey;
         }
     }
 }

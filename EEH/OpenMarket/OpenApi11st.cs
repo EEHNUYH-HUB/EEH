@@ -14,7 +14,7 @@ namespace EEH.OpenMarket
         public OpenApi11st()
         {
             restApiClient = new RestAPIClient("https://openapi.11st.co.kr");
-            key = Properties.APIInfoSettings.Default.OpenApi11StKey;
+            key = "";//Properties.APIInfoSettings.Default.OpenApi11StKey;
         }
 
 
