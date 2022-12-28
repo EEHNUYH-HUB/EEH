@@ -21,6 +21,7 @@ namespace EEH.WPF.UI.Keyword
 
         public SettingsViewModel() 
         {
+            //알겠습니다 브런치 
             SaveCommand = new BaseCommand();
             SaveCommand.ExecuteHandler = (param) => {
                // EEH.Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID = NaverCustomerID;
