@@ -21,6 +21,7 @@ namespace EEH.WPF.UI.Keyword
 
         public SettingsViewModel() 
         {
+            //ddd
             //dr0002
             SaveCommand = new BaseCommand();
             SaveCommand.ExecuteHandler = (param) => {
