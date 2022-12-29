@@ -53,7 +53,7 @@ namespace EEH.WPF.UI.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/EEH.WPF.UI;component/keyword/keywordsearch.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/EEH.WPF.UI;V1.0.0.0;component/keyword/keywordsearch.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Keyword\KeywordSearch.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

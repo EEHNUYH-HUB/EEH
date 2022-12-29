@@ -21,7 +21,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Customer ID" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" Password="{Binding NaverCustomerID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid Margin="0,3,0,3"> 
                     <Grid.ColumnDefinitions>
