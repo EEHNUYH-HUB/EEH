@@ -24,7 +24,6 @@ namespace EEH.WPF.UI.Keyword
             SaveCommand = new BaseCommand();
             SaveCommand.ExecuteHandler = (param) =>
             {
-
                 
                 EEH.APIInfoSettings.Default.KeywordSearchNaverCustomerID = NaverCustomerID;
                 EEH.APIInfoSettings.Default.KeywordSearchNaverApiKey = NaverApiKey;
@@ -42,14 +41,14 @@ namespace EEH.WPF.UI.Keyword
 
         public void Init()
         {
-            NaverCustomerID = EEH.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
-            NaverApiKey = EEH.APIInfoSettings.Default.KeywordSearchNaverApiKey;
-            NaverSecretKey = EEH.APIInfoSettings.Default.KeywordSearchNaverSecret;
+           NaverCustomerID = EEH.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
+           NaverApiKey = EEH.APIInfoSettings.Default.KeywordSearchNaverApiKey;
+           NaverSecretKey = EEH.APIInfoSettings.Default.KeywordSearchNaverSecret;
 
-            OpenApiNaverClientID = EEH.APIInfoSettings.Default.OpenApiNaverClientID;
-            OpenApiNaverSecretKey = EEH.APIInfoSettings.Default.OpenApiNaverSecret;
+           OpenApiNaverClientID = EEH.APIInfoSettings.Default.OpenApiNaverClientID;
+           OpenApiNaverSecretKey = EEH.APIInfoSettings.Default.OpenApiNaverSecret;
 
-            OpenApi11stKey = EEH.APIInfoSettings.Default.OpenApi11StKey;
+           OpenApi11stKey = EEH.APIInfoSettings.Default.OpenApi11StKey;
         }
     }
 }

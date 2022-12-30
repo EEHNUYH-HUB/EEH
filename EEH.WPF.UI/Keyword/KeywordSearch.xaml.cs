@@ -22,6 +22,7 @@ namespace EEH.WPF.UI.Pages
     {
         public KeywordSearch()
         {
+            System.Windows.DependencyObject
             InitializeComponent();
         }
     }

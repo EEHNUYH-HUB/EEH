@@ -24,36 +24,6 @@
           }
         }
       },
-      "ModernUI.CoreWPF/3.1.2": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp3.1/FirstFloor.ModernUI.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/FirstFloor.ModernUI.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
-        ],
-        "resource": {
-          "lib/netcoreapp3.1/fr/FirstFloor.ModernUI.resources.dll": {
-            "locale": "fr"
-          },
-          "lib/netcoreapp3.1/it/FirstFloor.ModernUI.resources.dll": {
-            "locale": "it"
-          },
-          "lib/netcoreapp3.1/pl/FirstFloor.ModernUI.resources.dll": {
-            "locale": "pl"
-          },
-          "lib/netcoreapp3.1/ru/FirstFloor.ModernUI.resources.dll": {
-            "locale": "ru"
-          }
-        }
-      },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
@@ -188,22 +158,6 @@
         "runtime": {
           "bin/placeholder/EEH.dll": {}
         }
-      },
-      "EEH.WPF/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "EEH": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/EEH.WPF.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EEH.WPF.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
-        ]
       }
     }
   },
@@ -237,23 +191,6 @@
         "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll",
         "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt"
-      ]
-    },
-    "ModernUI.CoreWPF/3.1.2": {
-      "sha512": "NZouBuSqDQJJuTjCJLqciN2ueCyB5bcN5+p4Cr9FfJbubUYxeUqn5BQaqYYpTv0UD2fSvnfEgiosrXPtURlB8A==",
-      "type": "package",
-      "path": "modernui.corewpf/3.1.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netcoreapp3.1/FirstFloor.ModernUI.dll",
-        "lib/netcoreapp3.1/FirstFloor.ModernUI.xml",
-        "lib/netcoreapp3.1/fr/FirstFloor.ModernUI.resources.dll",
-        "lib/netcoreapp3.1/it/FirstFloor.ModernUI.resources.dll",
-        "lib/netcoreapp3.1/pl/FirstFloor.ModernUI.resources.dll",
-        "lib/netcoreapp3.1/ru/FirstFloor.ModernUI.resources.dll",
-        "modernui.corewpf.3.1.2.nupkg.sha512",
-        "modernui.corewpf.nuspec"
       ]
     },
     "Newtonsoft.Json/13.0.2": {
@@ -441,18 +378,11 @@
       "type": "project",
       "path": "../EEH/EEH.csproj",
       "msbuildProject": "../EEH/EEH.csproj"
-    },
-    "EEH.WPF/1.0.0": {
-      "type": "project",
-      "path": "../EEH.WPF/EEH.WPF.csproj",
-      "msbuildProject": "../EEH.WPF/EEH.WPF.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "EEH >= 1.0.0",
-      "EEH.WPF >= 1.0.0",
-      "ModernUI.CoreWPF >= 3.1.2"
+      "EEH >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -462,11 +392,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\831228 EEH\\EEH\\EEH.WPF.UI\\EEH.WPF.UI.csproj",
-      "projectName": "EEH.WPF.UI",
-      "projectPath": "D:\\831228 EEH\\EEH\\EEH.WPF.UI\\EEH.WPF.UI.csproj",
+      "projectUniqueName": "D:\\831228 EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj",
+      "projectName": "EEH.WPF",
+      "projectPath": "D:\\831228 EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj",
       "packagesPath": "C:\\Users\\hhlee\\.nuget\\packages\\",
-      "outputPath": "D:\\831228 EEH\\EEH\\EEH.WPF.UI\\obj\\",
+      "outputPath": "D:\\831228 EEH\\EEH\\EEH.WPF\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -487,9 +417,6 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "D:\\831228 EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj": {
-              "projectPath": "D:\\831228 EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj"
-            },
             "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj": {
               "projectPath": "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj"
             }
@@ -505,12 +432,6 @@
     "frameworks": {
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
-        "dependencies": {
-          "ModernUI.CoreWPF": {
-            "target": "Package",
-            "version": "[3.1.2, )"
-          }
-        },
         "imports": [
           "net461",
           "net462",
