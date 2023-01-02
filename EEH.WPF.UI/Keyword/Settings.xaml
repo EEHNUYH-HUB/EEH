@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EEH.WPF.UI.Pages"
+      xmlns:pwd="clr-namespace:EEH.WPF;assembly=EEH.WPF"
       xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -21,7 +22,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Customer ID" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" Password="{Binding NaverCustomerID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" pwd:PasswordHelper.Password="{Binding NaverCustomerID,Mode=TwoWay}"  />
                 </Grid>
                 <Grid Margin="0,3,0,3"> 
                     <Grid.ColumnDefinitions>
@@ -29,7 +30,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Api Key" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1" VerticalAlignment="Center" pwd:PasswordHelper.Password="{Binding NaverApiKey,Mode=TwoWay}"  />
                 </Grid>
                 <Grid Margin="0,3,0,3">
                     <Grid.ColumnDefinitions>
@@ -37,7 +38,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Secret Key" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" pwd:PasswordHelper.Password="{Binding NaverSecretKey,Mode=TwoWay}"  />
                 </Grid>
 
                 <TextBlock Text="네이버 OPEN API INFO" Style="{StaticResource Heading2}" Margin="0,3,0,3" ></TextBlock>
@@ -48,7 +49,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Client ID" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" />
+                    <PasswordBox Grid.Column="1"  VerticalAlignment="Center" pwd:PasswordHelper.Password="{Binding OpenApiNaverClientID,Mode=TwoWay}"  />
                 </Grid>
                 <Grid Margin="0,3,0,3">
                     <Grid.ColumnDefinitions>
@@ -56,7 +57,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Secret Key" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1" VerticalAlignment="Center"  />
+                    <PasswordBox Grid.Column="1" VerticalAlignment="Center" pwd:PasswordHelper.Password="{Binding OpenApiNaverSecretKey,Mode=TwoWay}"  />
                 </Grid>
 
                 <TextBlock Text="11번가 OPEN API INFO" Style="{StaticResource Heading2}" Margin="0,3,0,3" ></TextBlock>
@@ -66,7 +67,7 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Key" VerticalAlignment="Center" />
-                    <PasswordBox Grid.Column="1" VerticalAlignment="Center"  />
+                    <PasswordBox Grid.Column="1" VerticalAlignment="Center" pwd:PasswordHelper.Password="{Binding OpenApi11stKey,Mode=TwoWay}"  />
                 </Grid>
             </StackPanel>
         </ScrollViewer>

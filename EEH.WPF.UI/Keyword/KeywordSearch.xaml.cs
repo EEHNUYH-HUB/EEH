@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EEH.WPF.UI.Keyword;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,10 @@ namespace EEH.WPF.UI.Pages
     {
         public KeywordSearch()
         {
-            System.Windows.DependencyObject
             InitializeComponent();
+            this.DataContext = new KeywordSearchViewModel();
         }
+
+       
     }
 }

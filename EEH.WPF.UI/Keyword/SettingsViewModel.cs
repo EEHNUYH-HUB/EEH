@@ -10,12 +10,85 @@ namespace EEH.WPF.UI.Keyword
     public class SettingsViewModel : BaseViewModel
     {
 
-        public string NaverCustomerID { get; set; }
-        public string NaverApiKey { get; set; }
-        public string NaverSecretKey { get; set; }
-        public string OpenApiNaverClientID { get; set; }
-        public string OpenApiNaverSecretKey { get; set; }
-        public string OpenApi11stKey { get; set; }
+        string naverCustomerID;
+        public string NaverCustomerID 
+        {
+            get
+            {  
+                return naverCustomerID; 
+            } 
+            set 
+            { 
+                naverCustomerID = value; 
+                OnPropertyCanged("NaverCustomerID"); 
+            }
+        }
+
+        string naverApiKey;
+        public string NaverApiKey
+        {
+            get
+            {
+                return naverApiKey;
+            }
+            set
+            {
+                naverApiKey = value;
+                OnPropertyCanged("NaverApiKey");
+            }
+        }
+        string naverSecretKey;
+        public string NaverSecretKey
+        {
+            get
+            {
+                return naverSecretKey;
+            }
+            set
+            {
+                naverSecretKey = value;
+                OnPropertyCanged("NaverSecretKey");
+            }
+        }
+        string openApiNaverClientID;
+        public string OpenApiNaverClientID
+        {
+            get
+            {
+                return openApiNaverClientID;
+            }
+            set
+            {
+                openApiNaverClientID = value;
+                OnPropertyCanged("OpenApiNaverClientID");
+            }
+        }
+        string openApiNaverSecretKey;
+        public string OpenApiNaverSecretKey
+        {
+            get
+            {
+                return openApiNaverSecretKey;
+            }
+            set
+            {
+                openApiNaverSecretKey = value;
+                OnPropertyCanged("OpenApiNaverSecretKey");
+            }
+        }
+        string openApi11stKey;
+        public string OpenApi11stKey
+        {
+            get
+            {
+                return openApi11stKey;
+            }
+            set
+            {
+                openApi11stKey = value;
+                OnPropertyCanged("OpenApi11stKey");
+            }
+        }
 
         public BaseCommand SaveCommand { get; set; }
 
@@ -37,10 +110,12 @@ namespace EEH.WPF.UI.Keyword
 
 
             };
+            Init();
         }
 
         public void Init()
         {
+
            NaverCustomerID = EEH.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
            NaverApiKey = EEH.APIInfoSettings.Default.KeywordSearchNaverApiKey;
            NaverSecretKey = EEH.APIInfoSettings.Default.KeywordSearchNaverSecret;

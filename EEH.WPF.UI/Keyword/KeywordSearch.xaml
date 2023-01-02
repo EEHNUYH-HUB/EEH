@@ -9,6 +9,44 @@
       Title="KeywordSearch">
 
     <Grid  Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" >
+                <TextBox Text="{Binding SearchText}" Height="30" MinWidth="150" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                <Button Command="{Binding OnSearchCommand}" Content="검색" Width="100" Height="30" Margin="10,0,0,0"></Button>
+                <Button Command="{Binding OnSearchEcommerceCommand}" Content="분석" Width="100" Height="30" Margin="10,0,0,0"></Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Results}" DisplayMemberPath="Keyword" SelectedItem="{Binding SelectedItem}" ></ListBox>
+            <GridSplitter Grid.Column="1"></GridSplitter>
+            <DataGrid Grid.Column="2" CanUserAddRows="False" CanUserDeleteRows="False"
+                      IsReadOnly="True" AutoGenerateColumns="False"  FrozenColumnCount="3"
+                      ItemsSource="{Binding SelectedItem.KeywordList}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="연관검색어" Binding="{Binding RelKeyword}"  />
+                    <DataGridTextColumn Header="경쟁정도" Binding="{Binding PlAvgDepth}" />
+                    <DataGridTextColumn Header="월평균노출광고상태" Binding="{Binding CompIdx}" />
+                    <DataGridTextColumn Header="월간검색수" Binding="{Binding MonthlyQcCnt}" />
+                    <DataGridTextColumn Header="월평균클릭수" Binding="{Binding MonthlyAveClkCnt}" />
+                    <DataGridTextColumn Header="월평균클릭률" Binding="{Binding MonthlyAveCtr}" />
 
+                    <DataGridTextColumn Header="네이버상품수" Binding="{Binding EcommerceNaverCnt}" />
+                    <DataGridTextColumn Header="11번가상품수" Binding="{Binding Ecommerce11stCnt}" />
+                    <DataGridTextColumn Header="인터파크상품수" Binding="{Binding EcommerceInterparkCnt}" />
+                    
+                </DataGrid.Columns>
+                
+                
+            </DataGrid>
+        </Grid>
     </Grid>
 </Page>

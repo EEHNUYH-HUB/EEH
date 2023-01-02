@@ -12,9 +12,7 @@ namespace EEH.Keyword.Naver
     public class NaverAPIClient
     {
         private string naverApiUrl = "https://api.naver.com";
-        private string apiKey = string.Empty;
-        private string secretKey = string.Empty;
-        private string customID = string.Empty;
+        
 
         private RestAPIClient apiClient;
         private delegate string SignatureHandler(string timeStamp);
@@ -25,10 +23,6 @@ namespace EEH.Keyword.Naver
         }
         void Init()
         {
-
-            apiKey = "";//Properties.APIInfoSettings.Default.KeywordSearchNaverApiKey;
-            secretKey = "";// Properties.APIInfoSettings.Default.KeywordSearchNaverSecret;
-            customID = "";// Properties.APIInfoSettings.Default.KeywordSearchNaverCustomerID;
             apiClient = new RestAPIClient(naverApiUrl);
             apiClient.OnHeaderSettingDelegate = (header) =>
             {
@@ -36,8 +30,8 @@ namespace EEH.Keyword.Naver
                 {
                     long timeStamp = DateUtils.GetTimeStamp();
                     string strTimeSTamp = timeStamp.ToString();
-                    header.Add("X-API-KEY", apiKey);
-                    header.Add("X-Customer", customID);
+                    header.Add("X-API-KEY", APIInfoSettings.Default.KeywordSearchNaverApiKey);
+                    header.Add("X-Customer", APIInfoSettings.Default.KeywordSearchNaverCustomerID);
                     header.Add("X-Timestamp", strTimeSTamp);
                     if (GetSignatureHandler != null)
                     {
@@ -57,14 +51,16 @@ namespace EEH.Keyword.Naver
             };
 
             string subURL = string.Format("{0}?hintKeywords={1}&includeHintKeywords=1&showDetail=1", rqtUri, keyword);
-            return await apiClient.GetAsync<KeywordsTool>(subURL);
+            KeywordsTool rtn = await apiClient.GetAsync<KeywordsTool>(subURL);
 
+            rtn.Keyword = keyword;
+            return rtn;
         }
 
 
         string GetSignature(string timeStamp, string method, string rqtUri)
         {
-            HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secretKey));
+            HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(APIInfoSettings.Default.KeywordSearchNaverSecret));
             return Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(timeStamp + "." + method + "." + rqtUri)));
         }
 

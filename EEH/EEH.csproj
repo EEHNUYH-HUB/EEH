@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="OpenMarket\IOpenApi.cs~RF184ac1f.TMP" />
-    <None Remove="OpenMarket\OpenApi11st.cs~RF197fdec.TMP" />
+    <None Remove="Ecommerce\IOpenApi.cs~RF184ac1f.TMP" />
+    <None Remove="Ecommerce\OpenApi11st.cs~RF197fdec.TMP" />
   </ItemGroup>
 
   <ItemGroup>
