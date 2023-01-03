@@ -10,7 +10,7 @@ using System.Text;
 
 namespace EEH.Keyword.Naver.Models
 {
-    public class KeywordModel
+    public class KeywordModel 
     {
         [JsonProperty("relKeyword")]
         public string RelKeyword { get; set; }

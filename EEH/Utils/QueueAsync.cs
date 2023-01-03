@@ -11,6 +11,7 @@ namespace EEH.Utils
     {
         private Queue<QueueAsyncTask> tasks = new Queue<QueueAsyncTask>();
         private QueueAsyncTask currentTask;
+        private bool isStop = false;
         private BackgroundWorker worker;
         private static Dictionary<int, QueueAsync> instanceList = new Dictionary<int, QueueAsync>();
         private QueueAsync()
@@ -91,7 +92,7 @@ namespace EEH.Utils
 
         private QueueAsyncTask GetTask()
         {
-            if (tasks.Count > 0)
+            if (tasks.Count > 0 && !isStop)
             {
                 return tasks.Dequeue();
             }
@@ -99,14 +100,17 @@ namespace EEH.Utils
             return null;
         }
 
-
+        public void Stop()
+        {
+            isStop = true;
+            tasks.Clear();
+            isStop = false;
+        }
     }
 
     internal class QueueAsyncTask
     {
         public Action<bool ,Exception> CompleteHandler { get; set; }
         public Action RunHandler { get; set; }
-        
-
     }
 }

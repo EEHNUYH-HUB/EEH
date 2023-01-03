@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:EEH.WPF.UI.Pages"
+      xmlns:mui="http://firstfloorsoftware.com/ModernUI"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="KeywordSearch">
@@ -29,7 +30,7 @@
             <ListBox ItemsSource="{Binding Results}" DisplayMemberPath="Keyword" SelectedItem="{Binding SelectedItem}" ></ListBox>
             <GridSplitter Grid.Column="1"></GridSplitter>
             <DataGrid Grid.Column="2" CanUserAddRows="False" CanUserDeleteRows="False"
-                      IsReadOnly="True" AutoGenerateColumns="False"  FrozenColumnCount="3"
+                      IsReadOnly="True" AutoGenerateColumns="False"  FrozenColumnCount="1"
                       ItemsSource="{Binding SelectedItem.KeywordList}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="연관검색어" Binding="{Binding RelKeyword}"  />
@@ -39,14 +40,22 @@
                     <DataGridTextColumn Header="월평균클릭수" Binding="{Binding MonthlyAveClkCnt}" />
                     <DataGridTextColumn Header="월평균클릭률" Binding="{Binding MonthlyAveCtr}" />
 
-                    <DataGridTextColumn Header="네이버상품수" Binding="{Binding EcommerceNaverCnt}" />
-                    <DataGridTextColumn Header="11번가상품수" Binding="{Binding Ecommerce11stCnt}" />
-                    <DataGridTextColumn Header="인터파크상품수" Binding="{Binding EcommerceInterparkCnt}" />
+                    <DataGridTextColumn Header="네이버상품수" Binding="{Binding EcommerceNaverCnt,StringFormat=\{0:N0\}}" />
+                    <DataGridTextColumn Header="11번가상품수" Binding="{Binding Ecommerce11stCnt,StringFormat=\{0:N0\}}" />
+                    <DataGridTextColumn Header="인터파크상품수" Binding="{Binding EcommerceInterparkCnt,StringFormat=\{0:N0\}}" />
                     
                 </DataGrid.Columns>
                 
-                
             </DataGrid>
         </Grid>
+        <Border Grid.RowSpan="2" Background="Black" Opacity="0.8" Visibility="{Binding VisibilityProgressBar}">
+            <Grid>
+                <StackPanel VerticalAlignment="Center">
+                    <ProgressBar Visibility="Visible" Margin="20" Height="20"  IsIndeterminate="False"   Minimum="0" Maximum="100" Value="{Binding ProgressValue}" ></ProgressBar>
+                    <TextBlock Foreground="White" HorizontalAlignment="Center" Text="{Binding ProgressText}"></TextBlock>
+                    <Button Content="분석종료" Width="100" Style="{StaticResource SystemButtonLink}" Command="{Binding OnStopCommand}"  ></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

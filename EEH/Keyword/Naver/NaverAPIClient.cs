@@ -28,7 +28,7 @@ namespace EEH.Keyword.Naver
             {
                 if (header != null)
                 {
-                    long timeStamp = DateUtils.GetTimeStamp();
+                    long timeStamp = Utils.CommonUtils.GetTimeStamp();
                     string strTimeSTamp = timeStamp.ToString();
                     header.Add("X-API-KEY", APIInfoSettings.Default.KeywordSearchNaverApiKey);
                     header.Add("X-Customer", APIInfoSettings.Default.KeywordSearchNaverCustomerID);

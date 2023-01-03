@@ -112,7 +112,7 @@ namespace EEH.RestAPI
         {
             HttpClient httpClient = GetHttpClient();
 
-            using (var requestContent = new StringContent(ConvertToJsonString(input), Encoding.UTF8, MEDIATYPEJSON))
+            using (var requestContent = new StringContent(input.ExJsonSerializeString(resolver), Encoding.UTF8, MEDIATYPEJSON))
             {
                 using (var response = httpClient.PostAsync(url, requestContent).Result)
                 {
@@ -129,7 +129,7 @@ namespace EEH.RestAPI
 
             var request = new HttpRequestMessage(new HttpMethod("PATCH"), url);
 
-            request.Content = new StringContent(ConvertToJsonString(input), System.Text.Encoding.UTF8, MEDIATYPEJSON);
+            request.Content = new StringContent(input.ExJsonSerializeString(resolver), System.Text.Encoding.UTF8, MEDIATYPEJSON);
 
             using (var response = httpClient.SendAsync(request).Result)
             {
@@ -162,22 +162,6 @@ namespace EEH.RestAPI
             return JsonConvert.DeserializeObject<T>(str);
         }
 
-
-        private string ConvertToJsonString(object obj)
-        {
-
-            if (obj == null)
-            {
-                return string.Empty;
-            }
-
-            var rtn = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
-            {
-                ContractResolver = resolver
-            });
-
-            return rtn;
-        }
 
     }
 }

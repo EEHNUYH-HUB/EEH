@@ -16,7 +16,7 @@ namespace EEH.Ecommerce
 
         }
 
-
+        public EcommerceType Type => EcommerceType.ETINTERPARK;
         public async Task<int> GetProductTotalCnt(string keyword)
         {
             int returnValue = 0;

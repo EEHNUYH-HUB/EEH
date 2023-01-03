@@ -11,7 +11,7 @@ namespace EEH.Ecommerce
     public class OpenApiNaver : IOpenApi
     {
         RestAPIClient restApiClient = null;
-
+        public EcommerceType Type => EcommerceType.ETNAVER;
         public OpenApiNaver()
         {
             string clientID = APIInfoSettings.Default.OpenApiNaverClientID;

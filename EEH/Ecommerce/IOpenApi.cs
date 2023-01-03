@@ -8,6 +8,7 @@ namespace EEH.Ecommerce
 {
     public interface IOpenApi
     {
+        EcommerceType Type { get; }
         Task<int> GetProductTotalCnt(string keyword);
     }
 }

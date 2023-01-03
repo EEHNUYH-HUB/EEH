@@ -47,3 +47,5 @@ D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\refint\EEH.WPF.UI.dll
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI.pdb
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI.genruntimeconfig.cache
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\ref\EEH.WPF.UI.dll
+D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\System.Text.Encoding.CodePages.dll
+D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll
