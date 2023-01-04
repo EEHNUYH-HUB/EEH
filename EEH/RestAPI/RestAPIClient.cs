@@ -20,7 +20,9 @@ namespace EEH.RestAPI
         
         private const string MEDIATYPEJSON = "application/json";
         public string BaseUrl { get; set; }
-        public Action<HttpRequestHeaders> OnHeaderSettingDelegate { get; set; }
+        public delegate void HeaderDelegate(HttpRequestHeaders header);
+        public HeaderDelegate OnHeaderSettingDelegate { get; set; }
+        
 
         private static Dictionary<string, HttpClient> httpClients;
 
@@ -64,7 +66,7 @@ namespace EEH.RestAPI
                 {
                     client = httpClients[BaseUrl];
                 }
-
+                
 
                 if (OnHeaderSettingDelegate != null)
                 {
