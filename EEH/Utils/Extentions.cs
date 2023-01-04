@@ -78,10 +78,25 @@ namespace EEH
             return rtn;
         }
 
+        public static bool ExExists(this string path)
+        {
+            if (!System.IO.File.Exists(path))
+            {
+                if (!System.IO.Directory.Exists(path))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         public static string ExCreateDirectory(this string path)
         {
-            System.IO.Directory.CreateDirectory(path);
+            if (!path.ExExists())
+            {
+                System.IO.Directory.CreateDirectory(path);
+            }
             return path;
         }
         public static void ExDelete(this string path)
@@ -112,8 +127,8 @@ namespace EEH
         public static List<string> ExListForDataFolder(this string key)
         {
             List<string> rtn = new List<string>();
-            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string folder = rootFolder.ExCombine(CommonUtils.ROOTFOLDER, CommonUtils.DATAFOLDER, key);
+            
+            string folder = CommonUtils.DATAFOLDER.ExCombine( key);
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(folder);
             FileInfo[] files = dir.GetFiles("*.data");
             
@@ -127,10 +142,7 @@ namespace EEH
 
         public static void ExSaveForDataFolder(this string str,string key,string name)
         {
-            
-            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            
-            string filePath = rootFolder.ExCombine(CommonUtils.ROOTFOLDER, CommonUtils.DATAFOLDER, key).ExCreateDirectory().ExCombine(name+".data");
+            string filePath = CommonUtils.DATAFOLDER.ExCombine( key).ExCreateDirectory().ExCombine(name+".data");
 
             filePath.ExDelete();
 
@@ -145,8 +157,8 @@ namespace EEH
         
         public static string ExLoadForDataFolder(this string key,string name)
         {
-            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string filePath = rootFolder.ExCombine(CommonUtils.ROOTFOLDER, CommonUtils.DATAFOLDER, key).ExCreateDirectory().ExCombine(name + ".data");
+            
+            string filePath = CommonUtils.DATAFOLDER.ExCombine(key).ExCreateDirectory().ExCombine(name + ".data");
             using (FileStream file = new FileStream(filePath, FileMode.Open))
             {
                 byte[] buffer = new byte[file.Length];

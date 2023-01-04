@@ -14,15 +14,14 @@ namespace EEH.Ecommerce
         public EcommerceType Type => EcommerceType.ETNAVER;
         public OpenApiNaver()
         {
-            string clientID = APIInfoSettings.Default.OpenApiNaverClientID;
-            string secret = APIInfoSettings.Default.OpenApiNaverSecret;
+            
             restApiClient = new RestAPIClient("https://openapi.naver.com");
             restApiClient.OnHeaderSettingDelegate = (header) =>
             {
                 if (header != null)
                 {
-                    header.Add("X-Naver-Client-Id", clientID);
-                    header.Add("X-Naver-Client-Secret", secret);
+                    header.Add("X-Naver-Client-Id", APIInfoSettings.Default.OpenApiNaverClientID);
+                    header.Add("X-Naver-Client-Secret", APIInfoSettings.Default.OpenApiNaverSecret);
                 }
             };
         }

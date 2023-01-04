@@ -7,10 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Keyword\KeywordSearch.xaml.cs">
+    <Compile Update="Keyword\Views\KeywordSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Keyword\Settings.xaml.cs">
+    <Compile Update="Keyword\Views\Settings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -18,10 +18,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Keyword\KeywordSearch.xaml">
+    <Page Update="Keyword\Views\KeywordSearch.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Keyword\Settings.xaml">
+    <Page Update="Keyword\Views\Settings.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

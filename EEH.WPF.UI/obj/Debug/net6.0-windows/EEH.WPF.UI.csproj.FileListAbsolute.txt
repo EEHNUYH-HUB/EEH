@@ -26,15 +26,11 @@ D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\EEH.WPF.pdb
 D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\EEH.pdb
 D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\EEH.dll.config
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI.csproj.AssemblyReference.cache
-D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\KeywordSearch.g.cs
-D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\Settings.g.cs
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\MainWindow.g.cs
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\App.g.cs
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI_MarkupCompile.cache
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI_MarkupCompile.lref
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\App.baml
-D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\KeywordSearch.baml
-D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\Settings.baml
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\MainWindow.baml
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI.g.resources
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI.GeneratedMSBuildEditorConfig.editorconfig
@@ -49,3 +45,7 @@ D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\EEH.WPF.UI.genruntimeconfi
 D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\ref\EEH.WPF.UI.dll
 D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\System.Text.Encoding.CodePages.dll
 D:\831228 EEH\EEH\EEH.WPF.UI\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll
+D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\Views\KeywordSearch.g.cs
+D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\Views\Settings.g.cs
+D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\Views\KeywordSearch.baml
+D:\831228 EEH\EEH\EEH.WPF.UI\obj\Debug\net6.0-windows\Keyword\Views\Settings.baml

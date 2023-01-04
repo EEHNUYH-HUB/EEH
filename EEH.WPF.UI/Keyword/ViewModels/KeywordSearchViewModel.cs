@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace EEH.WPF.UI.Keyword
+namespace EEH.WPF.UI.Keyword.ViewModels
 {
     public class KeywordSearchViewModel : BaseViewModel
     {

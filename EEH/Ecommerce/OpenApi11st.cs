@@ -11,11 +11,11 @@ namespace EEH.Ecommerce
     public class OpenApi11st : IOpenApi
     {
         RestAPIClient restApiClient = null;
-        string key = string.Empty;
+        
         public OpenApi11st()
         {
             restApiClient = new RestAPIClient("https://openapi.11st.co.kr");
-            key = APIInfoSettings.Default.OpenApi11StKey;
+            
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//.net core Encoding 문제로 등록 (등록 안할시 Encoding.GetEncoding("euc-kr") 에러발생)
         }
 
@@ -27,7 +27,7 @@ namespace EEH.Ecommerce
 
             
            string encKeyword = HttpUtility.UrlEncode(keyword, Encoding.GetEncoding("euc-kr"));
-            string strParams = string.Format("/openapi/OpenApiService.tmall?key={0}&apiCode=ProductSearch&keyword={1}&pageSize=0", key, encKeyword);
+            string strParams = string.Format("/openapi/OpenApiService.tmall?key={0}&apiCode=ProductSearch&keyword={1}&pageSize=0", APIInfoSettings.Default.OpenApi11StKey, encKeyword);
             string strXml = await restApiClient.GetAsync(strParams);
 
             XmlDocument xmlDoc = new XmlDocument();

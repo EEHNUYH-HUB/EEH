@@ -6,13 +6,13 @@
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
         xmlns:local="clr-namespace:EEH.WPF.UI"
         mc:Ignorable="d" 
-                  ContentSource="/Keyword/KeywordSearch.xaml"
-        Title="MainWindow" Height="450" Width="800">
+                  ContentSource="/Keyword/Views/KeywordSearch.xaml"
+        Title="MainWindow" Height="800" Width="1400">
     <mui:ModernWindow.MenuLinkGroups>
         <mui:LinkGroup DisplayName="KEYWORD">
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="SEARCH" Source="/Keyword/KeywordSearch.xaml"></mui:Link>
-                <mui:Link DisplayName="API INFO" Source="/Keyword/Settings.xaml"></mui:Link>
+                <mui:Link DisplayName="SEARCH" Source="/Keyword/Views/KeywordSearch.xaml"></mui:Link>
+                <mui:Link DisplayName="API INFO" Source="/Keyword/Views/Settings.xaml"></mui:Link>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
     </mui:ModernWindow.MenuLinkGroups>
