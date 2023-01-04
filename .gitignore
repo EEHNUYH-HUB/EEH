@@ -1,4 +1,4 @@
 packages/
-.vs/
-.bin/
-.obj/
+vs/
+[Bb]in/
+[Oo]bj/
