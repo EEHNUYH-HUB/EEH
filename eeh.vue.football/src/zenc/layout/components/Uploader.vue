@@ -17,7 +17,7 @@
                             </n-icon>
                         </div>
                         <n-p depth="3" style="margin: 8px 0 0 0">
-                            영역을 클릭 하거나 파일을 드래그 하세요.
+                            영역을 클릭 하거나 파일을 드래그 하세요.(드래그 앤 드랍 준비중)
                         </n-p>
                     </div>
 
@@ -80,7 +80,7 @@ const OnCloseFile = (item)=>{
     }
 }
 const OnFileDrop = () => {
-    alert("D")
+    alert("준비중")
 }
 const OnDragEnter = (e) => {
     if (e.preventDefault) {

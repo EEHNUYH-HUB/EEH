@@ -1,12 +1,12 @@
 <template>
-    <n-card :title="Props.Item.col_name" hoverable>
+    <n-card :id="'id'+Props.Item.pk_id" :title="Props.Item.col_name" hoverable>
         <n-p>
             {{ Props.Item.col_address }}
         </n-p>
         <n-p v-if="Props.Item.col_address2">
             {{ Props.Item.col_address2 }}
         </n-p>
-        <div :id="'id'+Props.Item.pk_id" style="width:calc(100%);height:200px;margin:20px 0px">
+        <div :id="Props.Item.pk_id" style="width:calc(100%);height:200px;margin:20px 0px">
             
         </div>
     </n-card>
@@ -21,7 +21,7 @@ const Props = defineProps({
 onMounted(()=>{
 
     var position = new naver.maps.LatLng(Props.Item.col_latitude,Props.Item.col_longitude);
-    var map = new naver.maps.Map('id'+Props.Item.pk_id, {
+    var map = new naver.maps.Map(''+Props.Item.pk_id, {
         center: position,
         zoom: 17
     });

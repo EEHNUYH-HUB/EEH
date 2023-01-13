@@ -9,7 +9,7 @@
         <n-menu     mode="horizontal" 
         v-model:value="headerObj.ActiveKey" :options="headerObj.Menus" />
       </div>
-      <n-auto-complete :style="!store.state.useIsMobile ? 'width: 216px; margin-left: 24px' : undefined" placeholder="Search" clear-after-select blur-after-select />
+      <!-- <n-auto-complete :style="!store.state.useIsMobile ? 'width: 216px; margin-left: 24px' : undefined" placeholder="Search" clear-after-select blur-after-select /> -->
     </div>
     <n-popover
       v-if="(store.state.useIsMobile || store.state.useIsTablet)"
@@ -32,7 +32,7 @@
       <n-button size="small" quaternary class="nav-picker" @click="store.commit('setTheme')" > {{ store.state.themeName }} </n-button>
       <n-text class="nav-picker padded" v-if="store.state.userInfo"> {{ store.state.userInfo.UserName }}({{store.state.userInfo.Email}}) </n-text>
       <n-space align="flex-end">  
-        <n-badge value="9">
+        <n-badge value="0">
           <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"></n-avatar>
         </n-badge>
       </n-space>

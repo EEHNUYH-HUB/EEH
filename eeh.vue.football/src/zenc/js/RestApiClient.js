@@ -223,8 +223,8 @@ export default class APIClient {
       function (response) {
         if (_self.LodingBar)
           _self.LodingBar.finish();
-        if (_self.Message)
-          _self.Message.success('성공하였습니다.')
+        // if (_self.Message)
+        //   _self.Message.success('성공하였습니다.')
         if (_self.Notification)
           _self.Notification.success({
             content: "성공하였습니다.",
@@ -281,8 +281,6 @@ export default class APIClient {
 
       if (userInfo) {
         sessionStorage.setItem("apikey", key);
-
-        this.Store.commit('setUserInfo', userInfo);
       }
     }
 
@@ -291,7 +289,11 @@ export default class APIClient {
   async CertificationInfo(token) {
 
     const rtn = await this.axiosService.get('/api/Auth/CertificationInfo?key=' + token);
-    return rtn.data;
+    var userInfo = rtn.data;
+    if (userInfo) {
+      this.Store.commit('setUserInfo', userInfo);
+    }
+    return userInfo;
   }
 
 

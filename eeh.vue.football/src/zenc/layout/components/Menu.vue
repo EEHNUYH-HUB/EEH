@@ -24,8 +24,10 @@ const activeKey = ref(null);
 const route = useRoute();
 
 const menuObj = GetMenuObjRef(1,100,route);
+
 watch(()=>route.fullPath, () => {
   menuObj.value = GetMenuObjRef(1,100,route).value;
+
 });
   
 </script>
