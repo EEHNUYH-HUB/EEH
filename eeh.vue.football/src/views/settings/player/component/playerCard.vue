@@ -1,22 +1,22 @@
 <template>
-    <n-card hoverable :id="'id' + Props.Item.pk_id">
+    <n-card hoverable :id="'id' + Props.Item.pk_id" @click="IsShowCreatePanel = true">
         <n-page-header :title="Props.Item.col_name" 
         :subtitle="GetBirthDay(Props.Item.col_birthday) + ' ' + Postion">
-            <n-grid :cols="5">
+            <n-grid cols="3 s:5 m:5 l:5 xl:5 2xl:5" responsive="screen">
                 <n-gi>
                     <n-space >
-                        <n-statistic size="small" label="승률(%)" :value="WinRate" />
+                        <n-statistic align="center"  label="승률(%)" :value="WinRate" />
                     </n-space>
                 </n-gi>
                 <n-gi>
                     <n-space >
-                        <n-statistic label="승패"
+                        <n-statistic label="승패" align="center"
                             :value="Props.Item.wincnt + '/' + Props.Item.tiecnt + '/' + Props.Item.losscnt" />
                     </n-space>
                 </n-gi>
                 <n-gi>
                     <n-space >
-                        <n-statistic label="득점"
+                        <n-statistic label="득점" align="center" 
                             :value="Props.Item.goal + '/' + Props.Item.assist + '/' + Props.Item.save" />
                     </n-space>
                 </n-gi>
@@ -27,14 +27,14 @@
                 </n-gi>  -->
                 <n-gi>
                     <n-space >
-                        <n-statistic label="승점" :value="Props.Item.teamscore" />
+                        <n-statistic label="승점" align="center" :value="Props.Item.teamscore" />
                     </n-space>
                 </n-gi>
 
                 <n-gi>
 
                     <n-space >
-                        <n-statistic label="능력치" :value="Props.Item.memberscore" />
+                        <n-statistic label="능력치" align="center" :value="Props.Item.memberscore" />
                     </n-space>
                 </n-gi>
 
@@ -56,11 +56,15 @@
 
 
     </n-card>
+    <createPlayer v-model:Show="IsShowCreatePanel" :Item="Props.Item" ></createPlayer>
+
 </template>
 <script setup>
 import { onMounted, ref, computed } from "vue"
 import { GetBirthDay, GetPhoneNumber } from "@/zenc/js/Common"
 import Uploader from "@/zenc/layout/components/Uploader.vue"
+import createPlayer from '@/views/settings/player/component/createPlayer.vue'
+const IsShowCreatePanel = ref(false);
 
 const Props = defineProps({
     Item: { type: Object }

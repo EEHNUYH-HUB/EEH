@@ -94,7 +94,7 @@
 
                             </div>
                         </n-step>
-                        <n-step title="game">
+                        <n-step title="Game">
                             <div class="n-step-description">
                                 <n-space vertical v-if="NewLeague.status === 4">
                                     <n-grid cols="1" :x-gap="12" :y-gap="8" responsive="screen">
@@ -103,7 +103,9 @@
 
                                                 <teamScore :Game="game" :IsLeft="true" :Teams="NewLeague.teams">
                                                 </teamScore>
-                                                <n-space Horizontal justify="center" style="margin: 20px 20px">
+
+                                                <play-timer v-if="game.leftTeam && game.rightTeam" style="margin:20px 0px 20px 0px"></play-timer>
+                                                <n-space Horizontal justify="center" style="margin:20px 0px 20px 0px">
 
                                                     <n-icon v-if="game.leftTeam" size="40">
                                                         {{ game.leftTeam.score }}
@@ -116,12 +118,15 @@
                                                     </n-icon>
 
                                                 </n-space>
+
                                                 <teamScore :Game="game" :IsLeft="false" :Teams="NewLeague.teams"
                                                     v-if="!game.isEnd">
                                                 </teamScore>
+
                                             </n-card>
                                             <n-alert v-else @close="CloseGame(game)" closable :show-icon="false"
                                                 :type="game.winTeamType">
+
                                                 <n-space Horizontal justify="center">
                                                     <n-p>{{
                                                         game.leftTeam.teamName + ' ' + game.leftTeam.score +
@@ -135,6 +140,7 @@
                                     </n-grid>
 
                                     <n-space horizontal justify="end">
+
                                         <n-button size="small" @click="prevButtonClick"
                                             v-if="NewLeague.games.length < 2">
                                             Prev
@@ -163,6 +169,7 @@ import { defineExpose, defineEmits } from 'vue'
 import { NAvatar, NCheckbox, TransferRenderTargetLabel } from 'naive-ui'
 import teamCard from '@/views/settings/league/component/teamCard.vue'
 import teamScore from '@/views/settings/league/component/teamScore.vue'
+import playTimer from '@/views/settings/league/component/playTimer.vue'
 import { ref, onMounted } from 'vue';
 import { useStore } from "vuex";
 import { ConvertDateToYYYYMMDD, ConvertYYYYMMDDToDate, ConvertYYYYMMDDToStringDate } from '@/zenc/js/Common'
@@ -238,34 +245,83 @@ const OnCheck = (item, id) => {
 }
 const AutoMapping = () => {
     alert("승률 기준으로 자동으로 팀이 구성 됩니다.(데이터 부족으로 랜덤)");
+    var total = Math.floor( NewLeague.value.allPlayer.length/3 );
+    var sub = NewLeague.value.allPlayer.length%3;
+    
 
-//     var rTeam = 0;
-//     var bTeam = 0;
-//     var yTeam = 0;
-//     for (var i in NewLeague.value.allPlayer) {
-//         var player = NewLeague.value.allPlayer[i];
-//         if (player.teamId > 0) {
+    var rTeam = total;
+    var bTeam = total;
+    var yTeam = total;
+
+    if(sub == 1){
+        rTeam +=1;
+    }
+    else if(sub == 2){
+        rTeam +=1;
+        bTeam +=1;
+    }
+    var crTeam = 0;
+    var cbTeam = 0;
+    var cyTeam = 0;
+
+    for (var i in NewLeague.value.allPlayer) {
+        var player = NewLeague.value.allPlayer[i];
+        if (player.teamId > 0) {
+
+            if (player.teamId == 1) {
+                crTeam +=1;
+            } else if (player.teamId == 2) {
+                cbTeam +=1;
+            }
+            else {
+                cyTeam+=1;
+            }
+        }
+    }
+
+    for (var i in NewLeague.value.allPlayer) {
+        var player = NewLeague.value.allPlayer[i];
+        if (player.teamId == 0) {
             
-//             if (player.teamId == 1) {
-//                 rTeam +=1;
-//             } else if (player.teamId == 2) {
-//                 bTeam +=1;
-//             }
-//             else {
-//                 yTeam+=1;
-//             }
-//         }
-//     }
-
-//     for (var i in NewLeague.value.allPlayer) {
-//         var player = NewLeague.value.allPlayer[i];
-//         if (player.teamId == 0) {
-//             var v = Math.floor(Math.random() * 100);
-// console.log(v);
-//             // player.isChecked = true;
-//             // OnCheck(player, 1);
-//         }
-//     }
+            
+            var v = Math.floor(Math.random() * 3)+1;
+            for(var j =0 ;j<3;j++){
+                if(v == 1 )
+                {
+                    if(rTeam > crTeam){
+                        crTeam +=1;
+                    }
+                    else{
+                        v +=1;
+                        continue;
+                    }
+                }
+                else if(v== 2){
+                    if(bTeam > cbTeam){
+                        cbTeam +=1;
+                    }
+                    else{
+                        v +=1;
+                        
+                        continue;
+                    }
+                }
+                else if(v== 3){
+                    if(yTeam > cyTeam){
+                        cyTeam +=1;
+                    }
+                    else{
+                        v = 1;
+                        
+                        continue;
+                    }
+                }
+                player.isChecked = true;
+                OnCheck(player, v);
+                break;
+            }
+        }
+    }
 }
 const saveLeagueMember = async (isNext) => {
 

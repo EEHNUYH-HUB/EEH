@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\00 SOURCE\ZENC\00 Core\ZENC.CORE\ZENC.CORE\ZENC.CORE.csproj" />
+    <ProjectReference Include="..\..\..\00 SOURCE\ZENC\00 Core\ZENC\ZENC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Maps\SQL.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

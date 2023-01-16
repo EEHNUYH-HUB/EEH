@@ -46,7 +46,17 @@
                     <scoreButton BadgeColor="gray" v-model:Score="item.save" ></scoreButton>
                 </n-grid-item>
             </n-grid>
-            
+            <n-grid cols="2 s:4 m:4 l:4 xl:4 2xl:" responsive="screen" >
+                <n-grid-item>
+                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
+                        기타
+                    </n-space>
+                        
+                </n-grid-item>
+                <n-grid-item>
+                    <scoreButton BadgeColor="red" v-model:Score="etcScore" @changed="OnChanged"></scoreButton>
+                </n-grid-item>
+            </n-grid>
 
         </n-space>
 
@@ -79,6 +89,7 @@ const Props = defineProps({
     , Score: { type: Number }
 })
 const Team = ref(null);
+const etcScore = ref(0);
 onMounted(() => {
 
 
@@ -97,7 +108,7 @@ const TeamSelect = (index) => {
                 var player = Team.value.Players[j];
                 player.goal = 0;
                 player.assist = 0;
-                player.aave = 0;
+                player.save = 0;
             }
 
             if (Props.IsLeft) {
