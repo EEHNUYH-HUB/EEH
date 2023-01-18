@@ -27,11 +27,12 @@ export default createStore({
       
        
       state.themeName = localStorage.getItem("themeName");
-      if(state.themeName == "Dark"){
-        state.themeObj = null;
+      if(state.themeName == "Light"){
+        state.themeObj = darkTheme;
       }
       else{
-        state.themeObj = darkTheme;
+        state.themeName ="Dark";
+        state.themeObj = null;
       }
       
 

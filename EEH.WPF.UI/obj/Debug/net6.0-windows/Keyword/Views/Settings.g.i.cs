@@ -59,7 +59,7 @@ namespace EEH.WPF.UI.Keyword.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/EEH.WPF.UI;component/keyword/views/settings.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/EEH.WPF.UI;V1.0.0.0;component/keyword/views/settings.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Keyword\Views\Settings.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

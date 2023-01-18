@@ -59,7 +59,7 @@ namespace EEH.WPF.UI {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/EEH.WPF.UI;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/EEH.WPF.UI;V1.0.0.0;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

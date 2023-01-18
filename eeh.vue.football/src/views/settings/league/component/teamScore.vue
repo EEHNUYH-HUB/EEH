@@ -2,64 +2,9 @@
 
     <n-alert v-if="Team" :show-icon="false" :type="Team.teamType" :title="Team.teamName" closable @close="OnClose">
 
-        <n-space vertical >
-           
-            <n-grid cols="2 s:4 m:4 l:4 xl:4 2xl:"  responsive="screen" >
-                <n-grid-item>
-                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
-                        Name
-                    </n-space>
-                </n-grid-item>
-                <n-grid-item>
-                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
-                        Goal
-                    </n-space>
-                        
-                </n-grid-item>
-                <n-grid-item>
-                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
-                        Assist
-                    </n-space>
-                        
-                </n-grid-item>
-                <n-grid-item>
-                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
-                        Save
-                    </n-space>
-                        
-                </n-grid-item>
-            </n-grid>
-            <n-grid cols="2 s:4 m:4 l:4 xl:4 2xl:" responsive="screen" v-for="item, index in Team.players" :key="index">
-                <n-grid-item>
-                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
-                        {{ item.name }}
-                    </n-space>
-                        
-                </n-grid-item>
-                <n-grid-item>
-                    <scoreButton BadgeColor="red" v-model:Score="item.goal" @changed="OnChanged"></scoreButton>
-                </n-grid-item>
-                <n-grid-item>
-                    <scoreButton BadgeColor="blue" v-model:Score="item.assist" > </scoreButton>
-                </n-grid-item>
-                <n-grid-item>
-                    <scoreButton BadgeColor="gray" v-model:Score="item.save" ></scoreButton>
-                </n-grid-item>
-            </n-grid>
-            <n-grid cols="2 s:4 m:4 l:4 xl:4 2xl:" responsive="screen" >
-                <n-grid-item>
-                    <n-space  align="center" Horizontal justify="center" item-style="display: flex;">
-                        기타
-                    </n-space>
-                        
-                </n-grid-item>
-                <n-grid-item>
-                    <scoreButton BadgeColor="red" v-model:Score="etcScore" @changed="OnChanged"></scoreButton>
-                </n-grid-item>
-            </n-grid>
 
-        </n-space>
-
+        <n-data-table :columns="columns" :data="Team.players" @click="showModal = true" :bordered="true"
+            :single-line="false" single-column size="small" />
     </n-alert>
 
     <n-alert v-else :show-icon="false">
@@ -75,6 +20,68 @@
                 </n-icon>
             </n-dropdown></n-space>
     </n-alert>
+
+    <n-modal v-model:show="showModal"  :style="bodyStyle" preset="card" >
+        <template #header>
+            {{ Team.teamName }}
+        </template>
+            <n-grid cols="4">
+                <n-grid-item>
+                    <n-space Horizontal justify="center" item-style="display: flex;">
+                        이름
+                    </n-space>
+                </n-grid-item>
+                <n-grid-item>
+                    <n-space Horizontal justify="center" item-style="display: flex;">
+                        골
+                    </n-space>
+
+                </n-grid-item>
+                <n-grid-item>
+                    <n-space Horizontal justify="center" item-style="display: flex;">
+                        도움
+                    </n-space>
+
+                </n-grid-item>
+                <n-grid-item>
+                    <n-space Horizontal justify="center" item-style="display: flex;">
+                        수비
+                    </n-space>
+
+                </n-grid-item>
+            </n-grid>
+            <n-grid cols="4" v-for="item, index in Team.players" :key="index">
+                <n-grid-item>
+                    <n-space Horizontal justify="center" item-style="display: flex;">
+                        {{ item.name }}
+                    </n-space>
+
+                </n-grid-item>
+                <n-grid-item>
+                    <scoreButton BadgeColor="red" v-model:Score="item.goal" @changed="OnChanged"></scoreButton>
+                </n-grid-item>
+                <n-grid-item>
+                    <scoreButton BadgeColor="blue" v-model:Score="item.assist"> </scoreButton>
+                </n-grid-item>
+                <n-grid-item>
+                    <scoreButton BadgeColor="gray" v-model:Score="item.save"></scoreButton>
+                </n-grid-item>
+            </n-grid>
+            <n-grid cols="4" responsive="screen">
+                <n-grid-item>
+                    <n-space Horizontal justify="center" item-style="display: flex;">
+                        기타
+                    </n-space>
+
+                </n-grid-item>
+                <n-grid-item>
+                    <scoreButton BadgeColor="red" v-model:Score="etcScore" @changed="OnChanged"></scoreButton>
+                </n-grid-item>
+            </n-grid>
+
+      
+    
+    </n-modal>
 </template>
 
 <script setup>
@@ -88,12 +95,20 @@ const Props = defineProps({
     , IsLeft: null
     , Score: { type: Number }
 })
+const showModal = ref(false);
+const bodyStyle = ref({ width: "350px" })
+const segmented = ref({ content: "soft",footer: 'soft' })
 const Team = ref(null);
 const etcScore = ref(0);
 onMounted(() => {
 
 
 })
+const columns = ref(new Array);
+columns.value.push({ title: '이름', key: 'name' })
+columns.value.push({ title: '골', key: 'goal', width: 50, align: 'center' })
+columns.value.push({ title: '도움', key: 'assist', width: 50, align: 'center' })
+columns.value.push({ title: '수비', key: 'save', width: 50, align: 'center' })
 
 const TeamSelect = (index) => {
 
@@ -123,11 +138,11 @@ const TeamSelect = (index) => {
 
 
 }
-const OnChanged =(val) =>{
+const OnChanged = (val) => {
     Team.value.score += val;
 
-    if(Team.value.score < 0)
-    Team.value.score = 0;
+    if (Team.value.score < 0)
+        Team.value.score = 0;
 }
 const OnClose = () => {
     Team.value = null;

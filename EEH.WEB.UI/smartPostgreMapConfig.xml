@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SmartSqlMapConfig xmlns="http://SmartSql.net/schemas/SmartSqlMapConfig.xsd">
+	<Settings IsWatchConfigFile="true" IgnoreParameterCase="false" ParameterPrefix="$" IsCacheEnabled="true"/>
+	<Properties>
+		<Property Name="ConnectionString" Value="Server=148.72.245.84;Port=5432;Database=SAMPLE;User Id=postgres;Password=HyunHee1228!@#;"/>
+	</Properties>
+	<Database>
+		<DbProvider Name="PostgreSql"/>
+		<Write Name="WriteDB" ConnectionString="${ConnectionString}"/>
+	</Database>
+	<IdGenerator Type="SnowflakeId">
+		<Properties>
+			<Property Name="WorkerIdBits" Value="10"/>
+			<Property Name="WorkerId" Value="888"/>
+			<Property Name="Sequence" Value="14"/>
+		</Properties>
+	</IdGenerator>
+	<SmartSqlMaps>
+		<SmartSqlMap Path="Maps" Type="Directory"/>
+	</SmartSqlMaps>
+</SmartSqlMapConfig>

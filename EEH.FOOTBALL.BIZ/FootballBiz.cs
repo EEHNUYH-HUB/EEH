@@ -1,7 +1,7 @@
-﻿using ZENC.CORE.API.Common;
+﻿
 using SmartSql;
 using System.Data;
-using ZENC.CORE;
+
 using System.Xml.Linq;
 using SmartSql.DbSession;
 using Microsoft.VisualBasic;
@@ -12,6 +12,7 @@ using EEH.FOOTBALL.BIZ.Model;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.SignalR;
 using SmartSql.Configuration;
+using EEH.WEB.Common;
 
 namespace EEH.FOOTBALL.BIZ
 {
@@ -33,6 +34,7 @@ namespace EEH.FOOTBALL.BIZ
 
         public List<LeagueResult> GetLeagueHistory()
         {
+            
             List<LeagueResult> rtn = new List<LeagueResult>();
             using (var dbseesion = SmartSqlMapper.Instance.SqlContext.Open())
             {
@@ -40,68 +42,68 @@ namespace EEH.FOOTBALL.BIZ
                 {
                     using (DataSet ds = dbseesion.GetDataSet(SmartSqlMapper.Instance.GetContext("SQL", "SELLEAGUEHISTORY", null)))
                     {
-                        if(ds.Tables.Count > 1)
+                        if (ds.Tables.Count > 1)
                         {
                             DataTable teamDT = ds.Tables[0];
                             DataTable playerDT = ds.Tables[1];
 
-                            
-                            if(teamDT.Rows.Count > 0)
+
+                            if (teamDT.Rows.Count > 0)
                             {
-                                foreach (DataRow row in teamDT.Rows) 
+                                foreach (DataRow row in teamDT.Rows)
                                 {
-                                    int leagueID = row["pk_id"].EzInt();
-                                    LeagueResult result =rtn.Find(x=>x.LeagueID == leagueID);
-                                    if (result.EzIsNull())
+                                    int leagueID = row["pk_id"].ExInt();
+                                    LeagueResult result = rtn.Find(x => x.LeagueID == leagueID);
+                                    if (result.ExIsNull())
                                     {
                                         result = new LeagueResult();
                                         result.LeagueID = leagueID;
                                         result.Teams = new List<TeamModel>();
                                         result.BestPlayer = new List<PlayerModel>();
-                                        result.LocationName = row["locationname"].EzToString();
-                                        result.StrDate = row["col_date"].EzToString();
+                                        result.LocationName = row["locationname"].ExToString();
+                                        result.StrDate = row["col_date"].ExToString();
 
                                         rtn.Add(result);
                                     }
 
                                     TeamModel team = new TeamModel();
-                                    
-                                    team.TeamName = row["teamname"].EzToString();
-                                    team.TeamType = row["teamtype"].EzToString();
-                                    team.WinCnt = row["WINCNT"].EzInt();
-                                    team.TieCnt = row["tiecnt"].EzInt();
-                                    team.LossCnt = row["losscnt"].EzInt();
+
+                                    team.TeamName = row["teamname"].ExToString();
+                                    team.TeamType = row["teamtype"].ExToString();
+                                    team.WinCnt = row["WINCNT"].ExInt();
+                                    team.TieCnt = row["tiecnt"].ExInt();
+                                    team.LossCnt = row["losscnt"].ExInt();
                                     team.Players = new List<PlayerModel>();
                                     result.Teams.Add(team);
                                     result.Teams = result.Teams.OrderByDescending(x => x.WinScore).ToList();
                                 }
                             }
 
-                            if(playerDT.Rows.Count > 0)
+                            if (playerDT.Rows.Count > 0)
                             {
-                             
+
                                 foreach (DataRow row in playerDT.Rows)
                                 {
-                                    int leagueID = row["leagueid"].EzInt();
+                                    int leagueID = row["leagueid"].ExInt();
                                     LeagueResult result = rtn.Find(x => x.LeagueID == leagueID);
 
-                                    if (result.EzNotNull())
+                                    if (result.ExNotNull())
                                     {
-                                        
+
 
                                         PlayerModel player = new PlayerModel();
 
-                                        player.Name = row["col_name"].EzToString();
-                                        player.PlayerId = row["playerid"].EzInt();
-                                        
-                                        player.Goal = row["goal"].EzInt();
-                                        player.Assist = row["assist"].EzInt();
-                                        player.Save = row["save"].EzInt();
-                                        player.Score = row["playerscore"].EzInt();
+                                        player.Name = row["col_name"].ExToString();
+                                        player.PlayerId = row["playerid"].ExInt();
+
+                                        player.Goal = row["goal"].ExInt();
+                                        player.Assist = row["assist"].ExInt();
+                                        player.Save = row["save"].ExInt();
+                                        player.Score = row["playerscore"].ExInt();
 
 
-                                        player.TeamName = row["teamname"].EzToString();
-                                        player.TeamType = row["teamtype"].EzToString();
+                                        player.TeamName = row["teamname"].ExToString();
+                                        player.TeamType = row["teamtype"].ExToString();
 
                                         TeamModel md = result.Teams.Find(x => x.TeamName == player.TeamName);
                                         if (md != null)
@@ -109,17 +111,17 @@ namespace EEH.FOOTBALL.BIZ
                                             md.Players.Add(player);
                                         }
 
-                                        
-                                        if(player.Score > 0)
+
+                                        if (player.Score > 0)
                                         {
-                                            if(result.BestPlayer.Count == 0)
+                                            if (result.BestPlayer.Count == 0)
                                             {
                                                 result.BestPlayer.Add(player);
                                                 result.PlayerMaxScore = player.Score;
                                             }
                                             else
                                             {
-                                                if(result.PlayerMaxScore == player.Score)
+                                                if (result.PlayerMaxScore == player.Score)
                                                 {
                                                     result.BestPlayer.Add(player);
                                                 }
@@ -131,7 +133,7 @@ namespace EEH.FOOTBALL.BIZ
                                                 }
                                             }
                                         }
-                                        
+
                                     }
                                 }
 
@@ -142,7 +144,7 @@ namespace EEH.FOOTBALL.BIZ
                     }
                 });
             }
-            return rtn.OrderByDescending(x => x.StrDate.EzInt()).ToList();
+            return rtn.OrderByDescending(x => x.StrDate.ExInt()).ToList();
         }
         public LeagueModel GetRunningLeague()
         {
@@ -157,11 +159,11 @@ namespace EEH.FOOTBALL.BIZ
                         {
                             DataRow row = dt.Rows[0];
                             rtn = new LeagueModel();
-                            rtn.LeagueId = row["pk_id"].EzInt();
-                            rtn.StrDate = row["col_date"].EzToString();
-                            rtn.LocationId = row["fk_location_id"].EzInt();
-                            rtn.LocationName = row["locationname"].EzToString();
-                            rtn.Status = row["col_status"].EzInt();
+                            rtn.LeagueId = row["pk_id"].ExInt();
+                            rtn.StrDate = row["col_date"].ExToString();
+                            rtn.LocationId = row["fk_location_id"].ExInt();
+                            rtn.LocationName = row["locationname"].ExToString();
+                            rtn.Status = row["col_status"].ExInt();
 
 
                             List<PlayerModel> playersList = new List<PlayerModel>();
@@ -173,24 +175,24 @@ namespace EEH.FOOTBALL.BIZ
 
                             Dictionary<string, object> dic2 = new Dictionary<string, object>();
                             dic2.Add("leagueid", rtn.LeagueId);
-                            using (DataTable dt2= dbseesion.GetDataTable(SmartSqlMapper.Instance.GetContext("SQL", "SELLEAGUEPLAYLIST", dic2)))
+                            using (DataTable dt2 = dbseesion.GetDataTable(SmartSqlMapper.Instance.GetContext("SQL", "SELLEAGUEPLAYLIST", dic2)))
                             {
-                                if (dt2.EzNotNull() && dt2.Rows.Count > 0)
+                                if (dt2.ExNotNull() && dt2.Rows.Count > 0)
                                 {
-                                    foreach(DataRow row2 in dt2.Rows)
+                                    foreach (DataRow row2 in dt2.Rows)
                                     {
                                         PlayModel game = new PlayModel();
-                                        game.PlayId = row2["pk_id"].EzInt();
+                                        game.PlayId = row2["pk_id"].ExInt();
                                         game.LeaguId = rtn.LeagueId;
-                                        game.LeftTeam = rtn.Teams.Find(x => x.TeamId == row2["fk_left_team_id"].EzInt()).Clone();
-                                        game.RightTeam = rtn.Teams.Find(x => x.TeamId == row2["fk_right_team_id"].EzInt()).Clone();
-                                        game.LeftTeam.Score = row2["col_left_score"].EzInt();
-                                        game.RightTeam.Score = row2["col_right_score"].EzInt();
+                                        game.LeftTeam = rtn.Teams.Find(x => x.TeamId == row2["fk_left_team_id"].ExInt()).Clone();
+                                        game.RightTeam = rtn.Teams.Find(x => x.TeamId == row2["fk_right_team_id"].ExInt()).Clone();
+                                        game.LeftTeam.Score = row2["col_left_score"].ExInt();
+                                        game.RightTeam.Score = row2["col_right_score"].ExInt();
                                         game.IsEnd = true;
                                         game.WinTeamType = "";
                                         if (game.LeftTeam.Score != game.RightTeam.Score)
                                         {
-                                            if(game.LeftTeam.Score > game.RightTeam.Score)
+                                            if (game.LeftTeam.Score > game.RightTeam.Score)
                                             {
                                                 game.WinTeamType = game.LeftTeam.TeamType;
                                             }
@@ -199,7 +201,7 @@ namespace EEH.FOOTBALL.BIZ
                                                 game.WinTeamType = game.RightTeam.TeamType;
                                             }
                                         }
-                                        
+
                                         rtn.Games.Add(game);
                                     }
                                 }
@@ -218,16 +220,16 @@ namespace EEH.FOOTBALL.BIZ
 
             using (DataTable dt = dbseesion.GetDataTable(SmartSqlMapper.Instance.GetContext("SQL", "SELTEAMTYPES", null)))
             {
-                if (dt.EzNotNull() && dt.Rows.Count > 0)
+                if (dt.ExNotNull() && dt.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt.Rows)
                     {
                         TeamModel model = new TeamModel();
-                        model.TeamId = row["pk_id"].EzInt();
-                        model.TeamName = row["col_name"].EzToString();
+                        model.TeamId = row["pk_id"].ExInt();
+                        model.TeamName = row["col_name"].ExToString();
                         model.Key = model.TeamId;
                         model.Label = model.TeamName;
-                        model.TeamType = row["col_type"].EzToString();
+                        model.TeamType = row["col_type"].ExToString();
                         model.Players = new List<PlayerModel>();
                         rtn.Add(model);
                     }
@@ -245,19 +247,19 @@ namespace EEH.FOOTBALL.BIZ
 
             using (DataTable dt = dbseesion.GetDataTable(SmartSqlMapper.Instance.GetContext("SQL", "SELLEAGUEPLAYER", dic)))
             {
-                if (dt.EzNotNull() && dt.Rows.Count > 0)
+                if (dt.ExNotNull() && dt.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        int teamTypeID = row["fk_team_type_id"].EzInt();
-                        int playerID = row["fk_member_id"].EzInt();
-                        string palyerName = row["col_name"].EzToString();
+                        int teamTypeID = row["fk_team_type_id"].ExInt();
+                        int playerID = row["fk_member_id"].ExInt();
+                        string palyerName = row["col_name"].ExToString();
 
                         PlayerModel player = new PlayerModel { PlayerId = playerID, Name = palyerName };
                         players.Add(player);
 
                         TeamModel team = rtn.Find(x => x.TeamId == teamTypeID);
-                        if (team.EzNotNull())
+                        if (team.ExNotNull())
                         {
                             team.Players.Add(player);
                         }
@@ -306,12 +308,12 @@ namespace EEH.FOOTBALL.BIZ
 
         public bool Upsertlocation(Dictionary<string, object> row)
         {
-            string name = row["col_name"].EzToString();
-            string add = row["col_address"].EzToString();
-            string add2 = row["col_address2"].EzToString();
-            double la = row["col_latitude"].EzDouble();
-            double lo = row["col_longitude"].EzDouble();
-            int pkid = row["pk_id"].EzInt();
+            string name = row["col_name"].ExToString();
+            string add = row["col_address"].ExToString();
+            string add2 = row["col_address2"].ExToString();
+            double la = row["col_latitude"].ExDouble();
+            double lo = row["col_longitude"].ExDouble();
+            int pkid = row["pk_id"].ExInt();
 
             using (var dbseesion = SmartSqlMapper.Instance.SqlContext.Open())
             {
@@ -348,7 +350,7 @@ namespace EEH.FOOTBALL.BIZ
             return true;
         }
 
-        public void InsertLeagueMember(int leagueid, List<int> ps,bool isnext)
+        public void InsertLeagueMember(int leagueid, List<int> ps, bool isnext)
         {
             using (var dbseesion = SmartSqlMapper.Instance.SqlContext.Open())
             {
@@ -370,7 +372,7 @@ namespace EEH.FOOTBALL.BIZ
                     dic.Clear();
                     dic.Add("col_status", 3);
                     dic.Add("pk_id", leagueid);
-                    if(isnext)
+                    if (isnext)
                         dbseesion.Execute(SmartSqlMapper.Instance.GetContext("SQL", "UPDATELEAGUESTATUS", dic));
                 });
             }
@@ -385,8 +387,8 @@ namespace EEH.FOOTBALL.BIZ
                     foreach (var dic in players)
                     {
                         Dictionary<string, object> dic2 = new Dictionary<string, object>();
-                        dic2.Add("fk_team_type_id", dic["fk_team_type_id"].EzInt());
-                        dic2.Add("pk_id", dic["pk_id"].EzInt());
+                        dic2.Add("fk_team_type_id", dic["fk_team_type_id"].ExInt());
+                        dic2.Add("pk_id", dic["pk_id"].ExInt());
                         dbseesion.Execute(SmartSqlMapper.Instance.GetContext("SQL", "UPDATETEAMMAPPING", dic2));
 
                     }
@@ -409,8 +411,8 @@ namespace EEH.FOOTBALL.BIZ
                     foreach (var dic in players)
                     {
                         Dictionary<string, object> dic2 = new Dictionary<string, object>();
-                        dic2.Add("fk_team_type_id", dic["teamId"].EzInt());
-                        dic2.Add("playerid", dic["playerId"].EzInt());
+                        dic2.Add("fk_team_type_id", dic["teamId"].ExInt());
+                        dic2.Add("playerid", dic["playerId"].ExInt());
                         dic2.Add("leagueid", leagueid);
                         dbseesion.Execute(SmartSqlMapper.Instance.GetContext("SQL", "UPDATETEAMMAPPING", dic2));
 
@@ -423,34 +425,34 @@ namespace EEH.FOOTBALL.BIZ
                 });
             }
         }
-      
-        
+
+
         public void UpsertGameInfo(int leagueid, Dictionary<string, object> gameInfo)
         {
 
-            int pk_id = gameInfo["playId"].EzInt();
+            int pk_id = gameInfo["playId"].ExInt();
 
 
             if (gameInfo.ContainsKey("leftTeam") && gameInfo.ContainsKey("rightTeam"))
             {
 
 
-                Dictionary<string, object> leftTeam = JsonConvert.DeserializeObject<Dictionary<string, object>>(gameInfo["leftTeam"].EzToString());
-                Dictionary<string, object> rightTeam = JsonConvert.DeserializeObject<Dictionary<string, object>>(gameInfo["rightTeam"].EzToString());
+                Dictionary<string, object> leftTeam = JsonConvert.DeserializeObject<Dictionary<string, object>>(gameInfo["leftTeam"].ExToString());
+                Dictionary<string, object> rightTeam = JsonConvert.DeserializeObject<Dictionary<string, object>>(gameInfo["rightTeam"].ExToString());
 
                 if (leftTeam.ContainsKey("players") && rightTeam.ContainsKey("players"))
                 {
 
-                    List<Dictionary<string, object>> leftMembers = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(leftTeam["players"].EzToString());
-                    List<Dictionary<string, object>> rightMembers = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(rightTeam["players"].EzToString());
+                    List<Dictionary<string, object>> leftMembers = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(leftTeam["players"].ExToString());
+                    List<Dictionary<string, object>> rightMembers = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(rightTeam["players"].ExToString());
 
                     List<Dictionary<string, object>> players = new List<Dictionary<string, object>>();
                     players.AddRange(leftMembers);
                     players.AddRange(rightMembers);
-                    int leftScore = leftTeam["score"].EzInt();
-                    int rightScore = rightTeam["score"].EzInt();
-                    int leftTeamID = leftTeam["teamId"].EzInt();
-                    int rightTeamID = rightTeam["teamId"].EzInt();
+                    int leftScore = leftTeam["score"].ExInt();
+                    int rightScore = rightTeam["score"].ExInt();
+                    int leftTeamID = leftTeam["teamId"].ExInt();
+                    int rightTeamID = rightTeam["teamId"].ExInt();
                     using (var dbseesion = SmartSqlMapper.Instance.SqlContext.Open())
                     {
                         dbseesion.TransactionWrap(() =>
@@ -476,13 +478,13 @@ namespace EEH.FOOTBALL.BIZ
                             dic.Add("pk_id", pk_id);
                             dbseesion.Execute(SmartSqlMapper.Instance.GetContext("SQL", "DELETEGAMEDTL", dic));
 
-                            
+
                             foreach (var member in players)
                             {
                                 dic.Clear();
-                                int goal = member["goal"].EzInt();
-                                int assist = member["assist"].EzInt();
-                                int save = member["save"].EzInt();
+                                int goal = member["goal"].ExInt();
+                                int assist = member["assist"].ExInt();
+                                int save = member["save"].ExInt();
 
                                 List<int> coltypes = new List<int>();
                                 for (int i = 0; i < goal; i++)
@@ -503,7 +505,7 @@ namespace EEH.FOOTBALL.BIZ
                                     dic.Clear();
                                     dic.Add("playid", pk_id);
                                     dic.Add("coltype", type);
-                                    dic.Add("memberid", member["playerId"].EzInt());
+                                    dic.Add("memberid", member["playerId"].ExInt());
                                     dbseesion.Execute(SmartSqlMapper.Instance.GetContext("SQL", "INSERTGAMEDTL", dic));
                                 }
                             }

@@ -1,5 +1,8 @@
-﻿using EEH.Ecommerce;
-using EEH.Keyword.Naver.Models;
+﻿
+using EEH.Component.Ecommerce;
+using EEH.Component.Keyword.Naver;
+using EEH.Component.Keyword.Naver.Models;
+
 using EEH.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -70,7 +73,7 @@ namespace EEH.WPF.UI.Keyword.ViewModels
             OnSearchCommand.ExecuteHandler = async (param) =>
             {
 
-                EEH.Keyword.Naver.NaverAPIClient client = new EEH.Keyword.Naver.NaverAPIClient();
+                NaverAPIClient client = new NaverAPIClient();
                 KeywordsTool result = await client.Search(SearchText);
                 Results.Add(result);
                 SearchText = string.Empty;

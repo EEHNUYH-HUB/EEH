@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\00 SOURCE\ZENC\00 Core\ZENC.CORE\ZENC.CORE\ZENC.CORE.csproj" />
-    <ProjectReference Include="..\..\..\00 SOURCE\ZENC\00 Core\ZENC\ZENC.csproj" />
+    <ProjectReference Include="..\EEH.WEB\EEH.WEB.csproj" />
+    <ProjectReference Include="..\EEH\EEH.csproj" />
   </ItemGroup>
 
   <ItemGroup>

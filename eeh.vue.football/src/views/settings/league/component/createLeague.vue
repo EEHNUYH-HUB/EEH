@@ -28,7 +28,11 @@
                                 <n-space vertical v-if="NewLeague.status === 2">
                                     <n-transfer v-model:value="SelectedPlayers" :options="Players" />
 
-                                    <n-space horizontal justify="end">
+                                    <n-space horizontal justify="end" align="center">
+                                        <n-input v-model:value="TxtPlayer" type="text" placeholder="카톡 내용을 복사해주세요." ></n-input>
+                                        <n-button type="primary" size="small" @click="pastePlayer()">
+                                            Text Load
+                                        </n-button>
                                         <n-button type="info" size="small" @click="saveLeagueMember(false)">
                                             Save
                                         </n-button>
@@ -239,9 +243,49 @@ const InitEditMode = async () => {
 
     return false;
 }
-
+const TxtPlayer = ref("");
 const OnCheck = (item, id) => {
     item.teamId != id ? item.teamId = id : item.teamId = 0;
+}
+const pastePlayer = () => {
+    var txt = TxtPlayer.value;
+
+    SelectedPlayers.value = new Array;
+    var splits = txt.split(",");
+    var isEnd = false;
+    if (splits) {
+        for (var i in splits) {
+            var str = splits[i];
+
+            if (str) {
+
+                var splits2 = str.split(" ");
+
+                for (var k in splits2) {
+                    var name = splits2[k];
+                    if (name) {
+                        
+                        if (name.indexOf("예비") > -1) {
+                            isEnd = true;
+                        }
+                        if (!isEnd) {
+                            for (var k in Players.value) {
+                                var p = Players.value[k];
+                                if (p.label == name) {
+                                    SelectedPlayers.value.push(p.value);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+        }
+
+    }
 }
 const AutoMapping = () => {
     alert("승률 기준으로 자동으로 팀이 구성 됩니다.(데이터 부족으로 랜덤)");
