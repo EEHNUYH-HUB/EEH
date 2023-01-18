@@ -3,7 +3,7 @@
     > 
     <div style="text-align: center; padding: 20px">
       <n-text depth="3" class="footer_text">
-        COPYRIGHT(c) 2018 ZENITH&COMPANY ALL RIGHT RESERVED
+        COPYRIGHT(c) 2023 EEHNUYH ALL RIGHT RESERVED
       </n-text>
     </div>
     </n-layout-footer>

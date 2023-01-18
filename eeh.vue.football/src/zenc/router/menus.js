@@ -306,28 +306,34 @@ const menuJsonList =
     // ,
     {
         id:"4"
-        ,name:"JMFC"
+        ,name:"JMFC League Info"
         ,path:"setting"
         ,desc: "JMFC"
         ,component: () => import("@/zenc/layout/LY0001.vue")
         ,children:[
              {
                 id:"4-1"
-                ,name:"League Setting"
+                ,name:"League"
                 ,path:"league"       
                 ,desc: "리그를 설정 합니다."         
                 ,component : () => import("@/views/settings/league/L0001.vue")                      
+            }, {
+                id:"4-4"
+                ,name:"Ranking"
+                ,path:"ranking"       
+                ,desc: "순위 정보를 보여 줍니다."         
+                ,component : () => import("@/views/settings/ranking/R0001.vue")                      
             }
             ,{
                 id:"4-2"
-                ,name:"Player Setting"
+                ,name:"Player"
                 ,path:"player"       
                 ,desc: "승점 = 승리 * 3 + 무승부 * 1 + 패배 * 0 , 능력치 = 골 * 5 + 어시스트 * 2 + 세이브 * 1"                   
                 ,component : () => import("@/views/settings/player/P0001.vue")                        
             }
             , {
                 id:"4-3"
-                ,name:"Location Setting"
+                ,name:"Location"
                 ,path:"location"       
                 ,desc: "장소 정보를 설정 합니다."         
                 ,component : () => import("@/views/settings/location/L0001.vue")                      
