@@ -321,14 +321,14 @@ const menuJsonList =
                 id:"4-4"
                 ,name:"Ranking"
                 ,path:"ranking"       
-                ,desc: "순위 정보를 보여 줍니다."         
+                ,desc: "순위 정보를 보여 줍니다.(점수 = 골 * 5 + 어시스트 * 2 + 세이브 * 1)"         
                 ,component : () => import("@/views/settings/ranking/R0001.vue")                      
             }
             ,{
                 id:"4-2"
                 ,name:"Player"
                 ,path:"player"       
-                ,desc: "승점 = 승리 * 3 + 무승부 * 1 + 패배 * 0 , 능력치 = 골 * 5 + 어시스트 * 2 + 세이브 * 1"                   
+                ,desc: "승점 = 승리 * 3 + 무승부 * 1 + 패배 * 0 , 점수 = 골 * 5 + 어시스트 * 2 + 세이브 * 1"                   
                 ,component : () => import("@/views/settings/player/P0001.vue")                        
             }
             , {

@@ -43,7 +43,7 @@ onMounted(async () => {
     AnchorItems.value.push({ Title: '골 순위', ID: '#idgoal' });
     AnchorItems.value.push({ Title: '도움 순위', ID: '#idassist' });
     AnchorItems.value.push({ Title: '수비 순위', ID: '#idsave' });
-    AnchorItems.value.push({ Title: '도움 순위', ID: '#idscore' });
+    AnchorItems.value.push({ Title: '점수 순위', ID: '#idscore' });
 
 
 })
