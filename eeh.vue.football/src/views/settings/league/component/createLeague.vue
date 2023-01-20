@@ -49,10 +49,9 @@
                                     <n-tag round :bordered="false" v-for="item, index in NewLeague.allPlayer"
                                         :key="index">
                                         {{ item.name }}
-                                        <!-- <template #avatar>
-                                            <n-avatar
-                                                src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
-                                        </template> -->
+                                        <template #avatar v-if="item.col_imageid">
+                                        <n-avatar :src="ImageLink(item.col_imageid)" round/>
+                                    </template> 
                                     </n-tag>
                                 </n-space>
                                 <p v-else>리그에 참가할 선수를 설정 하세요.</p>
@@ -176,7 +175,7 @@ import teamScore from '@/views/settings/league/component/teamScore.vue'
 import playTimer from '@/views/settings/league/component/playTimer.vue'
 import { ref, onMounted } from 'vue';
 import { useStore } from "vuex";
-import { ConvertDateToYYYYMMDD, ConvertYYYYMMDDToDate, ConvertYYYYMMDDToStringDate } from '@/zenc/js/Common'
+import { ConvertDateToYYYYMMDD, ConvertYYYYMMDDToDate, ConvertYYYYMMDDToStringDate ,ImageLink} from '@/zenc/js/Common'
 
 const store = useStore();
 const current = ref(true)

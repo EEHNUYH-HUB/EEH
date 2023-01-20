@@ -100,7 +100,7 @@ namespace EEH.FOOTBALL.BIZ
                                         player.Assist = row["assist"].ExInt();
                                         player.Save = row["save"].ExInt();
                                         player.Score = row["playerscore"].ExInt();
-
+                                        player.ImageId = row["col_imageid"].ExToString();
 
                                         player.TeamName = row["teamname"].ExToString();
                                         player.TeamType = row["teamtype"].ExToString();
@@ -271,7 +271,7 @@ namespace EEH.FOOTBALL.BIZ
         }
 
 
-        public bool UpsertMember(string name, string phone, string birthday, int pkid)
+        public bool UpsertMember(string imageid,string name, string phone, string birthday, int pkid)
         {
             using (var dbseesion = SmartSqlMapper.Instance.SqlContext.Open())
             {
@@ -282,6 +282,7 @@ namespace EEH.FOOTBALL.BIZ
                     dic.Add("name", name);
                     dic.Add("birthday", birthday);
                     dic.Add("phone", phone);
+                    dic.Add("imageid", imageid);
 
                     if (pkid < 0)
                     {

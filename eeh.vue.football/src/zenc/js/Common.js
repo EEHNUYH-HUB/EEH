@@ -86,3 +86,69 @@ export function ConvertYYYYMMDDToStringDate(yyyymmdd){
     var d = parseInt(yyyymmdd.substring(6,8));
     return  y+'년 '+ m+'월 '+ d+'일';
 }
+export function DownloadLink(staticID){
+    var rtn = process.env.VUE_APP_API_URL + '/api/File/Download?staticid='+ staticID;
+
+    return rtn;
+}
+
+
+export function ImageLink(staticID){
+    var rtn =  process.env.VUE_APP_API_URL + '/api/File/Image?staticid='+ staticID;
+    
+    return rtn;
+}
+
+export function Download(staticID,name){
+    var downloadLink = DownloadLink(staticID);
+    const link = document.createElement('a');
+    link.href = downloadLink;
+    link.setAttribute('download', name + ".xlsm");
+    // 3. Append to html page
+    document.body.appendChild(link);
+    // 4. Force download
+    link.click();
+    // 5. Clean up and remove the link
+    link.parentNode.removeChild(link);
+    
+     return;
+    // BindingApiKeySend(downloadLink, 'blob', function (req) {
+    //     var url = URL.createObjectURL(req.response);
+
+
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.setAttribute('download', name + ".xlsm");
+    //     // 3. Append to html page
+    //     document.body.appendChild(link);
+    //     // 4. Force download
+    //     link.click();
+    //     // 5. Clean up and remove the link
+    //     link.parentNode.removeChild(link);
+
+    // });
+}
+
+function BindingApiKeySend(url, type, complete) {
+    var httpReq = new XMLHttpRequest();
+    if (type != null && type != undefined && type.length > 0) {
+        //httpReq.responseType = type; //so you can access the response like a normal URL
+        httpReq.onloadstart = function (ev) {
+            httpReq.responseType = type;
+        }
+    }
+
+    httpReq.onreadystatechange = function () {
+        if (httpReq.readyState == XMLHttpRequest.DONE && httpReq.status == 200) {
+            complete(httpReq);
+        }
+    };
+
+
+    httpReq.open("GET", url, true);
+    var apikey = sessionStorage.getItem("apikey");
+    httpReq.setRequestHeader('Authorization', apikey);
+  
+    
+    httpReq.send(null);
+}

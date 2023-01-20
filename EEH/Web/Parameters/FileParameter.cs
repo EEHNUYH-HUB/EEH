@@ -9,6 +9,7 @@ namespace EEH.WEB.Parameters
 {
     public class FileParameter
     {
+        public string StaticID { get; set; }
         public string FileName { get; set; }
         public long FileSize { get; set; }
         public string Base64String { get; set; }

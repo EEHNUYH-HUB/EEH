@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json;
 using EEH;
 using EEH.WEB.File;
+using EEH.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,7 @@ var contentRoot = configuration.GetValue<string>(WebHostDefaults.ContentRootKey)
 zencServiceSetting.InitSmartSql(contentRoot.ExCombine("smartPostgreMapConfig.xml"));
 zencServiceSetting.InitNLogConfig(contentRoot.ExCombine("nlog.config"));
 
-string filePath = Path.Combine(contentRoot, "imagefolder");
+string filePath = Path.Combine(contentRoot,  "imagefolder");
 
 zencServiceSetting.InitFileHandler(new FileHandler(filePath));
 #endregion

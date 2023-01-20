@@ -21,31 +21,34 @@ namespace EEH.WEB.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public async Task Download(string id ,string num)
+        public async Task Download(string staticid)
         {
             if (fileHandler.ExNotNull())
             {
-                await Download(this.fileHandler.Read(id,num));
+                await Download(this.fileHandler.Read(staticid));
             }
         }
 
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task Image(string id,string num)
+        public async Task Image(string staticid)
         {
             try
             {
 
-                using (var downloadResult = this.fileHandler.Read(id,num))
+                using (var downloadResult = this.fileHandler.Read(staticid))
                 {
-                    HttpContext.Response.ContentType = "image/png";
-                    byte[] buffer = new byte[downloadResult.DownloadStream.Length];
+                    if (downloadResult.ExNotNull())
+                    {
+                        HttpContext.Response.ContentType = "image/png";
+                        byte[] buffer = new byte[downloadResult.DownloadStream.Length];
 
-                    downloadResult.DownloadStream.Read(buffer, 0, buffer.Length);
-                    
-                    
-                    await HttpContext.Response.Body.WriteAsync(buffer);
+                        downloadResult.DownloadStream.Read(buffer, 0, buffer.Length);
+
+
+                        await HttpContext.Response.Body.WriteAsync(buffer);
+                    }
                 }
                     
 

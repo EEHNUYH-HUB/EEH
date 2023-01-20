@@ -62,13 +62,14 @@
 			SELECT PK_ID FROM TBL_MEMBER WHERE COL_NAME = @name AND COL_BIRTHDAY = @birthday
 		</Statement>
 		<Statement Id="INSERTMEMBER">
-			INSERT INTO TBL_MEMBER(COL_NAME,COL_PHONE,COL_BIRTHDAY) VALUES (@name, @phone,@birthday)
+			INSERT INTO TBL_MEMBER(COL_NAME,COL_PHONE,COL_BIRTHDAY,COL_IMAGEID) VALUES (@name, @phone,@birthday,@imageid)
 		</Statement>
 		<Statement Id="UPDATEMEMBER">
 			UPDATE TBL_MEMBER
 			SET COL_NAME = @name
 			,	COL_PHONE = @phone
 			,	COL_BIRTHDAY = @birthday
+			,	COL_IMAGEID = @imageid
 			WHERE PK_ID = @pkid
 		</Statement>
 
@@ -244,6 +245,7 @@
 			,		C.COL_NAME
 			,		E.COL_NAME 					AS TEAMNAME
 			,		E.COL_TYPE					AS TEAMTYPE
+			,		C.COL_IMAGEID				
 			FROM					TBL_LEAGUE A
 			INNER JOIN 				TBL_TEAM   B ON A.PK_ID = B.FK_LEAGUE_ID
 			INNER JOIN 				TBL_MEMBER C ON B.FK_MEMBER_ID = C.PK_ID
@@ -286,6 +288,7 @@
 			,			B.ASSISTCNT
 			,			B.SAVECNT
 			,			B.GOALCNT * 5 + B.ASSISTCNT * 2 + B.SAVECNT AS SCORE
+			,			A.COL_IMAGEID
 			FROM		TBL_MEMBER A
 			,		(
 			SELECT 		FK_MEMBER_ID

@@ -22,28 +22,22 @@ namespace EEH.WEB.File
 
        
 
-        public DownloadResult Read(string strID, string number)
+        public DownloadResult Read(string staticID)
         {
-            string folderPath = RootFolder.ExCombine(strID);
+            string folderPath = RootFolder.ExCombine(staticID);
             if (folderPath.ExIsExists())
             {
-                List<DirectoryInfo> dirs = folderPath.ExDirectoryList();
+                DirectoryInfo dir = new DirectoryInfo(folderPath);
 
-                if (dirs.ExNotNull())
+                if (dir.Exists)
                 {
-                    foreach (var dir in dirs)
+                    List<FileInfo> files = dir.FullName.ExFileList();
+                    if (files.ExNotNull() && files.Count > 0)
                     {
-                        if (dir.Name.ExToLower() == number)
-                        {
-                            List<FileInfo> files = dir.FullName.ExFileList();
-                            if (files.ExNotNull() && files.Count > 0)
-                            {
-                                DownloadResult result = new DownloadResult();
-                                result.DownloadStream = new FileStream(files[0].FullName, FileMode.Open, FileAccess.Read);
-                                result.FileName = files[0].Name;
-                                return result;
-                            }
-                        }
+                        DownloadResult result = new DownloadResult();
+                        result.DownloadStream = new FileStream(files[0].FullName, FileMode.Open, FileAccess.Read);
+                        result.FileName = files[0].Name;
+                        return result;
                     }
                 }
             }
@@ -56,6 +50,7 @@ namespace EEH.WEB.File
         {
             try
             {
+                
                 if (param.ExNotNull())
                 {
                     UploadResult result = new UploadResult();
@@ -68,7 +63,7 @@ namespace EEH.WEB.File
                         byte[] buffer = param.Base64String.ExBase64Byte();
                         if (buffer.ExNotNull())
                         {
-                            string folder = RootFolder.ExCreateDirectory();
+                            string folder = RootFolder.ExCombine(param.StaticID).ExCreateDirectory();
                             using (FileStream fs = new FileStream(folder.ExCombine(name), FileMode.Append, FileAccess.Write))
                             {
                                 long currentSize = fs.Length + buffer.Length;

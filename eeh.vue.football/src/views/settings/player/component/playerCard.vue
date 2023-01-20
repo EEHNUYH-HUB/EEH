@@ -40,10 +40,10 @@
 
             </n-grid>
 
-<!-- 
-            <template #avatar>
-                <n-avatar src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg" />
-            </template> -->
+
+            <template #avatar v-if="Props.Item.imageId">
+                <n-avatar :src="ImageLink(Props.Item.imageId)" round/>
+            </template> 
             <template #extra>
                 <n-space>
                     
@@ -61,7 +61,7 @@
 </template>
 <script setup>
 import { onMounted, ref, computed } from "vue"
-import { GetBirthDay, GetPhoneNumber } from "@/zenc/js/Common"
+import { GetBirthDay, GetPhoneNumber,ImageLink } from "@/zenc/js/Common"
 import Uploader from "@/zenc/layout/components/Uploader.vue"
 import createPlayer from '@/views/settings/player/component/createPlayer.vue'
 const IsShowCreatePanel = ref(false);

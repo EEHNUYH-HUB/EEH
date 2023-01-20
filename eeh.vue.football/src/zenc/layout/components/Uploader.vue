@@ -4,7 +4,7 @@
         <input class="btnFileLoad d-none" type="file" multiple ref="oFileHandler" v-show="false"
             @change="FileChangeHandler" />
         <n-drawer v-model:show="IsShow" :default-width="420" :placement="Placement" resizable>
-            <n-drawer-content :title="Props.Text " closable>
+            <n-drawer-content>
                 <n-space vertical>
                     <div class="upload_div" draggable="true" @dragenter=OnDragEnter @drop="OnFileDrop"
                         @click="ShowFileDig">
@@ -17,7 +17,7 @@
                             </n-icon>
                         </div>
                         <n-p depth="3" style="margin: 8px 0 0 0">
-                            영역을 클릭 하거나 파일을 드래그 하세요.(드래그 앤 드랍 준비중)
+                            영역을 클릭 하거나 파일을 드래그 하세요.
                         </n-p>
                     </div>
 
@@ -41,11 +41,12 @@
 </template>
   
 <script setup>
-import { ref } from 'vue'
-import { ArchiveOutline as ArchiveIcon,Close
- } from '@vicons/ionicons5'
+import { ref ,defineEmits} from 'vue'
+import { ArchiveOutline as ArchiveIcon,Close } from '@vicons/ionicons5'
 import {  useMessage,useDialog   } from 'naive-ui'
-import FileUploader from '@/zenc/js/FileUploader'
+import FileHandler from '@/zenc/js/FileHandler'
+import {DownloadLink,ImageLink} from '@/zenc/js/Common'
+
 const oFileHandler = ref();
 const IsShow = ref(false);
 const FileList = ref(new Array);
@@ -55,7 +56,7 @@ const Props = defineProps({
     Text: { type: String, default: 'Upload' },
     Placement: { type: String, default: 'right' }
 })
-
+const Emits = defineEmits(['completed','error'])
 const OnShow = () => {
     IsShow.value = !IsShow.value;
     if (FileList.value) {
@@ -141,9 +142,13 @@ const OnRunUpload = (item) => {
 
     item.Status = "info";
     item.Msg = '';
-    var uploader = new FileUploader();
-    uploader.CompletedEvent = () => {
+    var uploader = new FileHandler();
+    uploader.CompletedEvent = (staticID) => {
         item.Status = "success";
+        item.StaticID = staticID;
+        item.Url = DownloadLink(staticID);
+        item.ImageUrl =ImageLink(staticID);
+        Emits('completed',item);
     }
     uploader.ProgressEvent = (pecent) => {
         item.Percent = pecent;
@@ -154,6 +159,7 @@ const OnRunUpload = (item) => {
         
         item.Status = "error";
         item.Msg = msg;
+        Emits('error',item);
     }
 
     uploader.Upload(item.File, null);

@@ -2,7 +2,7 @@
 <SmartSqlMapConfig xmlns="http://SmartSql.net/schemas/SmartSqlMapConfig.xsd">
 	<Settings IsWatchConfigFile="true" IgnoreParameterCase="false" ParameterPrefix="$" IsCacheEnabled="true"/>
 	<Properties>
-		<Property Name="ConnectionString" Value="Server=148.72.245.84;Port=5432;Database=SAMPLE;User Id=postgres;Password=HyunHee1228!@#;"/>
+		<Property Name="ConnectionString" Value="Server=20.41.116.199;Port=5432;Database=JMFC;User Id=postgres;Password=HyunHee1228!@#;"/>
 	</Properties>
 	<Database>
 		<DbProvider Name="PostgreSql"/>

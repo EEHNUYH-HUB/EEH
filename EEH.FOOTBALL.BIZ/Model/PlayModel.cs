@@ -49,6 +49,7 @@ namespace EEH.FOOTBALL.BIZ.Model
 
     public class PlayerModel
     {
+        public string ImageId { get; set; }
         public int TeamId { get; set; }
         public bool IsChecked { get; set; }
         public int PlayerId { get; set; }

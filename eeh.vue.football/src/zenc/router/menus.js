@@ -170,7 +170,6 @@ function ConvertToRoutes(lst,isFirst,beforePath){
     return rtn;
 }
 
-
 const menuJsonList =
 [
     // {

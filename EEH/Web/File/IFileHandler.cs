@@ -10,7 +10,7 @@ namespace EEH.WEB.File
     public interface IFileHandler
     {
         long BufferSize { get; }
-        DownloadResult Read(string id, string num);
+        DownloadResult Read(string staticID);
         //DownloadResult Get(string param);
 
         UploadResult Write(FileParameter param);

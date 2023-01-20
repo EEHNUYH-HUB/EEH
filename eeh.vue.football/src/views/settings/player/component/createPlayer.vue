@@ -5,6 +5,8 @@
                 <n-input v-model:value="newItem.name" placeholder="이름을 입력해 주세요" />
                 <n-date-picker v-model:value="newItem.birtyDay" placeholder="생년월일을 입력해 주세요" type="date" />
                 <n-input v-model:value="newItem.phone" :allow-input="OnlyAllowNumber" placeholder="전화번호를 입력해 주세요" />
+                <n-avatar v-if="newItem.imageId" :src="ImageLink(newItem.imageId)" />
+                <Uploader Text="사진등록" @completed="saveImage"></Uploader>
             </n-space>
             <template #footer>
                 <n-button @click="OnCretePlayer">
@@ -16,8 +18,8 @@
 </template>
 <script setup>
 import {ref,onMounted,computed,defineEmits} from 'vue'
-import {  OnlyAllowNumber ,ConvertDateToYYYYMMDD} from '@/zenc/js/Common'
-
+import {  OnlyAllowNumber ,ConvertDateToYYYYMMDD,ImageLink} from '@/zenc/js/Common'
+import Uploader from "@/zenc/layout/components/Uploader.vue"
 import { useStore } from "vuex";
 const newItem = ref(null)
 const Props = defineProps({Show:{type:Boolean},Item:{type:Object}})
@@ -38,20 +40,29 @@ const InitNewItem = (item) => {
         newItem.value.birtyDay = newDate.getTime();
         newItem.value.phone = item.col_phone;
         newItem.value.pkid= item.pk_id;
+        newItem.value.imageId = item.col_imageid;
     }
     else {
         newItem.value.name = "";
         newItem.value.birtyDay = null;
         newItem.value.phone = "";
+        newItem.value.imageId = "";
         newItem.value.pkid = -1;;
     }
 
+}
+
+const saveImage =async (item)=>{    
+    
+    newItem.value.imageId = item.StaticID
+    await OnCretePlayer();
 }
 
 const OnCretePlayer = async () => {
     
     var birthday = ConvertDateToYYYYMMDD(new Date(newItem.value.birtyDay));
     var params = [
+        { key: 'imageid', value: newItem.value.imageId },
         { key: 'name', value: newItem.value.name },
         { key: 'phone', value: newItem.value.phone },
         { key: 'birthday', value: birthday},
