@@ -1,6 +1,6 @@
 <template>
-    <n-space>
-    <span style="font-variant-numeric: tabular-nums">
+  <n-space align="center">
+    <span style="font-variant-numeric: tabular-nums;font-size:30px">
       <n-countdown ref="countdown" :duration="600000" :active="active" />
     </span>
     <n-button size="tiny" @click="handlePlay">

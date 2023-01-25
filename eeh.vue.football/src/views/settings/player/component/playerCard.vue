@@ -74,7 +74,7 @@ const WinRate = computed(({
     get() {
         var totalCnt = Props.Item.wincnt + Props.Item.losscnt + Props.Item.tiecnt;
         if (totalCnt > 0) {
-            return (Props.Item.wincnt * 100. / totalCnt).toFixed(0);
+            return (Props.Item.wincnt * 100.0 / totalCnt).toFixed(0);
         }
         else '0%';
     }
