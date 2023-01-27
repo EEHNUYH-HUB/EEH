@@ -4,7 +4,7 @@
             <Breadcrumb ></Breadcrumb>
             <n-grid cols="1">
                 <n-gi>
-                <mindmap></mindmap>
+                <svgPanel></svgPanel>
                 </n-gi>
             </n-grid>
         </div>
@@ -16,7 +16,7 @@ import { useStore } from "vuex";
 import {ref} from 'vue'
 import Breadcrumb from "@/zenc/layout/components/Breadcrumb.vue"
 
-import mindmap from '@/views/document/mindmap/component/mindmap.vue'
+import svgPanel from "@/zenc/svg/component/svgPanel.vue"
 const store = useStore()
 
 const AnchorItems = ref(new Array);

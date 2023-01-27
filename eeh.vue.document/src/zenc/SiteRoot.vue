@@ -33,9 +33,9 @@ onBeforeMount(async ()=>{
 // var params = [{key:'UserName',value:'JMFC'},{key:'UserID',value:'JMFC'},{key:'Email',value:'jmfc@naver.com'}];
 // var key = await store.state.apiClient.GenerateKey(params);
 // console.log(key)
-var key = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lSWRlbnRpZmllciI6IjhiMjQ1MDZjLWYxZjMtNGQxYS1hZGRkLTJmZjRkN2IyNTY3MCIsIlVzZXJOYW1lIjoiSk1GQyIsIlVzZXJJRCI6IkpNRkMiLCJFbWFpbCI6ImptZmNAbmF2ZXIuY29tIiwibmJmIjoxNjczMzQxMTQ1LCJleHAiOjE2NzM0Mjc1NDUsImlzcyI6Imh0dHBzOi8vY28ua3IiLCJhdWQiOiJodHRwczovL2NvLmtyIn0.rB1ZRcayQ9HxoDuXndxYUeJsm6hcOizwo4UVrm-TUag';
-sessionStorage.setItem("apikey",key);
-await store.state.apiClient .CertificationInfo(key);
+// var key = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJOYW1lSWRlbnRpZmllciI6IjhiMjQ1MDZjLWYxZjMtNGQxYS1hZGRkLTJmZjRkN2IyNTY3MCIsIlVzZXJOYW1lIjoiSk1GQyIsIlVzZXJJRCI6IkpNRkMiLCJFbWFpbCI6ImptZmNAbmF2ZXIuY29tIiwibmJmIjoxNjczMzQxMTQ1LCJleHAiOjE2NzM0Mjc1NDUsImlzcyI6Imh0dHBzOi8vY28ua3IiLCJhdWQiOiJodHRwczovL2NvLmtyIn0.rB1ZRcayQ9HxoDuXndxYUeJsm6hcOizwo4UVrm-TUag';
+// sessionStorage.setItem("apikey",key);
+// await store.state.apiClient .CertificationInfo(key);
 })
 </script>
 
