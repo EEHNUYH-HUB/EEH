@@ -213,6 +213,8 @@ export default class MNDrawPicker{
         }
 
         this.Eventer.SelectedMethod(this.SelectedItems);
+
+        return this.SelectedItems.length > 0;
     }
     SizeSvgObj(start, end) {
 

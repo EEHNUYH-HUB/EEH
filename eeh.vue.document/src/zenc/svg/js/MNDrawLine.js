@@ -35,6 +35,7 @@ export default class MNDrawLine{
             this.ObjList.push(obj)
             this.Eventer.AddedMethod(obj);
         }
+        return false;
     }
     MouseDown(e) {
         this.IsDown = true;

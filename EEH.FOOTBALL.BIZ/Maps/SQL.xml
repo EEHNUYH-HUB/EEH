@@ -94,6 +94,8 @@
 			,	A.COL_DATE
 			,	A.COL_STATUS
 			,	B.COL_NAME AS LOCATIONNAME
+			,	A.COL_PLAY_TIME
+			,	A.COL_PLAY_TEAM_CNT
 			FROM 				TBL_LEAGUE A
 			LEFT OUTER  JOIN 	TBL_LOCATION B ON B.PK_ID  = A.FK_LOCATION_ID
 			WHERE  				5 > A.COL_STATUS
@@ -107,6 +109,8 @@
 			SET		FK_LOCATION_ID = @fk_location_id
 			,		COL_DATE = @col_date
 			,		COL_STATUS = @col_status
+			,		COL_PLAY_TIME = @col_play_time
+			,		COL_PLAY_TEAM_CNT = @col_play_team_cnt
 			WHERE   PK_ID = @pk_id
 		</Statement>
 		<Statement Id="UPDATELEAGUESTATUS">

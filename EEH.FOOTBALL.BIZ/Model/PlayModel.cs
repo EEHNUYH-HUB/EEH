@@ -16,6 +16,8 @@ namespace EEH.FOOTBALL.BIZ.Model
         public List<TeamModel> Teams { get; set; }
         public List<PlayModel> Games { get; set; }
         public int Status { get; set; }
+        public string PlayTime { get; set; }
+        public string PlayTeamCnt { get; set; }
     }
     public class PlayModel
     {

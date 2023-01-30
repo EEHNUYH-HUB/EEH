@@ -55,6 +55,7 @@ export default class MNDrawPen{
             this.EndPoint = null;
             this.DrawItem = "";
         }
+        return false;
     }
     MouseDown(e) {
         this.IsDown = true;

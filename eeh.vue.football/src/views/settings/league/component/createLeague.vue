@@ -11,6 +11,10 @@
                                     <n-date-picker v-model:value="NewLeague.starttimestamp"
                                         placeholder="리그 시작일을 입력해 주세요" type="date" />
                                     <n-select v-model:value="NewLeague.locationId" :options="Locations" />
+                                    <n-input-number
+                                    :min="0" :max="20"
+                                    v-model:value="NewLeague.playTime" placeholder="경기 시간을 입력해 주세요" />
+                                    <n-input-number :min="2" :max="4" v-model:value="NewLeague.playTeamCnt" placeholder="경기 팀수를 입력해 주세요" />
 
                                     <n-button size="small" @click="nextButtonClick">
                                         Next
@@ -19,6 +23,8 @@
                                 <template v-else>
                                     <p>{{ NewLeague.strstartdate }}</p>
                                     <p>{{ NewLeague.locationName }}</p>
+                                    <p>경기 시간 {{ NewLeague.playTime }}분</p>
+                                    <p>경기 팀수 {{ NewLeague.playTeamCnt }}팀</p>
                                 </template>
                             </div>
                         </n-step>
@@ -61,7 +67,7 @@
                             <div class="n-step-description">
                                 <n-space vertical v-if="NewLeague.status === 3">
                                     <n-grid cols="1" :x-gap="12" :y-gap="8" responsive="screen">
-                                        <n-gi v-for="team, teamIndex in Teams" :key="teamIndex">
+                                        <n-gi v-for="team, teamIndex in PlayTeams" :key="teamIndex" >
                                             <n-alert hoverable size="small" :title="team.teamName" :type="team.teamType"
                                                 :show-icon="false">
                                                 <n-space>
@@ -78,6 +84,10 @@
                                         <n-button type="info" size="small" @click="AutoMapping">
                                             Auto mapping
                                         </n-button>
+                                        <n-button type="primary" size="small" @click="ClearPlayer">
+                                            Clear
+                                        </n-button>
+
                                         <n-button size="small" @click="prevButtonClick">
                                             Prev
                                         </n-button>
@@ -107,7 +117,7 @@
                                                 <teamScore :Game="game" :IsLeft="true" :Teams="NewLeague.teams">
                                                 </teamScore>
 
-                                                <play-timer v-if="game.leftTeam && game.rightTeam" style="margin:20px 0px 20px 0px"></play-timer>
+                                                <play-timer v-if="game.leftTeam && game.rightTeam" :timeMin="NewLeague.playTime" style="margin:20px 0px 20px 0px"></play-timer>
                                                 <n-space Horizontal justify="center" style="margin:20px 0px 20px 0px">
 
                                                     <n-icon v-if="game.leftTeam" size="40">
@@ -184,6 +194,7 @@ const Locations = ref(null);
 const NewLeague = ref(null);
 const SelectedPlayers = ref(new Array);
 const Teams = ref(new Array);
+const PlayTeams = ref(new Array);
 const LeagueTeams = ref(new Array);
 
 onMounted(async () => {
@@ -192,6 +203,7 @@ onMounted(async () => {
 })
 const Emits = defineEmits(['completed'])
 const Init = async () => {
+    
     Teams.value = await store.state.apiClient.Run('EEH.FOOTBALL.BIZ', 'FootballBiz', 'GetTeams', null);
 
     Locations.value = new Array;
@@ -207,6 +219,23 @@ const Init = async () => {
     }
 
     await InitEditMode();
+}
+const InitDefaultTeam = () =>{
+    
+    PlayTeams.value = new Array;
+    if(NewLeague.value && NewLeague.value.playTeamCnt*1 > 1){
+        var teamCnt = NewLeague.value.playTeamCnt*1;
+
+        for(var i in Teams.value){
+            if(i < teamCnt){
+                PlayTeams.value.push(Teams.value[i]);
+            }
+        }
+    }
+    else{
+        PlayTeams.value = Teams.value;
+    }
+
 }
 const InitEditMode = async () => {
 
@@ -234,7 +263,7 @@ const InitEditMode = async () => {
 
         NewLeague.value.games.push({ playId: null, leftTeam: null, rightTeam: null, isEnd: false, winTeamType: '' });
 
-
+        InitDefaultTeam();
         return true;
     }
 
@@ -286,15 +315,28 @@ const pastePlayer = () => {
 
     }
 }
+
+const ClearPlayer =() =>{
+    for (var i in NewLeague.value.allPlayer) {
+            var player = NewLeague.value.allPlayer[i];
+            player.teamId = 0;
+            player.isChecked = false;
+    }
+
+}
 const AutoMapping = () => {
     alert("승률 기준으로 자동으로 팀이 구성 됩니다.(데이터 부족으로 랜덤)");
-    var total = Math.floor( NewLeague.value.allPlayer.length/3 );
-    var sub = NewLeague.value.allPlayer.length%3;
+
+    var teamCnt = NewLeague.value.playTeamCnt*1;
+
+    var total = Math.floor( NewLeague.value.allPlayer.length/teamCnt );
+    var sub = NewLeague.value.allPlayer.length%teamCnt;
     
 
     var rTeam = total;
     var bTeam = total;
     var yTeam = total;
+    var blTeam = total;
 
     if(sub == 1){
         rTeam +=1;
@@ -303,9 +345,15 @@ const AutoMapping = () => {
         rTeam +=1;
         bTeam +=1;
     }
+    else if( sub == 3){
+        rTeam +=1;
+        bTeam +=1;
+        yTeam +=1;
+    }
     var crTeam = 0;
     var cbTeam = 0;
     var cyTeam = 0;
+    var cblTeam = 0;
 
     for (var i in NewLeague.value.allPlayer) {
         var player = NewLeague.value.allPlayer[i];
@@ -315,53 +363,66 @@ const AutoMapping = () => {
                 crTeam +=1;
             } else if (player.teamId == 2) {
                 cbTeam +=1;
+            } else if (player.teamId == 3) {
+                cyTeam +=1;
             }
             else {
-                cyTeam+=1;
+                cblTeam+=1;
             }
         }
     }
+    if (crTeam + cbTeam + cyTeam + cblTeam == NewLeague.value.allPlayer.length) {
+        for (var i in NewLeague.value.allPlayer) {
+            var player = NewLeague.value.allPlayer[i];
+            player.teamId = 0;
+            player.isChecked = false;
+        }
 
+        crTeam= cbTeam =cyTeam = cblTeam = 0;
+    }
     for (var i in NewLeague.value.allPlayer) {
         var player = NewLeague.value.allPlayer[i];
         if (player.teamId == 0) {
             
-            
-            var v = Math.floor(Math.random() * 3)+1;
-            for(var j =0 ;j<3;j++){
-                if(v == 1 )
-                {
-                    if(rTeam > crTeam){
-                        crTeam +=1;
+            while (!player.isChecked) {
+
+                var v = Math.floor(Math.random() * teamCnt) + 1;
+                if (v == 1) {
+                    if (rTeam > crTeam) {
+                        crTeam += 1;
+                        player.isChecked = true;
+                        OnCheck(player, v);
+                        break;
                     }
-                    else{
-                        v +=1;
-                        continue;
-                    }
+                   
                 }
-                else if(v== 2){
-                    if(bTeam > cbTeam){
-                        cbTeam +=1;
+               else if (v == 2) {
+                    if (bTeam > cbTeam) {
+                        cbTeam += 1;
+                        player.isChecked = true;
+                        OnCheck(player, v);
+                        break;
                     }
-                    else{
-                        v +=1;
-                        
-                        continue;
-                    }
+                   
                 }
-                else if(v== 3){
-                    if(yTeam > cyTeam){
-                        cyTeam +=1;
+               else if (v == 3) {
+                    if (yTeam > cyTeam) {
+                        cyTeam += 1;
+                        player.isChecked = true;
+                        OnCheck(player, v);
+                        break;
                     }
-                    else{
-                        v = 1;
-                        
-                        continue;
-                    }
+                    
                 }
-                player.isChecked = true;
-                OnCheck(player, v);
-                break;
+               else if (v == 4) {
+                    if (blTeam > cblTeam) {
+                        cblTeam += 1;
+                        player.isChecked = true;
+                        OnCheck(player, v);
+                        break;
+                    }
+                    
+                }
             }
         }
     }
@@ -373,13 +434,15 @@ const saveLeagueMember = async (isNext) => {
 }
 const nextButtonClick = async () => {
     if (NewLeague.value.status == 1) {
-        if (NewLeague.value.starttimestamp && NewLeague.value.locationId > 0) {
+        if (NewLeague.value.starttimestamp && NewLeague.value.locationId > 0 && NewLeague.value.playTime*1 > 0 && NewLeague.value.playTeamCnt*1>1) {
             await store.state.apiClient.ExecNonQuery('SQL', 'UPDATELEAGUE',
                 {
                     pk_id: NewLeague.value.leagueId
                     , fk_location_id: NewLeague.value.locationId
                     , col_status: 2
                     , col_date: ConvertDateToYYYYMMDD(new Date(NewLeague.value.starttimestamp))
+                    , col_play_time : NewLeague.value.playTime*1
+                    , col_play_team_cnt : NewLeague.value.playTeamCnt*1
                 });
             await InitEditMode();
         }

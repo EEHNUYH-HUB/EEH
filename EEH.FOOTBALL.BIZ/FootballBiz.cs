@@ -164,8 +164,18 @@ namespace EEH.FOOTBALL.BIZ
                             rtn.LocationId = row["fk_location_id"].ExInt();
                             rtn.LocationName = row["locationname"].ExToString();
                             rtn.Status = row["col_status"].ExInt();
-
-
+                            
+                            
+                            int ptime = row["col_play_time"].ExInt();
+                            int pcnt = row["col_play_team_cnt"].ExInt();
+                            if (ptime > 0)
+                            {
+                                rtn.PlayTime = ptime.ToString();
+                            }
+                            if (pcnt > 0)
+                            {
+                                rtn.PlayTeamCnt = pcnt.ToString();
+                            }
                             List<PlayerModel> playersList = new List<PlayerModel>();
                             rtn.Teams = GetLeagueTeams(rtn.LeagueId, dbseesion, ref playersList);
                             rtn.AllPlayer = playersList;
@@ -266,8 +276,12 @@ namespace EEH.FOOTBALL.BIZ
                     }
                 }
             }
-
-            return rtn;
+            if (rtn != null && rtn.Count > 0)
+            {
+                return rtn.Where(x => x.Players?.Count > 0)?.ToList();
+            }
+            else
+                return rtn;
         }
 
 

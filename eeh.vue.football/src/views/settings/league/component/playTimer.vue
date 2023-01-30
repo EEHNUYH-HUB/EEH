@@ -1,7 +1,7 @@
 <template>
   <n-space align="center">
     <span style="font-variant-numeric: tabular-nums;font-size:30px">
-      <n-countdown ref="countdown" :duration="600000" :active="active" />
+      <n-countdown ref="countdown" :duration="props.timeMin * 60000" :active="active" />
     </span>
     <n-button size="tiny" @click="handlePlay">
       {{active?'STOP':'PLAY'}} 
@@ -14,6 +14,7 @@
 <script setup>
 import {  ref } from 'vue'
 import { CountdownInst  } from 'naive-ui'
+const props = defineProps({timeMin:{type:Number}})
 const active = ref(false)
 const countdown= ref();
 

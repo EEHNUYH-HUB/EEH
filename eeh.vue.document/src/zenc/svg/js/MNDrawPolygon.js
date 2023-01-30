@@ -40,6 +40,7 @@ export default class MNDrawPolygon{
             this.StartPoint = null;
             this.EndPoint = null;
         }
+        return false;
     }
     MouseDown(e) {
         this.IsDown = true;

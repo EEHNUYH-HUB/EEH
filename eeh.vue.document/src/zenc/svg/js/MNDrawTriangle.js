@@ -33,7 +33,7 @@ export default class MNDrawTriangle{
             this.EndPoint = null;
             this.Ps = null;
         }
-
+        return false;
     }
     MouseDown(e) {
         this.IsDown = true;
