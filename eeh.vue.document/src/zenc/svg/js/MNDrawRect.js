@@ -25,6 +25,7 @@ export default class MNDrawLine{
         obj.StrokeColor = this.ColorObj .Stroke;
         obj.FillColor = this.ColorObj.Fill;
         obj.Rect = rect;
+        
         //if(obj.Rect.Width>10 && obj.Rect.Height >10)
         this.ObjList.push(obj)
         this.Eventer.AddedMethod(obj);

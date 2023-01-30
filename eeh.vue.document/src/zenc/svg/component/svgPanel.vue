@@ -1,5 +1,5 @@
 <template>
-    <svg class=" mainsvg " @mousemove="OnMouseMove" @mouseup="OnMouseUp" @mouseout="OnMouseOut"
+    <svg class=" mainsvg " @mousemove="OnMouseMove" @mouseup="OnMouseUp" @mouseout="OnMouseOut" 
         @contextmenu="OnContextMenu" @mousedown="OnMouseDown">
 
         <g v-for="item, index in SvgList" :key="index" @mouseenter="OnMouseEnter(item)" @mouseleave="OnMouseLeave(item)"
@@ -41,13 +41,13 @@
             marker-end="url(#Triangle)" marker-start="url(#Circle)" :stroke="item.StrokeColor" />
 
         <defs>
-            <marker id="Triangle" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="strokeWidth" markerWidth="12"
+            <marker id="Triangle" viewBox="0 0 10 10" refX="6" refY="6" markerUnits="strokeWidth" markerWidth="12"
                 markerHeight="12" orient="auto">
                 <path d="M 0 0 L 10 5 L 0 10 z" />
             </marker>
             <marker id="Circle" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="strokeWidth" markerWidth="12"
                 markerHeight="12" orient="auto">
-                <circle cx="6" cy="6" r="5" />
+                <circle cx="6" cy="6" r="4" />
             </marker>
         </defs>
 
@@ -163,7 +163,9 @@ const OnMouseMove = (e) => {
 }
 const OnMouseUp = (e) => {
     if (Mode.value && Mode.value.MouseUp) {
-        if (Mode.value.Name == "PICK" && !Mode.value.MouseUp(GetOffsetPoint(e))) {
+
+        var v = Mode.value.MouseUp(GetOffsetPoint(e));
+        if (Mode.value.Name == "PICK" && !v) {
             ShowPopoverIcon(e);
         }
         else {
@@ -172,6 +174,7 @@ const OnMouseUp = (e) => {
     }
 
 }
+
 const OnClickIcon = (type) => {
 
     var drawIcon = new MNDrawIcon(SvgList.value, JoinList.value, COLOROBJ.value, Eventer.value);
@@ -180,9 +183,11 @@ const OnClickIcon = (type) => {
 }
 const ShowPopoverIcon = (e) => {
 
-    PopoverObj.value.IsShow = true;
-    PopoverObj.value.X = e.clientX;
-    PopoverObj.value.Y = e.clientY;
+    PopoverObj.value.IsShow = !PopoverObj.value.IsShow;
+    if(PopoverObj.value.IsShow){
+        PopoverObj.value.X = e.clientX;
+        PopoverObj.value.Y = e.clientY;
+    }
 
 }
 const OnMouseOut = (e) => {

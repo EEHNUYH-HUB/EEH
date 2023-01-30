@@ -23,7 +23,7 @@ export default class MNDrawIcon{
         obj.StrokeColor = this.ColorObj .Stroke;
         obj.FillColor = this.ColorObj.Fill;
         obj.Rect = GetRect(x-8, y-8, x+8, y+8);
-        
+        console.log(obj.Rect)
         this.ObjList.push(obj)
         this.Eventer.AddedMethod(obj);
         console.log(obj)

@@ -18,7 +18,7 @@ export default class MNDrawPicker{
         this.SelectObj = null;
         this.IsDrawJoin = false;
         this.JoinItem = null;
-        
+        this.BeforeSelected = false;
 
     }
     
@@ -174,6 +174,7 @@ export default class MNDrawPicker{
     MouseUp(e) {
         this.IsDown = false;
         this.DrawItem = "";
+        
         if (this.SubRect) {
             
             if(this.IsDrawJoin){
@@ -214,7 +215,28 @@ export default class MNDrawPicker{
 
         this.Eventer.SelectedMethod(this.SelectedItems);
 
-        return this.SelectedItems.length > 0;
+        var xV = this.StartPoint.X - this.EndPoint.X;
+        var yV = this.StartPoint.Y - this.EndPoint.Y;
+
+        if(this.SelectedItems.length > 0)
+        {
+            this.BeforeSelected = true;
+            return true;
+        }
+        else if(this.BeforeSelected){
+            this.BeforeSelected = false;
+            return true;
+        }
+        if(xV < 5 && xV > -5 && yV < 5 && yV > -5){
+            this.BeforeSelected = false;
+            return false;
+        }
+        else{
+            this.BeforeSelected = false;
+             return true;
+        }
+
+        
     }
     SizeSvgObj(start, end) {
 

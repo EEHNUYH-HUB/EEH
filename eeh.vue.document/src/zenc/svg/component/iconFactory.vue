@@ -12,6 +12,9 @@
     <squareSvg v-else-if="props.IconType=='square'" :Widht="props.Width" :Height="props.Height" ></squareSvg>
     <triangleSvg v-else-if="props.IconType=='triangle'" :Widht="props.Width" :Height="props.Height" ></triangleSvg>
     <tableSvg v-else-if="props.IconType=='table'" :Widht="props.Width" :Height="props.Height" ></tableSvg>
+    <rect  :width="props.Width" :height="props.Height" fill="red"
+                stroke="black">
+            </rect>
 </template>
 <script setup>
 import chatSvg from '@/zenc/svg/component/icon/chatSvg.vue'
