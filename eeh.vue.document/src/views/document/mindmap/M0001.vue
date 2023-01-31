@@ -2,7 +2,7 @@
     <div :class="store.state.useIsMobile ? 'div_root_mobile' : 'div_root_default'">
         <div :class="store.state.useIsMobile ? 'div_mobile' : 'div_default'" class=" document-scroll-container">
             
-            <svgPanel ></svgPanel>
+            <svgPanel @selectedItem="OnSelectedItem" ></svgPanel>
             
         </div>
     </div>
@@ -13,7 +13,10 @@ import {ref} from 'vue'
 import svgPanel from "@/zenc/svg/component/svgPanel.vue"
 const store = useStore()
 
-const AnchorItems = ref(new Array);
+const OnSelectedItem= (item)=>{
+
+    console.log(item);
+}
 </script>
 <style scoped>
 .div_default{

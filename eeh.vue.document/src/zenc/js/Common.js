@@ -130,7 +130,7 @@ export function GetRect(x1, y1, x2, y2) {
     rect.ScaleY = 1;
     rect.Rotate = 0;
     rect.SubObjs = new Array;
-  
+    
     var size = 5;
     
     var joinPoint = 15;
@@ -162,5 +162,7 @@ export function GetRect(x1, y1, x2, y2) {
       
       return obj;
     }
+
+
     return rect;
   } 

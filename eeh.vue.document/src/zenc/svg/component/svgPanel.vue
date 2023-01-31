@@ -1,12 +1,10 @@
 <template>
-    <svg class=" mainsvg " @mousemove="OnMouseMove" @mouseup="OnMouseUp" @mouseout="OnMouseOut" 
+    <svg class="mainsvg" @mousemove="OnMouseMove" @mouseup="OnMouseUp" @mouseout="OnMouseOut"
         @contextmenu="OnContextMenu" @mousedown="OnMouseDown">
-
         <g v-for="item, index in SvgList" :key="index" @mouseenter="OnMouseEnter(item)" @mouseleave="OnMouseLeave(item)"
             :transform="'translate(' + item.Rect.X + ',' + item.Rect.Y + ') scale(' + item.Rect.ScaleX + ',' + item.Rect.ScaleY + ') rotate(' + item.Rect.Rotate + ',' + item.Rect.Width / 2 + ',' + item.Rect.Height / 2 + ')'">
             <rect v-if="item.Type == 'RECT'" :width="item.Rect.Width" :height="item.Rect.Height" :fill="item.FillColor"
-                :stroke="item.StrokeColor">
-            </rect>
+                :stroke="item.StrokeColor"></rect>
             <ellipse v-else-if="item.Type == 'CIRCLE'" :cx="item.Rect.Width / 2" :cy="item.Rect.Height / 2"
                 :rx="item.Rect.Width / 2" :ry="item.Rect.Height / 2" :fill="item.FillColor" :stroke="item.StrokeColor">
             </ellipse>
@@ -15,15 +13,13 @@
             <path v-else-if="item.Type == 'PEN'" :d="item.Path" :fill="item.FillColor" :stroke="item.StrokeColor" />
             <line v-else-if="item.Type == 'LINE'" :x1="item.X1" :y1="item.Y1" :x2="item.X2" :y2="item.Y2"
                 :fill="item.FillColor" :stroke="item.StrokeColor"></line>
-
             <text v-else-if="item.Type == 'TEXT'" x="12" y="26" :fill="item.FillColor" :stroke="item.StrokeColor">{{
                 item.Text
             }}</text>
-            <iconFactory v-else-if="item.Type == 'ICON'" Width="32" Height="32"  :IconType="item.IconType"></iconFactory>
+            <iconFactory v-else-if="item.Type == 'ICON'" :Item="item"></iconFactory>
             <g v-if="Mode.Name == 'PICK' && item.IsSelected">
                 <rect :width="item.Rect.Width" opacity="0.5" :height="item.Rect.Height" stroke="#96C6DE" fill="none">
                 </rect>
-
                 <g v-for="sub, i in  item.Rect.SubObjs" :key="i">
                     <circle :cx="sub.cX" :cy="sub.cY" :r="sub.R" :stroke="sub.S" stroke-width="0.5" cur
                         @mousedown="sub.IsDown = true" :fill="sub.IsDown ? '#186083' : sub.F">
@@ -32,22 +28,20 @@
             </g>
 
         </g>
-
-
         <path v-if="Mode.Name != 'PICK'" :d="Mode.DrawItem" :fill="DefaultFill" :stroke="DefaultStroke" opacity="0.5" />
         <path v-else :d="Mode.DrawItem" :fill="Mode.IsDrawJoin ? 'none' : '#2391C9'" stroke="#38474E" opacity="0.3" />
 
         <path v-for="item, index in JoinList" :key="index" :d="item.Path" :fill="item.FillColor" stroke-width="0.5"
-            marker-end="url(#Triangle)" marker-start="url(#Circle)" :stroke="item.StrokeColor" />
+            marker-end="url(#Triangle)"  marker-start="url(#Circle)" :stroke="item.StrokeColor" />
 
         <defs>
             <marker id="Triangle" viewBox="0 0 10 10" refX="6" refY="6" markerUnits="strokeWidth" markerWidth="12"
                 markerHeight="12" orient="auto">
-                <path d="M 0 0 L 10 5 L 0 10 z" />
+                <path d="M 0 0 L 10 5 L 0 10 z"  />
             </marker>
             <marker id="Circle" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="strokeWidth" markerWidth="12"
                 markerHeight="12" orient="auto">
-                <circle cx="6" cy="6" r="4" />
+                <circle cx="6" cy="6" r="2" />
             </marker>
         </defs>
 
@@ -58,24 +52,55 @@
         class="md-textarea form-control textarea js-autoresize" v-model="Mode.Text" style="position:absolute;"
         :style="'left:' + Mode.X + 'px;top:' + Mode.Y + 'px;height:' + Mode.H + 'px;width:' + Mode.W + 'px'" />
 
-    <n-popover :show="PopoverObj.IsShow" :x="PopoverObj.X" :y="PopoverObj.Y" trigger="manual" :show-arrow="true">
-        
+    <n-popover :show="PopoverObj.IsShow" :x="PopoverObj.X" :y="PopoverObj.Y" trigger="manual" :show-arrow="true"  >
+
         <n-grid cols="5" :x-gap="12" :y-gap="8" responsive="screen">
             <n-gi v-for="item, index in Icons" :key="index">
-                <n-button @click="OnClickIcon(item)">
-                    <iconFactory Width="16" Height="16" :IconType="item"></iconFactory>
+                <n-button @click="OnClickIcon(item.IconType)">
+                    <iconFactory :Item="item"></iconFactory>
                 </n-button>
             </n-gi>
 
 
         </n-grid>
     </n-popover>
-
+    <n-popover :show="PopoverColorObj.IsShow" v-if="Mode.SelectedItems.length > 0" style="width:320px;height: 210px" :x="PopoverColorObj.X" :y="PopoverColorObj.Y - 60"
+        trigger="manual" :show-arrow="true">
+        <template #header>
+    
+    
+            <n-input v-model:value="Mode.SelectedItems[0].DisplayName" placeholder="화면에 표시될 이름을 입력해주세요." />
+    
+    
+        </template>
+        <n-space vertical >
+            <n-color-picker v-model:value="Mode.SelectedItems[0].StrokeColor" :show-alpha="false" />
+            <n-color-picker v-model:value="Mode.SelectedItems[0].FillColor" :show-alpha="false" />
+        </n-space>
+        <template #footer>
+            <n-button @click="OnShowDetail(Mode.SelectedItems[0])">상세보기</n-button>
+        </template>
+    </n-popover>
+    <n-color-picker v-model:value="COLOROBJ.Stroke" />
+    <n-color-picker v-model:value="COLOROBJ.Fill" />
 
 </template>
 <script setup>
 
-import { ref, defineProps, onMounted, defineExpose, watch } from 'vue'
+import chatSvg from '@/zenc/svg/component/icon/chatSvg.vue'
+import circleSvg from '@/zenc/svg/component/icon/circleSvg.vue'
+import databaseSvg from '@/zenc/svg/component/icon/databaseSvg.vue'
+import diagramSvg from '@/zenc/svg/component/icon/diagramSvg.vue'
+import diamondSvg from '@/zenc/svg/component/icon/diamondSvg.vue'
+import emailSvg from '@/zenc/svg/component/icon/emailSvg.vue'
+import fontsSvg from '@/zenc/svg/component/icon/fontsSvg.vue'
+import listTaskSvg from '@/zenc/svg/component/icon/listTaskSvg.vue'
+import pcSvg from '@/zenc/svg/component/icon/pcSvg.vue'
+import serverSvg from '@/zenc/svg/component/icon/serverSvg.vue'
+import squareSvg from '@/zenc/svg/component/icon/squareSvg.vue'
+import triangleSvg from '@/zenc/svg/component/icon/triangleSvg.vue'
+import tableSvg from '@/zenc/svg/component/icon/tableSvg.vue'
+import { ref, defineProps, onMounted, defineExpose, watch,defineEmits } from 'vue'
 import MNDrawPen from '@/zenc/svg/js/MNDrawPen'
 import MNDrawLine from '@/zenc/svg/js/MNDrawLine'
 import MNDrawRect from '@/zenc/svg/js/MNDrawRect'
@@ -84,12 +109,14 @@ import MNDrawTriangle from '@/zenc/svg/js/MNDrawTriangle'
 import MNDrawPolygon from '@/zenc/svg/js/MNDrawPolygon'
 import MNDrawText from '@/zenc/svg/js/MNDrawText'
 import MNDrawPicker from '@/zenc/svg/js/MNDrawPicker'
-import MNDrawIcon from '@/zenc/svg/js/MNDrawIcon'
+
+import { GetIcons } from '@/zenc/svg/js/MNDrawIcon'
 import { GetOffsetPoint } from "@/zenc/js/Common"
 import iconFactory from "@/zenc/svg/component/iconFactory.vue"
 
+const emits = defineEmits(["selectedItem"])
 const PopoverObj = ref({ IsShow: false, X: 0, Y: 0 })
-
+const PopoverColorObj = ref({ IsShow: false, X: 0, Y: 0 })
 const COLOROBJ = ref(Object);
 
 var obj = new Object;
@@ -99,7 +126,7 @@ COLOROBJ.value = obj;
 
 const DefaultStroke = ref('#000000FF');
 const DefaultFill = ref('#FFFFFF00');
-const SvgList = ref(null);
+const SvgList = ref(new Array);
 const JoinList = ref(new Array);
 const BoforeMode = ref("");
 const Mode = ref(new MNDrawPen);
@@ -110,6 +137,8 @@ const BtnBackgroundColor = ref("bg-white");
 
 const Icons = ref(['chat', 'circle', 'database', 'diagram', 'diamond', 'email', 'fonts', 'listTask', 'pc', 'server', 'square', 'table', 'triangle'])
 
+
+const ShowPopoverPoint = ref(null);
 watch([DefaultStroke, DefaultFill], (newValue, oldValue) => {
     // do Something
     COLOROBJ.value.Stroke = newValue[0];
@@ -120,12 +149,9 @@ watch([DefaultStroke, DefaultFill], (newValue, oldValue) => {
     }
 })
 onMounted(() => {
-
+    Icons.value = GetIcons(COLOROBJ.value);
     window.onkeypress = (e) => {
 
-        // if (Mode.value.Name == "TEXT")
-        //     Mode.value.MouseDown(e)
-        //console.log(e.key)
     }
     window.onkeyup = (e) => {
 
@@ -163,32 +189,54 @@ const OnMouseMove = (e) => {
 }
 const OnMouseUp = (e) => {
     if (Mode.value && Mode.value.MouseUp) {
+        PopoverColorObj.value.IsShow = false
+        PopoverObj.value.IsShow = false;
+        Mode.value.MouseUp(GetOffsetPoint(e));
+        if (Mode.value.Name == "PICK") {
+            var isRight = false;
+            if ("which" in e)
+                isRight = e.which == 3;
+            else if ("button" in e)
+                isRight = e.button == 2;
 
-        var v = Mode.value.MouseUp(GetOffsetPoint(e));
-        if (Mode.value.Name == "PICK" && !v) {
-            ShowPopoverIcon(e);
+
+            if (Mode.value.IsShowColor) {
+                ShowIconColorPicker(e);
+            }
+            else {
+                if (isRight || Mode.value.IsShowIcon) {
+                    ShowPopoverIcon(e);
+                }
+            }
+
         }
-        else {
-            PopoverObj.value.IsShow = false;
-        }
+
     }
 
 }
 
 const OnClickIcon = (type) => {
+    if (Mode.value && Mode.value.DrawIcon) {
+        Mode.value.DrawIcon(type, ShowPopoverPoint.value, 32);
+    }
 
-    var drawIcon = new MNDrawIcon(SvgList.value, JoinList.value, COLOROBJ.value, Eventer.value);
-    drawIcon.DrawIcon(type, PopoverObj.value.X, PopoverObj.value.Y);
     PopoverObj.value.IsShow = false;
 }
 const ShowPopoverIcon = (e) => {
-
+    ShowPopoverPoint.value = GetOffsetPoint(e);
     PopoverObj.value.IsShow = !PopoverObj.value.IsShow;
-    if(PopoverObj.value.IsShow){
+    if (PopoverObj.value.IsShow) {
         PopoverObj.value.X = e.clientX;
         PopoverObj.value.Y = e.clientY;
     }
 
+}
+const ShowIconColorPicker = (e) => {
+    PopoverColorObj.value.IsShow = !PopoverColorObj.value.IsShow;
+    if (PopoverColorObj.value.IsShow) {
+        PopoverColorObj.value.X = e.clientX;
+        PopoverColorObj.value.Y = e.clientY;
+    }
 }
 const OnMouseOut = (e) => {
 }
@@ -271,7 +319,10 @@ Eventer.value.RemovedMethod = function (objs) {
 Eventer.value.SelectedMethod = function (objs) {
     //Props.OnClassInstance.SendObj("SELECT", objs);
 }
-
+const OnShowDetail =(item)=>{
+    PopoverColorObj.value.IsShow=false;
+    emits("selectedItem",item)
+}
 const SetMode = (type) => {
     if (!SvgList.value)
         SvgList.value = new Array;
