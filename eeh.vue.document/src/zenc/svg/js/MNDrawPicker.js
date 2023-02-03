@@ -1,5 +1,5 @@
-import { GetRect, GetCenterforRect, Guid } from "@/zenc/js/Common"
-import { GetIcon } from '@/zenc/svg/js/MNDrawIcon'
+import { Guid } from "@/zenc/js/Common"
+import { GetRect, GetCenterforRect,GetIcon } from '@/zenc/svg/js/Common'
 export default class MNDrawPicker {
     constructor(list, jlist, colorobj, eventer) {
         this.Eventer = eventer;
@@ -19,7 +19,7 @@ export default class MNDrawPicker {
         this.IsDrawJoin = false;
         this.JoinItem = null;
 
-        this.IsShowColor = false;
+        this.IsShowStandby = false;
         this.IsShowIcon = false;
         this.IsRightDown = false;
         this.SelectedItem = null;
@@ -69,11 +69,11 @@ export default class MNDrawPicker {
                 break;
             }
         }
-        this.IsShowColor = false;
+        this.IsShowStandby = false;
         if (selItem) {
 
             if(this.SelectedItem == selItem){
-                this.IsShowColor = true;
+                this.IsShowStandby = true;
             }
 
             this.SelectedItem = selItem;
@@ -194,7 +194,7 @@ export default class MNDrawPicker {
         var isSize = (xV < 5 && xV > -5 && yV < 5 && yV > -5);
         if (this.SelectedItems.length > 0) {
             if (!isSize)
-                this.IsShowColor = false;
+                this.IsShowStandby = false;
 
             this.IsShowIcon = false;
 

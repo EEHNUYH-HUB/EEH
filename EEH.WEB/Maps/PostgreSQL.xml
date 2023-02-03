@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SmartSqlMap Scope="PostgreSQL"  xmlns="http://SmartSql.net/schemas/SmartSqlMap.xsd">
+	<Statements>
+		<Statement Id="SELTABLES">
+			SELECT	* 
+			FROM	INFORMATION_SCHEMA.TABLES
+			WHERE	TABLE_SCHEMA = 'public' ORDER BY TABLE_NAME
+		</Statement>
+	</Statements>
+</SmartSqlMap>

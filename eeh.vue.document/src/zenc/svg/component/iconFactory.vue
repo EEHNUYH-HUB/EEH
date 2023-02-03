@@ -13,7 +13,8 @@
         <serverSvg v-else-if="props.Item.IconType=='server'"  ></serverSvg>
         <squareSvg v-else-if="props.Item.IconType=='square'"  ></squareSvg>
         <triangleSvg v-else-if="props.Item.IconType=='triangle'"  ></triangleSvg>
-        <tableSvg v-else-if="props.Item.IconType=='table'"  ></tableSvg>
+        <tableSvg v-else-if="props.Item.IconType=='table'" ></tableSvg>
+        <sqlSvg v-else-if="props.Item.IconType=='sql'"  ></sqlSvg>
     </svg>
     <text   :fill="props.Item.StrokeColor"  :x="props.Item.Rect.Width+30" :y="Item.Rect.Height/2+5" v-if="props.Item.IsShowDisplayName && props.Item.DisplayName">{{props.Item.DisplayName}}</text>
 </template>
@@ -27,6 +28,7 @@ import emailSvg from '@/zenc/svg/component/icon/emailSvg.vue'
 import fontsSvg from '@/zenc/svg/component/icon/fontsSvg.vue'
 import listTaskSvg from '@/zenc/svg/component/icon/listTaskSvg.vue'
 import pcSvg from '@/zenc/svg/component/icon/pcSvg.vue'
+import sqlSvg from '@/zenc/svg/component/icon/sqlSvg.vue'
 import serverSvg from '@/zenc/svg/component/icon/serverSvg.vue'
 import squareSvg from '@/zenc/svg/component/icon/squareSvg.vue'
 import triangleSvg from '@/zenc/svg/component/icon/triangleSvg.vue'
@@ -36,13 +38,12 @@ import {ref} from 'vue'
 const props = defineProps({ Item:{type:Object}})
 </script>
 <style scoped>
-svg text {
+div {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    user-select: none;
 }
-svg text::selection {
-    background: none;
-}
+
 </style>

@@ -3,6 +3,8 @@
         @contextmenu="OnContextMenu" @mousedown="OnMouseDown">
         <g v-for="item, index in SvgList" :key="index" @mouseenter="OnMouseEnter(item)" @mouseleave="OnMouseLeave(item)"
             :transform="'translate(' + item.Rect.X + ',' + item.Rect.Y + ') scale(' + item.Rect.ScaleX + ',' + item.Rect.ScaleY + ') rotate(' + item.Rect.Rotate + ',' + item.Rect.Width / 2 + ',' + item.Rect.Height / 2 + ')'">
+      
+
             <rect v-if="item.Type == 'RECT'" :width="item.Rect.Width" :height="item.Rect.Height" :fill="item.FillColor"
                 :stroke="item.StrokeColor"></rect>
             <ellipse v-else-if="item.Type == 'CIRCLE'" :cx="item.Rect.Width / 2" :cy="item.Rect.Height / 2"
@@ -17,6 +19,7 @@
                 item.Text
             }}</text>
             <iconFactory v-else-if="item.Type == 'ICON'" :Item="item"></iconFactory>
+            <itemFactory v-else-if="item.Type == 'ITEM'" :Item = item></itemFactory>
             <g v-if="Mode.Name == 'PICK' && item.IsSelected">
                 <rect :width="item.Rect.Width" opacity="0.5" :height="item.Rect.Height" stroke="#96C6DE" fill="none">
                 </rect>
@@ -26,7 +29,7 @@
                     </circle>
                 </g>
             </g>
-
+            
         </g>
         <path v-if="Mode.Name != 'PICK'" :d="Mode.DrawItem" :fill="DefaultFill" :stroke="DefaultStroke" opacity="0.5" />
         <path v-else :d="Mode.DrawItem" :fill="Mode.IsDrawJoin ? 'none' : '#2391C9'" stroke="#38474E" opacity="0.3" />
@@ -44,8 +47,9 @@
                 <circle cx="6" cy="6" r="2" />
             </marker>
         </defs>
+        
 
-
+       
     </svg>
 
     <input type="text" v-if="Mode.Name == 'TEXT' && Mode.IsDown" @keydown="OnKeyUp"
@@ -64,42 +68,13 @@
 
         </n-grid>
     </n-popover>
-    <n-popover :show="PopoverColorObj.IsShow" v-if="Mode.SelectedItems.length > 0" style="width:320px;height: 210px" :x="PopoverColorObj.X" :y="PopoverColorObj.Y - 60"
-        trigger="manual" :show-arrow="true">
-        <template #header>
     
-    
-            <n-input v-model:value="Mode.SelectedItems[0].DisplayName" placeholder="화면에 표시될 이름을 입력해주세요." />
-    
-    
-        </template>
-        <n-space vertical >
-            <n-color-picker v-model:value="Mode.SelectedItems[0].StrokeColor" :show-alpha="false" />
-            <n-color-picker v-model:value="Mode.SelectedItems[0].FillColor" :show-alpha="false" />
-        </n-space>
-        <template #footer>
-            <n-button @click="OnShowDetail(Mode.SelectedItems[0])">상세보기</n-button>
-        </template>
-    </n-popover>
     <n-color-picker v-model:value="COLOROBJ.Stroke" />
     <n-color-picker v-model:value="COLOROBJ.Fill" />
 
 </template>
 <script setup>
 
-import chatSvg from '@/zenc/svg/component/icon/chatSvg.vue'
-import circleSvg from '@/zenc/svg/component/icon/circleSvg.vue'
-import databaseSvg from '@/zenc/svg/component/icon/databaseSvg.vue'
-import diagramSvg from '@/zenc/svg/component/icon/diagramSvg.vue'
-import diamondSvg from '@/zenc/svg/component/icon/diamondSvg.vue'
-import emailSvg from '@/zenc/svg/component/icon/emailSvg.vue'
-import fontsSvg from '@/zenc/svg/component/icon/fontsSvg.vue'
-import listTaskSvg from '@/zenc/svg/component/icon/listTaskSvg.vue'
-import pcSvg from '@/zenc/svg/component/icon/pcSvg.vue'
-import serverSvg from '@/zenc/svg/component/icon/serverSvg.vue'
-import squareSvg from '@/zenc/svg/component/icon/squareSvg.vue'
-import triangleSvg from '@/zenc/svg/component/icon/triangleSvg.vue'
-import tableSvg from '@/zenc/svg/component/icon/tableSvg.vue'
 import { ref, defineProps, onMounted, defineExpose, watch,defineEmits } from 'vue'
 import MNDrawPen from '@/zenc/svg/js/MNDrawPen'
 import MNDrawLine from '@/zenc/svg/js/MNDrawLine'
@@ -110,13 +85,17 @@ import MNDrawPolygon from '@/zenc/svg/js/MNDrawPolygon'
 import MNDrawText from '@/zenc/svg/js/MNDrawText'
 import MNDrawPicker from '@/zenc/svg/js/MNDrawPicker'
 
-import { GetIcons } from '@/zenc/svg/js/MNDrawIcon'
-import { GetOffsetPoint } from "@/zenc/js/Common"
+import { GetIcons,GetOffsetPoint } from '@/zenc/svg/js/Common'
+
 import iconFactory from "@/zenc/svg/component/iconFactory.vue"
+import itemFactory from "@/zenc/svg/component/itemFactory.vue"
 
 const emits = defineEmits(["selectedItem"])
+
+
+const SvgList = ref(new Array);
+const JoinList = ref(new Array);
 const PopoverObj = ref({ IsShow: false, X: 0, Y: 0 })
-const PopoverColorObj = ref({ IsShow: false, X: 0, Y: 0 })
 const COLOROBJ = ref(Object);
 
 var obj = new Object;
@@ -126,8 +105,7 @@ COLOROBJ.value = obj;
 
 const DefaultStroke = ref('#000000FF');
 const DefaultFill = ref('#FFFFFF00');
-const SvgList = ref(new Array);
-const JoinList = ref(new Array);
+
 const BoforeMode = ref("");
 const Mode = ref(new MNDrawPen);
 
@@ -189,7 +167,7 @@ const OnMouseMove = (e) => {
 }
 const OnMouseUp = (e) => {
     if (Mode.value && Mode.value.MouseUp) {
-        PopoverColorObj.value.IsShow = false
+        
         PopoverObj.value.IsShow = false;
         Mode.value.MouseUp(GetOffsetPoint(e));
         if (Mode.value.Name == "PICK") {
@@ -200,8 +178,9 @@ const OnMouseUp = (e) => {
                 isRight = e.button == 2;
 
 
-            if (Mode.value.IsShowColor) {
-                ShowIconColorPicker(e);
+            if (Mode.value.IsShowStandby) {
+                OnShowDetail();
+                
             }
             else {
                 if (isRight || Mode.value.IsShowIcon) {
@@ -231,13 +210,7 @@ const ShowPopoverIcon = (e) => {
     }
 
 }
-const ShowIconColorPicker = (e) => {
-    PopoverColorObj.value.IsShow = !PopoverColorObj.value.IsShow;
-    if (PopoverColorObj.value.IsShow) {
-        PopoverColorObj.value.X = e.clientX;
-        PopoverColorObj.value.Y = e.clientY;
-    }
-}
+
 const OnMouseOut = (e) => {
 }
 const OnMouseDown = (e) => {
@@ -319,9 +292,13 @@ Eventer.value.RemovedMethod = function (objs) {
 Eventer.value.SelectedMethod = function (objs) {
     //Props.OnClassInstance.SendObj("SELECT", objs);
 }
-const OnShowDetail =(item)=>{
-    PopoverColorObj.value.IsShow=false;
-    emits("selectedItem",item)
+const OnShowDetail = () => {
+    if (Mode.value && Mode.value.SelectedItems.length > 0) {
+        var item = Mode.value.SelectedItems[0]
+
+        emits("selectedItem", item)
+        Mode.value.IsShowStandby = false;
+    }
 }
 const SetMode = (type) => {
     if (!SvgList.value)
@@ -359,7 +336,7 @@ const SetMode = (type) => {
 SetMode("PICK");
 
 defineExpose({
-    RemoteAddObj, RemoteRemoveObj, RemoteSelectObj, RemoteChangeObj, RemoteUnSelectObj
+    RemoteAddObj, RemoteRemoveObj, RemoteSelectObj, RemoteChangeObj, RemoteUnSelectObj,SvgList,JoinList
 });
 
 

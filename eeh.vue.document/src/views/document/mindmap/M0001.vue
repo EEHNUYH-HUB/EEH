@@ -6,16 +6,22 @@
             
         </div>
     </div>
+    
+    <taskFactory v-model:show="IsShowTaskDtl" :Item = "SelectedItem"></taskFactory>
+    
 </template>
 <script setup>
 import { useStore } from "vuex";
 import {ref} from 'vue'
 import svgPanel from "@/zenc/svg/component/svgPanel.vue"
+import taskFactory from "@/zenc/svg/component/taskFactory.vue"
 const store = useStore()
+const SelectedItem = ref(null)
+const IsShowTaskDtl = ref(false)
 
 const OnSelectedItem= (item)=>{
-
-    console.log(item);
+    SelectedItem.value = item
+    IsShowTaskDtl.value = true
 }
 </script>
 <style scoped>

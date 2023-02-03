@@ -1,14 +1,14 @@
 <template>
     <n-layout-header class="nav" bordered style="height: 64px; " :style="style">
         <n-text tag="div" class="ui-logo" :depth="1" >
-      <img src="@/assets/main_logo.jpg" style="height:62px">
-      
+      <img src="@/assets/main_logo.png" style="height:32px">
+      <span v-if="!store.state.useIsMobile">Developer</span>
     </n-text>
     <div :style="!store.state.useIsMobile ? 'display: flex; align-items: center;' : ''">
       <div v-if="!(store.state.useIsMobile || store.state.useIsTablet)" class="nav-menu">
         <n-menu     mode="horizontal"  v-model:value="headerObj.ActiveKey" :options="headerObj.Menus" />
       </div>
-      <!-- <n-auto-complete :style="!store.state.useIsMobile ? 'width: 216px; margin-left: 24px' : undefined" placeholder="Search" clear-after-select blur-after-select /> -->
+       <n-auto-complete :style="!store.state.useIsMobile ? 'width: 216px; margin-left: 24px' : undefined" placeholder="Search" clear-after-select blur-after-select /> 
     </div>
     
     

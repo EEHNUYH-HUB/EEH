@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EEH.DB\EEH.DB.csproj" />
     <ProjectReference Include="..\EEH.FOOTBALL.BIZ\EEH.FOOTBALL.BIZ.csproj" />
     <ProjectReference Include="..\EEH.WEB\EEH.WEB.csproj" />
     <ProjectReference Include="..\EEH\EEH.csproj" />
