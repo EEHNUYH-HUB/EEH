@@ -152,3 +152,12 @@ function BindingApiKeySend(url, type, complete) {
     
     httpReq.send(null);
 }
+
+
+export function WinRate(wincnt,tiecnt,losscnt){
+    var totalCnt = wincnt+ losscnt + tiecnt;
+        if (totalCnt > 0) {
+            return ((wincnt +tiecnt*0.5)* 100.0 / totalCnt).toFixed(0)*1;
+        }
+        else return 0;
+}

@@ -1,7 +1,9 @@
 <template>
     <n-card title="테이블 정보" size="small" v-if="tables">
         <n-space vertical>
-            <n-select v-model:value="props.Item.TableName" filterable placeholder="데이터베이스 타입을 선택해주세요."
+            <n-select
+            @update:value="handleUpdateValue"
+            v-model:value="props.Item.TableName" filterable placeholder="데이터베이스 타입을 선택해주세요."
                 :options="tables" />
         </n-space>
     </n-card>
@@ -41,5 +43,8 @@ onMounted(async () => {
     }
 
 })
+const handleUpdateValue = (value)=>{
 
+    props.Item.DisplayName = value;
+}
 </script>

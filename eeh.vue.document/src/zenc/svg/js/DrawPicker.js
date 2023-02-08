@@ -1,17 +1,19 @@
 import { Guid } from "@/zenc/js/Common"
-import { GetRect, GetCenterforRect,GetIcon } from '@/zenc/svg/js/Common'
+import { GetCenterforRect,GetIcon,GetOffsetPoint } from '@/zenc/svg/js/Common'
+
 export default class MNDrawPicker {
-    constructor(list, jlist, colorobj, eventer) {
-        this.Eventer = eventer;
-        this.ObjList = list;
-        this.JoinList = jlist;
+    constructor() {
+        this.ObjList = new Array;
+        this.JoinList = new Array;
         this.Name = "PICK";
         this.IsDown = false;
 
         this.StartPoint = null;
         this.BeforeRotate = null;
         this.EndPoint = null;
-        this.ColorObj = colorobj;
+        this.ColorObj = new Object;
+        this.ColorObj.Stroke = "#000000FF";
+        this.ColorObj.Fill = "#FFFFFF00";
         this.SelectedItems = new Array;
 
         this.SubRect = null;
@@ -25,16 +27,15 @@ export default class MNDrawPicker {
         this.SelectedItem = null;
     }
 
-    MouseDown(e) {
-
+    MouseDown(eventArg) {
+        
+        var e = GetOffsetPoint(eventArg);
         this.IsDown = true;
 
         this.StartPoint = new Object;
-        this.StartPoint.X = e.offsetX;
-        this.StartPoint.Y = e.offsetY;
-        this.EndPoint = new Object;
-        this.EndPoint.X = e.offsetX;
-        this.EndPoint.Y = e.offsetY;
+        this.StartPoint.X =e.X;
+        this.StartPoint.Y =e.Y;
+        this.EndPoint = e;
 
         if (this.SelectedItems.length > 0) {
             for (var i in this.SelectedItems) {
@@ -64,7 +65,7 @@ export default class MNDrawPicker {
         for (var i in this.ObjList) {
 
             var item = this.ObjList[i];
-            if (this.IsFind(item.Rect, e.offsetX, e.offsetY)) {
+            if (this.IsFind(item.Rect, e.X, e.Y)) {
                 selItem = item;
                 break;
             }
@@ -97,13 +98,13 @@ export default class MNDrawPicker {
             this.AllUnSelected()
         }
     }
-    MouseMove(e) {
+    MouseMove(eventArg) {
+        
+        var e = GetOffsetPoint(eventArg);
         if (this.IsDown && this.SelectedItems && this.SelectedItems.length > 0) {
 
             if (!this.IsDrawJoin) {
-                var end = new Object;
-                end.X = e.offsetX;
-                end.Y = e.offsetY;
+                var end =e;
 
                 if (this.SubRect) {
                     this.SizeSvgObj(this.StartPoint, end)
@@ -116,18 +117,13 @@ export default class MNDrawPicker {
                 this.StartPoint.Y = end.Y;
             }
             else {
-                this.EndPoint.X = e.offsetX;
-                this.EndPoint.Y = e.offsetY;
-
-
+                this.EndPoint =e ;
                 this.DrawItem = this.GetDrawPathCurve(this.EndPoint);
-
-
             }
         }
         else if (this.IsDown) {
-            this.EndPoint.X = e.offsetX;
-            this.EndPoint.Y = e.offsetY;
+            this.EndPoint = e;
+            
 
             this.DrawItem
                 = " M" + this.StartPoint.X + " " + this.StartPoint.Y
@@ -138,7 +134,8 @@ export default class MNDrawPicker {
         }
     }
 
-    MouseUp(e) {
+    MouseUp(eventArg) {
+        
         this.IsDown = false;
         this.DrawItem = "";
         
@@ -173,6 +170,33 @@ export default class MNDrawPicker {
         }
         this.IsShowIcon = false;
 
+       this.Select();
+
+
+        var xV = this.StartPoint.X - this.EndPoint.X;
+        var yV = this.StartPoint.Y - this.EndPoint.Y;
+
+        var isSize = (xV < 5 && xV > -5 && yV < 5 && yV > -5);
+        if (this.SelectedItems.length > 0) {
+            if (!isSize)
+                this.IsShowStandby = false;
+
+            this.IsShowIcon = false;
+        }
+
+        if(isSize && !this.IsShowStandby && !this.IsShowIcon){
+            var isRight = false;
+
+            if(eventArg){
+                if ("which" in eventArg)
+                    isRight = eventArg.which == 3;
+                else if ("button" in eventArg)
+                    isRight = eventArg.button == 2;
+            }
+            this.IsShowIcon = isRight;
+        }
+    }
+    Select(){
         if (this.SelectedItems.length == 0) {
             for (var i in this.ObjList) {
 
@@ -186,21 +210,7 @@ export default class MNDrawPicker {
             }
         }
 
-        this.Eventer.SelectedMethod(this.SelectedItems);
-
-        var xV = this.StartPoint.X - this.EndPoint.X;
-        var yV = this.StartPoint.Y - this.EndPoint.Y;
-
-        var isSize = (xV < 5 && xV > -5 && yV < 5 && yV > -5);
-        if (this.SelectedItems.length > 0) {
-            if (!isSize)
-                this.IsShowStandby = false;
-
-            this.IsShowIcon = false;
-
-        }
     }
-
     DrawJoin(startObj, endObj, obj) {
         var sObj = this.GetJoinPoint(startObj, endObj.Rect, "ALL");
         var eObj = this.GetJoinPoint(endObj, sObj.P, sObj.IsH ? "LR" : "BT");
@@ -226,26 +236,28 @@ export default class MNDrawPicker {
                 this.JoinItem.JoinObjs = new Array;
             }
             this.JoinItem.JoinObjs.push(obj);
-
+            obj.StartType = "url(#Circle)";
+            obj.EndType = "url(#Triangle)";
+            obj.JoinType= "line";
             this.JoinList.push(obj);
-            this.Eventer.AddedMethod(obj);
+            
         }
         else {
             obj.Path = path;
         }
     }
 
-    DrawIcon(type, e, size) {
+    DrawIcon(type, size) {
 
-        var obj = GetIcon(type, e.offsetX, e.offsetY, size, this.ColorObj);
+        var obj = GetIcon(type, this.EndPoint.X, this.EndPoint.Y, size, this.ColorObj);
         obj.ID = Guid();
         obj.IsShowDisplayName = true;
         this.ObjList.push(obj)
-        this.Eventer.AddedMethod(obj);
+        
 
         if (this.IsDrawJoin) {
             this.JoinItem = obj
-            this.MouseUp(e);
+            this.MouseUp(null);
         }
     }
 
@@ -367,7 +379,7 @@ export default class MNDrawPicker {
             this.ChangeObj.Rect.Height = h;
 
         }
-        this.Eventer.ChangedMethod(this.SelectedItems);
+        
     }
     MoveSvgObj(start, end) {
         for (var i in this.SelectedItems) {
@@ -392,7 +404,7 @@ export default class MNDrawPicker {
         }
 
 
-        this.Eventer.ChangedMethod(this.SelectedItems);
+        
 
     }
 
@@ -403,7 +415,7 @@ export default class MNDrawPicker {
                 obj.StrokeColor = ColorObj.Stroke;
                 obj.FillColor = ColorObj.Fill;
             }
-            this.Eventer.ChangedMethod(this.SelectedItems);
+            
         }
     }
 
@@ -426,7 +438,7 @@ export default class MNDrawPicker {
         }
 
         this.AllUnSelected()
-        this.Eventer.RemovedMethod(deleteItems);
+        
     }
     IsFind(rect, x, y) {
         if (rect && x && y) {

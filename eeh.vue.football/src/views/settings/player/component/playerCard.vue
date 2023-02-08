@@ -5,7 +5,7 @@
             <n-grid cols="3 s:5 m:5 l:5 xl:5 2xl:5" responsive="screen">
                 <n-gi>
                     <n-space >
-                        <n-statistic align="center"  label="승률(%)" :value="WinRate" />
+                        <n-statistic align="center"  label="승률(%)" :value="Rate" />
                     </n-space>
                 </n-gi>
                 <n-gi>
@@ -61,7 +61,7 @@
 </template>
 <script setup>
 import { onMounted, ref, computed } from "vue"
-import { GetBirthDay, GetPhoneNumber,ImageLink } from "@/zenc/js/Common"
+import { GetBirthDay, GetPhoneNumber,ImageLink,WinRate } from "@/zenc/js/Common"
 import Uploader from "@/zenc/layout/components/Uploader.vue"
 import createPlayer from '@/views/settings/player/component/createPlayer.vue'
 const IsShowCreatePanel = ref(false);
@@ -70,13 +70,9 @@ const Props = defineProps({
     Item: { type: Object }
 })
 
-const WinRate = computed(({
+const Rate = computed(({
     get() {
-        var totalCnt = Props.Item.wincnt + Props.Item.losscnt + Props.Item.tiecnt;
-        if (totalCnt > 0) {
-            return (Props.Item.wincnt * 100.0 / totalCnt).toFixed(0);
-        }
-        else '0%';
+        return WinRate(Props.Item.wincnt,Props.Item.tiecnt,Props.Item.losscnt);
     }
 }))
 

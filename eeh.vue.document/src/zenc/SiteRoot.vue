@@ -11,6 +11,7 @@ import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import cpp from 'highlight.js/lib/languages/cpp'
 import csharp from 'highlight.js/lib/languages/csharp'
+import sql from 'highlight.js/lib/languages/sql'
 
 import { onMounted, onBeforeMount } from 'vue'
 import { koKR, dateKoKR } from "naive-ui";
@@ -20,6 +21,7 @@ import { useLoadingBar, useMessage, useNotification } from 'naive-ui'
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('cpp', cpp)
 hljs.registerLanguage('csharp', csharp)
+hljs.registerLanguage('sql', sql)
 
 
 const store = useStore()

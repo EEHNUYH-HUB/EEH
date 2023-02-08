@@ -2,7 +2,7 @@
   <div :class="store.state.useIsMobile ? 'div_root_mobile' : 'div_root_default'">
     <div :class="store.state.useIsMobile ? 'div_mobile' : 'div_default'" class=" document-scroll-container">
       <Breadcrumb></Breadcrumb>
-      <n-grid cols="1 s:1 m:2 l:2 xl:5 2xl:5" :x-gap="12" :y-gap="8" responsive="screen">
+      <n-grid cols="1 s:1 m:2 l:2 xl:3 2xl:4" :x-gap="12" :y-gap="8" responsive="screen">
         <n-gi v-for="(item, index) in data" :key="index">
           <n-card :title="item.title" :id="'id' + item.type">
             <n-data-table :columns="item.columns" :data="item.data" :bordered="true" :single-line="false" single-column
@@ -25,7 +25,7 @@ import { useStore } from "vuex";
 import Breadcrumb from "@/zenc/layout/components/Breadcrumb.vue"
 import { CashOutline as CashIcon } from '@vicons/ionicons5'
 import Anchor from "@/zenc/layout/components/Anchor.vue"
-
+import {WinRate} from '@/zenc/js/Common'
 const store = useStore()
 const data = ref(null)
 const AnchorItems = ref(new Array);
@@ -39,13 +39,8 @@ onMounted(async () => {
   var dt2 = await store.state.apiClient.ExecDataTable('SQL', 'SELMEMBER', null);
   for (var i in dt2) {
     var row = dt2[i];
-    var totalCnt = row.wincnt + row.losscnt + row.tiecnt;
-    if (totalCnt > 0) {
-      row.rate= (row.wincnt * 100.0 / totalCnt).toFixed(0);
-    }
-    else {
-      row.rate = 0;
-    }
+
+    row.rate = WinRate(row.wincnt,row.tiecnt,row.losscnt);
   }
 
   data.value.push(convertTo('rate', dt2));

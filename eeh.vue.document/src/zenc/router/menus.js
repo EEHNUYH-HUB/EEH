@@ -178,7 +178,7 @@ const menuJsonList =
         ,name:"시각화 셋팅"
         ,path:"mind"
         ,desc: ""
-        ,component: () => import("@/zenc/layout/LY0002.vue")
+        ,component: () => import("@/zenc/layout/LY0001.vue")
         ,children:[
             {
                 id:"4-0"
