@@ -47,7 +47,7 @@ export default class MNDrawSqlPicker extends DrawPicker {
         cp2.Y = sObj.P.Y > eObj.P.Y ? -8:8;
         var path = ""
         var path2 = ""
-
+        
 
         
         
@@ -84,8 +84,8 @@ export default class MNDrawSqlPicker extends DrawPicker {
             
         }
       
-            obj.ColumnSP = sObj.P;  
-        obj.ColumnEP = eObj.P;
+        obj.ColumnSP = cp1;  
+        obj.ColumnEP = cp2;
             obj.Path = path;
             obj.Path2 = path2;
             obj.Rect= rect;

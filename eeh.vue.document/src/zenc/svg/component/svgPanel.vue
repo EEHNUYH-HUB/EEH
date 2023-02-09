@@ -98,6 +98,9 @@ const ShowPopoverIcon = (e) => {
 }
 
 const OnMouseOut = (e) => {
+    if (Picker.value && Picker.value.MouseOut) {
+        Picker.value.MouseOut(e);
+    }
 }
 const OnMouseDown = (e) => {
 

@@ -133,7 +133,9 @@ export default class MNDrawPicker {
                 + " L" + this.StartPoint.X + " " + this.StartPoint.Y + " Z";
         }
     }
-
+    MouseOut(eventArg){
+        
+    }
     MouseUp(eventArg) {
         
         this.IsDown = false;

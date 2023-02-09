@@ -1,7 +1,23 @@
 <template>
-    <n-card title="쿼리 정보" size="small">
-        <svgPanel ref="svgPanelCtrl"></svgPanel>
-    </n-card>
+    <n-grid cols="1" :x-gap="12" :y-gap="8" responsive="screen">
+        <n-gi>
+            <n-card title="다이어그램" size="small">
+                <svgPanel ref="svgPanelCtrl" Height="500px" SvgHeight="1000px"></svgPanel>
+            </n-card>
+        </n-gi>
+        <n-gi>
+            <n-card title="쿼리" size="small">
+                <n-code word-wrap code="
+                SELECT * FROM
+" language="sql" />
+                    
+            </n-card>
+        </n-gi>
+        <n-gi>
+            <n-card title="결과" size="small">
+            </n-card>
+        </n-gi>
+    </n-grid>
 </template>
 <script setup>
 import { ref, defineProps, onMounted } from "vue"
@@ -16,10 +32,10 @@ const props = defineProps({ Item: { type: Object } })
 const dbObj = ref(null);
 
 onMounted(async () => {
-    
+
     // SvgList.value = svgPanelCtrl.value.SvgList;
     // JoinList.value = svgPanelCtrl.value.JoinList;
-    
+
     svgPanelCtrl.value.SetPicker("sql");
     var picker = svgPanelCtrl.value.Picker;
     dbObj.value = GetDatabaseInfo(props.Item);
