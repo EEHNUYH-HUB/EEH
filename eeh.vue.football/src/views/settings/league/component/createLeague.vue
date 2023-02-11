@@ -112,9 +112,9 @@
                                 <n-space vertical v-if="NewLeague.status === 4">
                                     <n-grid cols="1" :x-gap="12" :y-gap="8" responsive="screen">
                                         <n-gi v-for="game, gameIndex in NewLeague.games" :key="gameIndex">
-                                            <n-card size="small" :title="(gameIndex + 1) + '경기'" v-if="!game.isEnd">
+                                            <n-card size="small"   :title="(gameIndex + 1) + '경기'" v-if="!game.isEnd">
 
-                                                <teamScore :Game="game" :IsLeft="true" :Teams="NewLeague.teams">
+                                                <teamScore :Game="game" :IsLeft="true" v-model:ShowObj="showObj" :Teams="NewLeague.teams">
                                                 </teamScore>
 
                                                 <play-timer v-if="game.leftTeam && game.rightTeam" :timeMin="NewLeague.playTime" style="margin:20px 0px 20px 0px"></play-timer>
@@ -132,9 +132,11 @@
 
                                                 </n-space>
 
-                                                <teamScore :Game="game" :IsLeft="false" :Teams="NewLeague.teams"
+                                                <teamScore :Game="game" :IsLeft="false" v-model:ShowObj="showObj" :Teams="NewLeague.teams"
                                                     v-if="!game.isEnd">
                                                 </teamScore>
+
+                                                <modalScore :Game="game" v-model:ShowObj="showObj" ></modalScore>
 
                                             </n-card>
                                             <n-alert v-else @close="CloseGame(game)" closable :show-icon="false"
@@ -179,10 +181,11 @@
 </template>
 <script setup>
 import { defineExpose, defineEmits } from 'vue'
-import { NAvatar, NCheckbox, TransferRenderTargetLabel } from 'naive-ui'
+import { NAvatar, NCheckbox } from 'naive-ui'
 import teamCard from '@/views/settings/league/component/teamCard.vue'
 import teamScore from '@/views/settings/league/component/teamScore.vue'
 import playTimer from '@/views/settings/league/component/playTimer.vue'
+import modalScore from '@/views/settings/league/component/modalScore.vue'
 import { ref, onMounted } from 'vue';
 import { useStore } from "vuex";
 import { ConvertDateToYYYYMMDD, ConvertYYYYMMDDToDate, ConvertYYYYMMDDToStringDate ,ImageLink} from '@/zenc/js/Common'
@@ -196,7 +199,7 @@ const SelectedPlayers = ref(new Array);
 const Teams = ref(new Array);
 const PlayTeams = ref(new Array);
 const LeagueTeams = ref(new Array);
-
+const showObj = ref(new Object);
 onMounted(async () => {
     await Init();
     await InitEditMode();
