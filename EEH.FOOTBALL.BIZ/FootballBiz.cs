@@ -264,8 +264,11 @@ namespace EEH.FOOTBALL.BIZ
                         int teamTypeID = row["fk_team_type_id"].ExInt();
                         int playerID = row["fk_member_id"].ExInt();
                         string palyerName = row["col_name"].ExToString();
+                        int win = row["wincnt"].ExInt();
+                        int loss = row["losscnt"].ExInt();
+                        int tie = row["tiecnt"].ExInt();
 
-                        PlayerModel player = new PlayerModel { PlayerId = playerID, Name = palyerName };
+                        PlayerModel player = new PlayerModel { PlayerId = playerID, Name = palyerName ,WinCnt=win,LossCnt=loss,TieCnt=tie};
                         players.Add(player);
 
                         TeamModel team = rtn.Find(x => x.TeamId == teamTypeID);

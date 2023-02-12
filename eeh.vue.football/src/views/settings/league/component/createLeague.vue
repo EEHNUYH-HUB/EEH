@@ -68,13 +68,13 @@
                                 <n-space vertical v-if="NewLeague.status === 3">
                                     <n-grid cols="1" :x-gap="12" :y-gap="8" responsive="screen">
                                         <n-gi v-for="team, teamIndex in PlayTeams" :key="teamIndex" >
-                                            <n-alert hoverable size="small" :title="team.teamName" :type="team.teamType"
+                                            <n-alert hoverable size="small" :title="team.teamName+ (team.Rate?' (예상승률 :'+team.Rate+'%)':'')" :type="team.teamType"
                                                 :show-icon="false">
                                                 <n-space>
                                                     <template v-for="item, index in NewLeague.allPlayer" :key="index">
                                                         <n-checkbox v-model:checked="item.isChecked" :label="item.name"
                                                             v-if="item.teamId === 0 || item.teamId === team.teamId"
-                                                            @click="OnCheck(item, team.teamId)" />
+                                                            @click="OnCheck(item, team.teamId,false)" />
                                                     </template>
                                                 </n-space>
                                             </n-alert>
@@ -188,7 +188,7 @@ import playTimer from '@/views/settings/league/component/playTimer.vue'
 import modalScore from '@/views/settings/league/component/modalScore.vue'
 import { ref, onMounted } from 'vue';
 import { useStore } from "vuex";
-import { ConvertDateToYYYYMMDD, ConvertYYYYMMDDToDate, ConvertYYYYMMDDToStringDate ,ImageLink} from '@/zenc/js/Common'
+import { ConvertDateToYYYYMMDD, ConvertYYYYMMDDToDate, ConvertYYYYMMDDToStringDate ,ImageLink,WinRate} from '@/zenc/js/Common'
 
 const store = useStore();
 const current = ref(true)
@@ -275,8 +275,10 @@ const InitEditMode = async () => {
     return false;
 }
 const TxtPlayer = ref("");
-const OnCheck = (item, id) => {
+
+const OnCheck = (item, id,isAuto) => {
     item.teamId != id ? item.teamId = id : item.teamId = 0;
+    item.isAutoChk = isAuto;
 }
 const pastePlayer = () => {
     var txt = TxtPlayer.value;
@@ -326,9 +328,15 @@ const ClearPlayer =() =>{
             player.isChecked = false;
     }
 
+    for( var i in PlayTeams.value){
+        var t = PlayTeams.value[i];
+        
+         t.Rate =null;
+    }
+
 }
 const AutoMapping = () => {
-    alert("승률 기준으로 자동으로 팀이 구성 됩니다.(데이터 부족으로 랜덤)");
+    
 
     var teamCnt = NewLeague.value.playTeamCnt*1;
 
@@ -336,7 +344,7 @@ const AutoMapping = () => {
     var sub = NewLeague.value.allPlayer.length%teamCnt;
     
 
-    console.log(NewLeague.value.allPlayer);
+    
     var rTeam = total;
     var bTeam = total;
     var yTeam = total;
@@ -378,11 +386,25 @@ const AutoMapping = () => {
     if (crTeam + cbTeam + cyTeam + cblTeam == NewLeague.value.allPlayer.length) {
         for (var i in NewLeague.value.allPlayer) {
             var player = NewLeague.value.allPlayer[i];
-            player.teamId = 0;
-            player.isChecked = false;
+            if(player.isAutoChk){
+               
+                if (player.teamId == 1) {
+                    crTeam -= 1;
+                } else if (player.teamId == 2) {
+                    cbTeam -= 1;
+                } else if (player.teamId == 3) {
+                    cyTeam -= 1;
+                }
+                else {
+                    cblTeam -= 1;
+                }
+                player.teamId = 0;
+                player.isChecked = false;
+
+            }
         }
 
-        crTeam= cbTeam =cyTeam = cblTeam = 0;
+        
     }
     for (var i in NewLeague.value.allPlayer) {
         var player = NewLeague.value.allPlayer[i];
@@ -395,7 +417,7 @@ const AutoMapping = () => {
                     if (rTeam > crTeam) {
                         crTeam += 1;
                         player.isChecked = true;
-                        OnCheck(player, v);
+                        OnCheck(player, v,true);
                         break;
                     }
                    
@@ -404,7 +426,7 @@ const AutoMapping = () => {
                     if (bTeam > cbTeam) {
                         cbTeam += 1;
                         player.isChecked = true;
-                        OnCheck(player, v);
+                        OnCheck(player, v,true);
                         break;
                     }
                    
@@ -413,7 +435,7 @@ const AutoMapping = () => {
                     if (yTeam > cyTeam) {
                         cyTeam += 1;
                         player.isChecked = true;
-                        OnCheck(player, v);
+                        OnCheck(player, v,true);
                         break;
                     }
                     
@@ -422,7 +444,7 @@ const AutoMapping = () => {
                     if (blTeam > cblTeam) {
                         cblTeam += 1;
                         player.isChecked = true;
-                        OnCheck(player, v);
+                        OnCheck(player, v,true);
                         break;
                     }
                     
@@ -430,6 +452,28 @@ const AutoMapping = () => {
             }
         }
     }
+
+    var obj = new Object;
+
+    for(var i in NewLeague.value.allPlayer){
+        var p = NewLeague.value.allPlayer[i];
+
+        if(!obj[p.teamId]){
+            obj[p.teamId] = new Object;
+            obj[p.teamId].Cnt = 0;
+            obj[p.teamId].Sum = 0;
+        }
+        obj[p.teamId].Cnt +=1;
+        obj[p.teamId].Sum += WinRate(p.winCnt,p.tieCnt,p.lossCnt);
+        obj[p.teamId].Rate = (obj[p.teamId].Sum /obj[p.teamId].Cnt).toFixed(0);
+    }
+
+    for( var i in PlayTeams.value){
+        var t = PlayTeams.value[i];
+        if(obj[t.teamId])
+         t.Rate = obj[t.teamId].Rate;
+    }
+    
 }
 const saveLeagueMember = async (isNext) => {
 

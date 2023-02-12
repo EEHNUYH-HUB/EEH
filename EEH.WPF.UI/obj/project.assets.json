@@ -5,10 +5,14 @@
       "Microsoft.Win32.SystemEvents/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Microsoft.Win32.SystemEvents.dll": {}
+          "lib/net6.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Win32.SystemEvents.dll": {}
+          "lib/net6.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -20,13 +24,47 @@
           }
         }
       },
+      "ModernUI.CoreWPF/3.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/FirstFloor.ModernUI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/FirstFloor.ModernUI.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ],
+        "resource": {
+          "lib/netcoreapp3.1/fr/FirstFloor.ModernUI.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netcoreapp3.1/it/FirstFloor.ModernUI.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netcoreapp3.1/pl/FirstFloor.ModernUI.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/netcoreapp3.1/ru/FirstFloor.ModernUI.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Configuration.ConfigurationManager/7.0.0": {
@@ -36,10 +74,14 @@
           "System.Security.Permissions": "7.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Configuration.ConfigurationManager.dll": {}
+          "lib/net6.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Configuration.ConfigurationManager.dll": {}
+          "lib/net6.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -51,10 +93,14 @@
           "Microsoft.Win32.SystemEvents": "7.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Drawing.Common.dll": {}
+          "lib/net6.0/System.Drawing.Common.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Drawing.Common.dll": {}
+          "lib/net6.0/System.Drawing.Common.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -69,10 +115,14 @@
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -81,10 +131,14 @@
       "System.Security.Cryptography.ProtectedData/7.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Security.Cryptography.ProtectedData.dll": {}
+          "lib/net6.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Security.Cryptography.ProtectedData.dll": {}
+          "lib/net6.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -102,10 +156,14 @@
           "System.Windows.Extensions": "7.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Security.Permissions.dll": {}
+          "lib/net6.0/System.Security.Permissions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Security.Permissions.dll": {}
+          "lib/net6.0/System.Security.Permissions.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -117,10 +175,14 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Text.Encoding.CodePages.dll": {}
+          "lib/net6.0/System.Text.Encoding.CodePages.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Text.Encoding.CodePages.dll": {}
+          "lib/net6.0/System.Text.Encoding.CodePages.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -138,10 +200,14 @@
           "System.Drawing.Common": "7.0.0"
         },
         "compile": {
-          "lib/net6.0/System.Windows.Extensions.dll": {}
+          "lib/net6.0/System.Windows.Extensions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Windows.Extensions.dll": {}
+          "lib/net6.0/System.Windows.Extensions.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/win/lib/net6.0/System.Windows.Extensions.dll": {
@@ -176,7 +242,10 @@
         },
         "runtime": {
           "bin/placeholder/EEH.WPF.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       }
     }
   },
@@ -210,6 +279,23 @@
         "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll",
         "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "ModernUI.CoreWPF/3.1.2": {
+      "sha512": "NZouBuSqDQJJuTjCJLqciN2ueCyB5bcN5+p4Cr9FfJbubUYxeUqn5BQaqYYpTv0UD2fSvnfEgiosrXPtURlB8A==",
+      "type": "package",
+      "path": "modernui.corewpf/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/FirstFloor.ModernUI.dll",
+        "lib/netcoreapp3.1/FirstFloor.ModernUI.xml",
+        "lib/netcoreapp3.1/fr/FirstFloor.ModernUI.resources.dll",
+        "lib/netcoreapp3.1/it/FirstFloor.ModernUI.resources.dll",
+        "lib/netcoreapp3.1/pl/FirstFloor.ModernUI.resources.dll",
+        "lib/netcoreapp3.1/ru/FirstFloor.ModernUI.resources.dll",
+        "modernui.corewpf.3.1.2.nupkg.sha512",
+        "modernui.corewpf.nuspec"
       ]
     },
     "Newtonsoft.Json/13.0.2": {
@@ -469,27 +555,33 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "EEH >= 1.0.0",
-      "EEH.WPF >= 1.0.0"
+      "EEH.WPF >= 1.0.0",
+      "ModernUI.CoreWPF >= 3.1.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\eehnu\\.nuget\\packages\\": {}
+    "C:\\Users\\hhlee\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH.WPF.UI\\EEH.WPF.UI.csproj",
+      "projectUniqueName": "D:\\831228 EEH\\EEH\\EEH.WPF.UI\\EEH.WPF.UI.csproj",
       "projectName": "EEH.WPF.UI",
-      "projectPath": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH.WPF.UI\\EEH.WPF.UI.csproj",
-      "packagesPath": "C:\\Users\\eehnu\\.nuget\\packages\\",
-      "outputPath": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH.WPF.UI\\obj\\",
+      "projectPath": "D:\\831228 EEH\\EEH\\EEH.WPF.UI\\EEH.WPF.UI.csproj",
+      "packagesPath": "C:\\Users\\hhlee\\.nuget\\packages\\",
+      "outputPath": "D:\\831228 EEH\\EEH\\EEH.WPF.UI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\eehnu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hhlee\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0-windows7.0"
+        "net6.0-windows"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -499,11 +591,11 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj": {
-              "projectPath": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj"
+            "D:\\831228 EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj": {
+              "projectPath": "D:\\831228 EEH\\EEH\\EEH.WPF\\EEH.WPF.csproj"
             },
-            "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\EEH.csproj": {
-              "projectPath": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\EEH.csproj"
+            "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj": {
+              "projectPath": "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj"
             }
           }
         }
@@ -517,17 +609,32 @@
     "frameworks": {
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
+        "dependencies": {
+          "ModernUI.CoreWPF": {
+            "target": "Package",
+            "version": "[3.1.2, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

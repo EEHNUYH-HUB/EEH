@@ -62,6 +62,10 @@ namespace EEH.FOOTBALL.BIZ.Model
         public int Score { get; set; }
         public string TeamName { get; set; }
         public string TeamType { get; set; }
+        
+        public int WinCnt { get; set; }
+        public int TieCnt { get; set; }
+        public int LossCnt { get; set; }
     }
    
     public class LeagueResult

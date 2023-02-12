@@ -159,5 +159,5 @@ export function WinRate(wincnt,tiecnt,losscnt){
         if (totalCnt > 0) {
             return ((wincnt +tiecnt*0.5)* 100.0 / totalCnt).toFixed(0)*1;
         }
-        else return 0;
+        else return 50;
 }
