@@ -336,6 +336,7 @@ const AutoMapping = () => {
     var sub = NewLeague.value.allPlayer.length%teamCnt;
     
 
+    console.log(NewLeague.value.allPlayer);
     var rTeam = total;
     var bTeam = total;
     var yTeam = total;

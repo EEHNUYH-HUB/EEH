@@ -19,3 +19,13 @@ D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfo.cs
 D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.CoreCompileInputs.cache
 D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.dll
 D:\831228 EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.pdb
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.dll.config
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.deps.json
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.dll
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\bin\Debug\netstandard2.0\EEH.pdb
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.csprojAssemblyReference.cache
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfoInputs.cache
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.AssemblyInfo.cs
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.csproj.CoreCompileInputs.cache
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.dll
+D:\01 EEHNUYH_HUB_EEH\EEH\EEH\obj\Debug\netstandard2.0\EEH.pdb
