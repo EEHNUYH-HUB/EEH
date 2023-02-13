@@ -72,9 +72,13 @@
                                                 :show-icon="false">
                                                 <n-space>
                                                     <template v-for="item, index in NewLeague.allPlayer" :key="index">
-                                                        <n-checkbox v-model:checked="item.isChecked" :label="item.name"
-                                                            v-if="item.teamId === 0 || item.teamId === team.teamId"
+                                                        <template v-if="item.teamId === 0 || item.teamId === team.teamId">
+                                                        <n-skeleton v-if="item.isAutoChk" :sharp="false" :width="80" :height="25" size="small" />
+                                                        
+                                                        <n-checkbox  v-model:checked="item.isChecked" :label="item.name"
+                                                            v-else
                                                             @click="OnCheck(item, team.teamId,false)" />
+                                                        </template>
                                                     </template>
                                                 </n-space>
                                             </n-alert>
@@ -326,6 +330,7 @@ const ClearPlayer =() =>{
             var player = NewLeague.value.allPlayer[i];
             player.teamId = 0;
             player.isChecked = false;
+            player.isAutoChk = false;
     }
 
     for( var i in PlayTeams.value){
