@@ -73,7 +73,7 @@
                                                 <n-space>
                                                     <template v-for="item, index in NewLeague.allPlayer" :key="index">
                                                         <template v-if="item.teamId === 0 || item.teamId === team.teamId">
-                                                        <n-skeleton v-if="item.isAutoChk" :sharp="false" :width="80" :height="25" size="small" />
+                                                        <n-skeleton v-if="item.isAutoChk" :sharp="false" :width="70" :height="25" size="small" />
                                                         
                                                         <n-checkbox  v-model:checked="item.isChecked" :label="item.name"
                                                             v-else
