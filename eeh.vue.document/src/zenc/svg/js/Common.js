@@ -155,3 +155,17 @@ export function GetRect(x1, y1, x2, y2) {
 
     return rect;
 } 
+
+export function ExcelCellName(index){
+    var arry = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    var len = arry.length;
+    
+    var share = Math.floor((index/len +1));
+    var rest  = index%len;
+    var rtn ='';
+
+    for(var i =0;i<share;i++){
+    rtn +=arry[rest];
+    }
+    return rtn;
+}

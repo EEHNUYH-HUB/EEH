@@ -19,7 +19,7 @@
         <joinPlusSvg v-else-if="props.Item.IconType=='joinPlus'"  ></joinPlusSvg>
     </svg>
 
-    <text   :fill="props.Item.StrokeColor"  :x="props.Item.Rect.Width/2" :y="Item.Rect.Height+25" v-if="props.Item.IsShowDisplayName && props.Item.DisplayName">{{props.Item.DisplayName}}</text>
+    <text   :fill="props.Item.StrokeColor"  :x="props.Item.Rect.Width/2" :y="Item.Rect.Height+25" v-if="props.Item.IsShowDisplayName && props.Item.DisplayName">{{props.Item.DisplayName+(props.Item.SubName?' '+props.Item.SubName:'')}}</text>
 
 </template>
 <script setup>

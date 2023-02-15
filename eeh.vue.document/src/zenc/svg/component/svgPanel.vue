@@ -1,23 +1,22 @@
 <template>
-    <n-scrollbar :style="'max-height:'+ props.Height" trigger="none">
-    <svg class="mainsvg" :height="props.SvgHeight" @mousemove="OnMouseMove" @mouseup="OnMouseUp" @mouseout="OnMouseOut"
-        @contextmenu="OnContextMenu" @mousedown="OnMouseDown">
-        <g v-for="item, index in Picker.ObjList" :key="index" @mouseenter="OnMouseEnter(item)" @mouseleave="OnMouseLeave(item)"
-            :transform="'translate(' + item.Rect.X + ',' + item.Rect.Y + ') scale(' + item.Rect.ScaleX + ',' + item.Rect.ScaleY + ') rotate(' + item.Rect.Rotate + ',' + item.Rect.Width / 2 + ',' + item.Rect.Height / 2 + ')'">
-            <iconFactory v-if="item.Type == 'ICON'" :Item="item"></iconFactory>            
-            <pickerSvg :Item="item"></pickerSvg>
+    <n-scrollbar :style="'max-height:' + props.Height" trigger="none">
+        <svg class="mainsvg" :height="props.SvgHeight" @mouseup="OnMouseUp" @mouseout="OnMouseOut"
+            @mousemove="OnMouseMove" @contextmenu="OnContextMenu" @mousedown="OnMouseDown">
+            <g v-for="item, index in Picker.ObjList" :key="index" @mouseenter="OnMouseEnter(item)"
+                @mouseleave="OnMouseLeave(item)"
+                :transform="'translate(' + item.Rect.X + ',' + item.Rect.Y + ') scale(' + item.Rect.ScaleX + ',' + item.Rect.ScaleY + ') rotate(' + item.Rect.Rotate + ',' + item.Rect.Width / 2 + ',' + item.Rect.Height / 2 + ')'">
+                <iconFactory v-if="item.Type == 'ICON'" :Item="item"></iconFactory>
+                <pickerSvg :Item="item"></pickerSvg>
 
-        </g>
-        
-        <path :d="Picker.DrawItem" fill="none" stroke="#38474E" opacity="0.3" />
-        <joinFactory v-for="item, index in Picker.JoinList" :key="index" :Item="item"></joinFactory>
-        <markerList></markerList>
-    </svg>
+            </g>
 
+            <path :d="Picker.DrawItem" fill="none" stroke="#38474E" opacity="0.3" />
+            <joinFactory v-for="item, index in Picker.JoinList" :key="index" :Item="item"></joinFactory>
+            <markerList></markerList>
+        </svg>
+        <iconsPop ref="iconSelecter" :ColorObj="Picker.ColorObj" @OnSelectedIcon="OnSelectedIcon"></iconsPop>
 
-    <iconsPop ref="iconSelecter" :ColorObj="Picker.ColorObj" @OnSelectedIcon="OnSelectedIcon"></iconsPop>
-    
-</n-scrollbar>
+    </n-scrollbar>
 </template>
 <script setup>
 
@@ -35,7 +34,7 @@ import pickerSvg from "@/zenc/svg/component/common/pickerSvg.vue"
 import iconsPop from "@/zenc/svg/component/common/iconsPop.vue"
 
 const emits = defineEmits(["selectedItem"])
-const props = defineProps({ Height: {type:String,default:"calc(100vh - 180px)"},SvgHeight: {type:String,default:"calc(100vh - 180px)"}})
+const props = defineProps({ Height: { type: String, default: "calc(100vh - 180px)" }, SvgHeight: { type: String, default: "calc(100vh - 180px)" } })
 const iconSelecter = ref();
 const DefaultStroke = ref('#000000FF');
 const DefaultFill = ref('#FFFFFF00');
@@ -48,7 +47,7 @@ onMounted(() => {
 
     window.onkeyup = (e) => {
 
-        if (Picker.value ) {
+        if (Picker.value) {
             if (e.key == "Escape") {
                 if (Picker.value.AllUnSelected) {
                     Picker.value.AllUnSelected();
@@ -75,11 +74,11 @@ const OnMouseUp = (e) => {
         iconSelecter.value.Show(false, 0, 0, null);
 
         Picker.value.MouseUp(e);
-       
+
         if (Picker.value.IsShowStandby) {
             OnShowDetail();
         }
-        else  if ( Picker.value.IsShowIcon) {
+        else if (Picker.value.IsShowIcon) {
             ShowPopoverIcon(e);
         }
 
@@ -116,12 +115,13 @@ const OnContextMenu = (e) => {
     e.preventDefault();
 }
 const OnMouseEnter = (item) => {
-    if (Picker.value ) {
+
+    if (Picker.value) {
         Picker.value.JoinObj(item);
     }
 }
 const OnMouseLeave = (item) => {
-    if (Picker.value ) {
+    if (Picker.value) {
         Picker.value.UnJoinObj(item);
     }
 }
@@ -144,7 +144,7 @@ const OnShowDetail = () => {
 }
 
 
-defineExpose({ SetPicker ,Picker});
+defineExpose({ SetPicker, Picker });
 
 
 </script>

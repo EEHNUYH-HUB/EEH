@@ -99,12 +99,20 @@ export default class MNDrawPicker {
         }
     }
     MouseMove(eventArg) {
-        
+      
         var e = GetOffsetPoint(eventArg);
         if (this.IsDown && this.SelectedItems && this.SelectedItems.length > 0) {
-
+            
             if (!this.IsDrawJoin) {
                 var end =e;
+
+                var xV = this.StartPoint.X - e.X;
+                var yV = this.StartPoint.Y - e.Y;
+                var isSize = (xV < 100 && xV > -100 && yV < 100 && yV > -100);
+                if (!isSize) {
+                    end = this.StartPoint;
+                }
+
 
                 if (this.SubRect) {
                     this.SizeSvgObj(this.StartPoint, end)
@@ -149,7 +157,7 @@ export default class MNDrawPicker {
                     this.DrawJoin(this.ChangeObj, this.JoinItem, null);
 
                     this.AllUnSelected(true)
-                    
+                    this.SelectedItem = null;
                     this.IsDrawJoin = false;
                     
                 }
