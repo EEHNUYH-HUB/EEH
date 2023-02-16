@@ -87,9 +87,9 @@ const OnMouseUp = (e) => {
 
 }
 
-const OnSelectedIcon = (type) => {
+const OnSelectedIcon = (item) => {
     if (Picker.value && Picker.value.DrawIcon) {
-        Picker.value.DrawIcon(type, 32);
+        Picker.value.DrawIcon(item, 32);
     }
 }
 const ShowPopoverIcon = (e) => {

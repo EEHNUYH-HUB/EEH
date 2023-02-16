@@ -2,34 +2,9 @@ import DrawPicker from '@/zenc/svg/js/DrawPicker'
 import { GetRect } from '@/zenc/svg/js/Common'
 export default class MNDrawSqlPicker extends DrawPicker {
 
-    MouseUp(eventArg) {
 
-        this.IsDown = false;
-        this.DrawItem = "";
-
-
-        if (this.SubRect) {
-
-            if (this.IsDrawJoin) {
-                if (this.JoinItem) {
-                    this.DrawJoin(this.ChangeObj, this.JoinItem, null);
-                    this.AllUnSelected(true)
-                    this.IsDrawJoin = false;
-                }
-                else {
-                    this.AllUnSelected(true)
-                }
-            }
-            else {
-                this.AllUnSelected()
-            }
-        }
-        this.Select();
-
-    }
-
-    DrawJoin(startObj, endObj, obj) {
-
+    DrawJoin(startObj, endObj, jobj) {
+        
         var sObj = this.GetJoinPoint(startObj, endObj.Rect, "ALL");
         var eObj = this.GetJoinPoint(endObj, sObj.P, sObj.IsH ? "LR" : "BT");
         var rect = GetRect(sObj.P.X, sObj.P.Y, eObj.P.X, eObj.P.Y)
@@ -61,56 +36,57 @@ export default class MNDrawSqlPicker extends DrawPicker {
             path2 = this.GetDrawPathCurveV(cp2, eObj.P);
         }
 
-        if (!obj) {
-            obj = new Object;
-            obj.StartObj = startObj;
-            obj.EndObj = endObj;
-            obj.StrokeColor = this.ColorObj.Stroke;
-            obj.Rect = rect;
-            obj.FillColor = "none";
+        if (!jobj) {
+            if(this.IsJoin(startObj,endObj))return;
+            jobj = new Object;
+            jobj.StartObj = startObj;
+            jobj.EndObj = endObj;
+            jobj.StrokeColor = this.ColorObj.Stroke;
+            jobj.Rect = rect;
+            jobj.FillColor = "none";
 
-            if (!this.ChangeObj.JoinObjs) {
-                this.ChangeObj.JoinObjs = new Array;
+            if (!startObj.JoinObjs) {
+                startObj.JoinObjs = new Array;
             }
-            this.ChangeObj.JoinObjs.push(obj);
+            startObj.JoinObjs.push(jobj);
 
-            if (!this.JoinItem.JoinObjs) {
-                this.JoinItem.JoinObjs = new Array;
+            if (!endObj.JoinObjs) {
+                endObj.JoinObjs = new Array;
             }
-            this.JoinItem.JoinObjs.push(obj);
-            obj.StartType = "url(#Circle)";
-            obj.EndType = "url(#Circle)";
-            obj.JoinType = "sql";
-            this.JoinList.push(obj);
+            endObj.JoinObjs.push(jobj);
+            jobj.StartType = "url(#Circle)";
+            jobj.EndType = "url(#Circle)";
+            jobj.JoinType = "sql";
+            this.JoinList.push(jobj);
 
         }
 
     
-        obj.ColumnSP = new Object;
-        obj.ColumnEP = new Object;
+        jobj.ColumnSP = new Object;
+        jobj.ColumnEP = new Object;
         
         if(sObj.P.X < eObj.P.X){
-            obj.ColumnSP.X = -12;
-            obj.ColumnSP.Y = -17;
-            obj.ColumnSP.W = 0;
-            obj.ColumnEP.X = 12;
-            obj.ColumnEP.Y = -17;
-            obj.ColumnEP.W = 200;
+            jobj.ColumnSP.X = -12;
+            jobj.ColumnSP.Y = -17;
+            jobj.ColumnSP.W = 0;
+            jobj.ColumnEP.X = 12;
+            jobj.ColumnEP.Y = -17;
+            jobj.ColumnEP.W = 200;
         }
         else{
-            obj.ColumnEP.X = -12;
-            obj.ColumnEP.Y = -17;
-            obj.ColumnEP.W = 0;
-            obj.ColumnSP.X = 12;
-            obj.ColumnSP.Y = -17;
-            obj.ColumnSP.W = 200;
+            jobj.ColumnEP.X = -12;
+            jobj.ColumnEP.Y = -17;
+            jobj.ColumnEP.W = 0;
+            jobj.ColumnSP.X = 12;
+            jobj.ColumnSP.Y = -17;
+            jobj.ColumnSP.W = 200;
         }
     
         
-        obj.Path = path;
-        obj.Path2 = path2;
-        obj.Rect = rect;
-        
+        jobj.Path = path;
+        jobj.Path2 = path2;
+        jobj.Rect = rect;
+        return jobj;
 
     }
 }

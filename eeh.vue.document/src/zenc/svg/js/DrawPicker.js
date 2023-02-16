@@ -1,4 +1,4 @@
-import { Guid } from "@/zenc/js/Common"
+
 import { GetCenterforRect,GetIcon,GetOffsetPoint } from '@/zenc/svg/js/Common'
 
 export default class MNDrawPicker {
@@ -25,6 +25,10 @@ export default class MNDrawPicker {
         this.IsShowIcon = false;
         this.IsRightDown = false;
         this.SelectedItem = null;
+        
+        this.OnBeforeDrawIcon = null;
+        this.OnAfeterDrawIcon = null;
+
     }
 
     MouseDown(eventArg) {
@@ -221,7 +225,9 @@ export default class MNDrawPicker {
         }
 
     }
-    DrawJoin(startObj, endObj, obj) {
+    DrawJoin(startObj, endObj, jobj) {
+        
+
         var sObj = this.GetJoinPoint(startObj, endObj.Rect, "ALL");
         var eObj = this.GetJoinPoint(endObj, sObj.P, sObj.IsH ? "LR" : "BT");
         var path = ""
@@ -230,47 +236,80 @@ export default class MNDrawPicker {
         else
             path = this.GetDrawPathCurveV(sObj.P, eObj.P);
 
-        if (!obj) {
-            obj = new Object;
-            obj.StartObj = startObj;
-            obj.EndObj = endObj;
-            obj.StrokeColor = this.ColorObj.Stroke;
-            obj.FillColor = "none";
-            obj.Path = path;
-            if (!this.ChangeObj.JoinObjs) {
-                this.ChangeObj.JoinObjs = new Array;
+        if (!jobj) {
+            jobj = new Object;
+            jobj.StartObj = startObj;
+            jobj.EndObj = endObj;
+            jobj.StrokeColor = this.ColorObj.Stroke;
+            jobj.FillColor = "none";
+            jobj.Path = path;
+            if (!startObj.JoinObjs) {
+                startObj.JoinObjs = new Array;
             }
-            this.ChangeObj.JoinObjs.push(obj);
+            startObj.JoinObjs.push(jobj);
 
-            if (!this.JoinItem.JoinObjs) {
-                this.JoinItem.JoinObjs = new Array;
+            if (!endObj.JoinObjs) {
+                endObj.JoinObjs = new Array;
             }
-            this.JoinItem.JoinObjs.push(obj);
-            obj.StartType = "url(#Circle)";
-            obj.EndType = "url(#Triangle)";
-            obj.JoinType= "line";
-            this.JoinList.push(obj);
+            endObj.JoinObjs.push(jobj);
+            jobj.StartType = "url(#Circle)";
+            jobj.EndType = "url(#Triangle)";
+            jobj.JoinType= "line";
+            this.JoinList.push(jobj);
             
         }
         else {
-            obj.Path = path;
+            jobj.Path = path;
         }
+
+        return jobj;
     }
+    IsJoin(startObj, endObj){
+        if(startObj && endObj&& startObj.ID && endObj.ID){
+            var source = startObj.ID+ endObj.ID;
+            for(var i in  this.JoinList){
+                var join =     this.JoinList[i];
+                var chk1 = join.StartObj.ID + join.EndObj.ID;
+                var chk2 = join.EndObj.ID + join.StartObj.ID;
 
-    DrawIcon(type, size) {
+                if(chk1 == source || chk2 == source){
+                    return true;
+                }
+            }
+        }
 
+        return false;
+    }
+    async  DrawIcon(item, size) {
+        var type = item.IconType;
         var obj = GetIcon(type, this.EndPoint.X, this.EndPoint.Y, size, this.ColorObj);
-        obj.ID = Guid();
+        this.CopyIcon(obj,item);
         obj.IsShowDisplayName = true;
+        if(this.OnBeforeDrawIcon)
+        {
+            await this.OnBeforeDrawIcon(obj);
+        }
         this.ObjList.push(obj)
         
 
         if (this.IsDrawJoin) {
             this.JoinItem = obj
             this.MouseUp(null);
+            
+        }
+        
+        if(this.OnAfeterDrawIcon) {
+            this.OnAfeterDrawIcon(obj);
         }
     }
-
+    CopyIcon(newIcon,orgIcon){
+        if (newIcon, orgIcon) {
+            if (orgIcon.DisplayName)
+                newIcon.DisplayName = orgIcon.DisplayName;
+            if (orgIcon.TableName)
+                newIcon.TableName = orgIcon.TableName;
+        }
+    }
     AllUnSelected(isSubUnSelected) {
         for (var i in this.SelectedItems) {
             var item = this.SelectedItems[i];

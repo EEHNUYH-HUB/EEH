@@ -1,33 +1,58 @@
-export function GetIcons(colorObj, type) {
-    var icons = new Array;
+import { Guid } from "@/zenc/js/Common"
+export function GetIcons(colorObj, type,obj) {
     
-
+    
+    var rtn = new Array;
     if (type == 'none') {
-        icons.push('database')
-        icons.push('diagram')
-        icons.push('server')
-        icons.push('chat')
-        icons.push('diamond')
+        rtn.push(GetIcon('database', 8, 8, 16, colorObj));
+        rtn.push(GetIcon('diagram', 8, 8, 16, colorObj));
+        rtn.push(GetIcon('server', 8, 8, 16, colorObj));
+        rtn.push(GetIcon('chat', 8, 8, 16, colorObj));
+        rtn.push(GetIcon('diamond', 8, 8, 16, colorObj));
+       
     }
     else if(type == 'database'){
-        icons.push('table')
+        rtn.push(GetIcon('table', 8, 8, 16, colorObj));
     }
     else if(type == 'table'){
-        icons.push('sql')
+        
+        rtn.push(GetIcon('sql', 8, 8, 16, colorObj));
+        if(obj.Columns)
+        {
+            for(var i in obj.Columns){
+                var col = obj.Columns[i];
+                if(col && col.obj && col.obj.foreign_table_name &&col.obj.foreign_column_name ){
+                    if(obj.JoinObjs){
+                        for(var  j in  obj.JoinObjs){
+                            var join = obj.JoinObjs[j];
+                            if(join && join.StartObj && join.EndObj){
+                                if(join.StartObj.TableName != col.obj.foreign_table_name &&
+                                    join.EndObj.TableName != col.obj.foreign_table_name ){
+                
+                                    var icon = GetIcon('table', 8, 8, 16, colorObj);
+                                    icon.DisplayName = col.obj.foreign_table_name;
+                                    icon.TableName =  col.obj.foreign_table_name;
+                                    icon. IsShowDisplayName = true;
+                                                            
+                                        rtn.push(icon);
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+        
+        }
     }
     else if(type == 'sql'){
-        icons.push('sql')
+        rtn.push(GetIcon('sql', 8, 8, 16, colorObj));
     }
-    //var icons = ['chat', 'circle', 'database', 'diagram', 'diamond', 'email', 'fonts', 'listTask', 'pc', 'server', 'square', 'table', 'subTable', 'triangle','sql','joinPlus']
-    var rtn = new Array;
-
-    for (var i in icons) {
-        rtn.push(GetIcon(icons[i], 8, 8, 16, colorObj));
-    }
+   
     return rtn;
 }
 export function GetIcon(type, x, y, size, colorObj) {
     var obj = new Object;
+    obj.ID = Guid();
     obj.IconType = type;
     obj.Type = "ICON";
     obj.IsShowDisplayName = false;

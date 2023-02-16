@@ -86,3 +86,27 @@ export function ConvertYYYYMMDDToStringDate(yyyymmdd){
     var d = parseInt(yyyymmdd.substring(6,8));
     return  y+'년 '+ m+'월 '+ d+'일';
 }
+
+
+export function DataTableToGridData(dt){
+    var rtn = new Object;
+    if(dt && dt.length > 0){
+    rtn.Columns = new Array;
+    rtn.Data = dt;
+
+    
+
+    var property =Object.getOwnPropertyNames(dt[0]);
+    
+    
+    for(var i in property){
+        var pName = property[i];
+        rtn.Columns.push({title:pName, key: pName });
+    }
+    
+
+    }
+
+    return rtn;
+
+}

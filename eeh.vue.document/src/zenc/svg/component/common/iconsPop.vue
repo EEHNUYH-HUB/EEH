@@ -4,7 +4,7 @@
         <n-grid cols="5" :x-gap="12" :y-gap="8" responsive="screen">
             <n-gi v-for="item, index in Icons" :key="index">
                 <n-space vertical>
-                    <n-button @click="OnClickIcon(item.IconType)">
+                    <n-button @click="OnClickIcon(item)">
                         <iconFactory :Item="item"></iconFactory>
                     </n-button>
                 </n-space>
@@ -37,14 +37,14 @@ const Show = (isShow, x, y, item) => {
         if(item){
             beforeIconType = item.IconType;
         }
-        Icons.value = GetIcons(props.ColorObj,beforeIconType);
+        Icons.value = GetIcons(props.ColorObj,beforeIconType,item);
      
     }
     IsShow.value = isShow;
 }
-const OnClickIcon = (type) => {
+const OnClickIcon = (item) => {
     
-    emits("OnSelectedIcon",type)
+    emits("OnSelectedIcon",item)
     Show(false,0,0,null);
 }
 const emits = defineEmits(["OnSelectedIcon"])
