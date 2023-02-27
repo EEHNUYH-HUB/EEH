@@ -146,9 +146,9 @@ namespace EEH.FOOTBALL.BIZ
             }
             return rtn.OrderByDescending(x => x.StrDate.ExInt()).ToList();
         }
-        public LeagueModel GetRunningLeague()
+        public List<LeagueModel> GetRunningLeague()
         {
-            LeagueModel rtn = null;
+            List<LeagueModel> rtn = new List<LeagueModel>();
             using (var dbseesion = SmartSqlMapper.Instance.SqlContext.Open())
             {
                 dbseesion.TransactionWrap(() =>
@@ -157,62 +157,65 @@ namespace EEH.FOOTBALL.BIZ
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            DataRow row = dt.Rows[0];
-                            rtn = new LeagueModel();
-                            rtn.LeagueId = row["pk_id"].ExInt();
-                            rtn.StrDate = row["col_date"].ExToString();
-                            rtn.LocationId = row["fk_location_id"].ExInt();
-                            rtn.LocationName = row["locationname"].ExToString();
-                            rtn.Status = row["col_status"].ExInt();
-                            
-                            
-                            int ptime = row["col_play_time"].ExInt();
-                            int pcnt = row["col_play_team_cnt"].ExInt();
-                            if (ptime > 0)
+                            foreach (DataRow row in dt.Rows)
                             {
-                                rtn.PlayTime = ptime.ToString();
-                            }
-                            if (pcnt > 0)
-                            {
-                                rtn.PlayTeamCnt = pcnt.ToString();
-                            }
-                            List<PlayerModel> playersList = new List<PlayerModel>();
-                            rtn.Teams = GetLeagueTeams(rtn.LeagueId, dbseesion, ref playersList);
-                            rtn.AllPlayer = playersList;
-
-                            rtn.Games = new List<PlayModel>();
+                                LeagueModel item = new LeagueModel();
+                                rtn.Add(item);
+                                item.LeagueId = row["pk_id"].ExInt();
+                                item.StrDate = row["col_date"].ExToString();
+                                item.LocationId = row["fk_location_id"].ExInt();
+                                item.LocationName = row["locationname"].ExToString();
+                                item.Status = row["col_status"].ExInt();
 
 
-                            Dictionary<string, object> dic2 = new Dictionary<string, object>();
-                            dic2.Add("leagueid", rtn.LeagueId);
-                            using (DataTable dt2 = dbseesion.GetDataTable(SmartSqlMapper.Instance.GetContext("SQL", "SELLEAGUEPLAYLIST", dic2)))
-                            {
-                                if (dt2.ExNotNull() && dt2.Rows.Count > 0)
+                                int ptime = row["col_play_time"].ExInt();
+                                int pcnt = row["col_play_team_cnt"].ExInt();
+                                if (ptime > 0)
                                 {
-                                    foreach (DataRow row2 in dt2.Rows)
-                                    {
-                                        PlayModel game = new PlayModel();
-                                        game.PlayId = row2["pk_id"].ExInt();
-                                        game.LeaguId = rtn.LeagueId;
-                                        game.LeftTeam = rtn.Teams.Find(x => x.TeamId == row2["fk_left_team_id"].ExInt()).Clone();
-                                        game.RightTeam = rtn.Teams.Find(x => x.TeamId == row2["fk_right_team_id"].ExInt()).Clone();
-                                        game.LeftTeam.Score = row2["col_left_score"].ExInt();
-                                        game.RightTeam.Score = row2["col_right_score"].ExInt();
-                                        game.IsEnd = true;
-                                        game.WinTeamType = "";
-                                        if (game.LeftTeam.Score != game.RightTeam.Score)
-                                        {
-                                            if (game.LeftTeam.Score > game.RightTeam.Score)
-                                            {
-                                                game.WinTeamType = game.LeftTeam.TeamType;
-                                            }
-                                            else
-                                            {
-                                                game.WinTeamType = game.RightTeam.TeamType;
-                                            }
-                                        }
+                                    item.PlayTime = ptime.ToString();
+                                }
+                                if (pcnt > 0)
+                                {
+                                    item.PlayTeamCnt = pcnt.ToString();
+                                }
+                                List<PlayerModel> playersList = new List<PlayerModel>();
+                                item.Teams = GetLeagueTeams(item.LeagueId, dbseesion, ref playersList);
+                                item.AllPlayer = playersList;
 
-                                        rtn.Games.Add(game);
+                                item.Games = new List<PlayModel>();
+
+
+                                Dictionary<string, object> dic2 = new Dictionary<string, object>();
+                                dic2.Add("leagueid", item.LeagueId);
+                                using (DataTable dt2 = dbseesion.GetDataTable(SmartSqlMapper.Instance.GetContext("SQL", "SELLEAGUEPLAYLIST", dic2)))
+                                {
+                                    if (dt2.ExNotNull() && dt2.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow row2 in dt2.Rows)
+                                        {
+                                            PlayModel game = new PlayModel();
+                                            game.PlayId = row2["pk_id"].ExInt();
+                                            game.LeaguId = item.LeagueId;
+                                            game.LeftTeam = item.Teams.Find(x => x.TeamId == row2["fk_left_team_id"].ExInt()).Clone();
+                                            game.RightTeam = item.Teams.Find(x => x.TeamId == row2["fk_right_team_id"].ExInt()).Clone();
+                                            game.LeftTeam.Score = row2["col_left_score"].ExInt();
+                                            game.RightTeam.Score = row2["col_right_score"].ExInt();
+                                            game.IsEnd = true;
+                                            game.WinTeamType = "";
+                                            if (game.LeftTeam.Score != game.RightTeam.Score)
+                                            {
+                                                if (game.LeftTeam.Score > game.RightTeam.Score)
+                                                {
+                                                    game.WinTeamType = game.LeftTeam.TeamType;
+                                                }
+                                                else
+                                                {
+                                                    game.WinTeamType = game.RightTeam.TeamType;
+                                                }
+                                            }
+
+                                            item.Games.Add(game);
+                                        }
                                     }
                                 }
                             }
