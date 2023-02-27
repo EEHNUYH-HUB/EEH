@@ -227,6 +227,8 @@ namespace EEH.FOOTBALL.BIZ
 
             return rtn;
         }
+
+
         private static List<TeamModel> GetTeams(IDbSession dbseesion)
         {
             List<TeamModel> rtn = new List<TeamModel>();

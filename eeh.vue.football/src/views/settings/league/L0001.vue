@@ -3,7 +3,12 @@
         <div :class="store.state.useIsMobile ? 'div_mobile' : 'div_default'" class=" document-scroll-container">
             <Breadcrumb :Buttons="Buttons"></Breadcrumb>
             
-            <createLeague v-for="item,index in NewLeagues"  :key="index" :NewLeague ="item"  @completed="Load"></createLeague>
+            
+            
+            <createLeague  v-for="item,index in NewLeagues"  
+            :key="index" :LeagueId ="item.leagueId"  
+            @completed="Load"></createLeague>
+        
             <n-grid cols="1 s:1 m:1 l:1 xl:2 2xl:2" :x-gap="12" :y-gap="8" responsive="screen">
                 <n-gi  v-for="item,index in ResultLeague" :key="index">
                     <resultLeagueCard :Item="item" @ondeleted="Load"></resultLeagueCard>
@@ -31,8 +36,10 @@ var btn = new Object;
 btn.Name = "Create League";
 btn.OnClick = async () => {
     
-    await store.state.apiClient.ExecScalar('SQL', 'INSERTLEAGUE', null);
-    await Load();
+    if(!NewLeagues.value || NewLeagues.value.length ==0){
+        await store.state.apiClient.ExecScalar('SQL', 'INSERTLEAGUE', null);
+        await Load();
+    }
 
 }
 Buttons.value.push(btn);
@@ -45,7 +52,7 @@ onMounted(async()=>{
 const Load = async()=>{
     
     NewLeagues.value = await store.state.apiClient.Run('EEH.FOOTBALL.BIZ', 'FootballBiz', 'GetRunningLeague',);
-console.log(NewLeagues.value)
+
     ResultLeague.value = await store.state.apiClient.Run('EEH.FOOTBALL.BIZ', 'FootballBiz', 'GetLeagueHistory', null);           
     
     

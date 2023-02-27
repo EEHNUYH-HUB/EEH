@@ -46,7 +46,10 @@
                 </n-steps>
             </n-space>
             <template #footer>
-                <n-button type="info" size="small" @click="OnDelete">삭제</n-button>
+                <n-space>
+                    <n-button type="error" size="small" @click="OnEdit">수정</n-button>
+                    <n-button type="info" size="small" @click="OnDelete">삭제</n-button>
+                </n-space>
             </template>
         </n-drawer-content>
     </n-drawer>
@@ -74,6 +77,11 @@ const OnDelete = async () => {
         emit('ondeleted');
         
     }
+}
+const OnEdit = async()=>{
+    await store.state.apiClient.ExecNonQuery('SQL', 'UPDATELEAGUESTATUS', { col_status: 4, pk_id: Props.Item.leagueID });
+    Show.value = false;
+        emit('ondeleted');
 }
 
 const emit= defineEmits(['update:Show','ondeleted'])
