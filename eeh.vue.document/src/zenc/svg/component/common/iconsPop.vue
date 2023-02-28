@@ -1,17 +1,15 @@
 <template>
     <n-popover :show="IsShow" :x="X" :y="Y" trigger="manual" :show-arrow="true">
-
-        <n-grid cols="5" :x-gap="12" :y-gap="8" responsive="screen">
-            <n-gi v-for="item, index in Icons" :key="index">
-                <n-space vertical>
-                    <n-button @click="OnClickIcon(item)">
-                        <iconFactory :Item="item"></iconFactory>
-                    </n-button>
-                </n-space>
-            </n-gi>
-
-
-        </n-grid>
+        <n-space vertical>
+            <template  v-for="item, index in Icons" :key="index">
+            {{item.DisplayName}}
+            <n-space >
+                <n-button  v-for="item, index in item.Items" :key="index" @click="OnClickIcon(item)">
+                    <iconFactory :Item="item"></iconFactory>
+                </n-button>
+            </n-space>
+        </template>
+        </n-space>
     </n-popover>
 </template>
 

@@ -1,53 +1,79 @@
 import { Guid } from "@/zenc/js/Common"
-export function GetIcons(colorObj, type,obj) {
-    
-    
+export function GetIcons(colorObj, type, obj) {
+
     var rtn = new Array;
+    var grp = new Object;
+    grp.DisplayName = "ICONS";
+    grp.Items = new Array;
+    rtn.push(grp);
     if (type == 'none') {
-        rtn.push(GetIcon('database', 8, 8, 16, colorObj));
-        rtn.push(GetIcon('diagram', 8, 8, 16, colorObj));
-        rtn.push(GetIcon('server', 8, 8, 16, colorObj));
-        rtn.push(GetIcon('chat', 8, 8, 16, colorObj));
-        rtn.push(GetIcon('diamond', 8, 8, 16, colorObj));
-       
+        grp.Items.push(GetIcon('database', 8, 8, 16, colorObj));
+        grp.Items.push(GetIcon('diagram', 8, 8, 16, colorObj));
+        grp.Items.push(GetIcon('server', 8, 8, 16, colorObj));
+        grp.Items.push(GetIcon('chat', 8, 8, 16, colorObj));
+        grp.Items.push(GetIcon('diamond', 8, 8, 16, colorObj));
+
     }
-    else if(type == 'database'){
-        rtn.push(GetIcon('table', 8, 8, 16, colorObj));
+    else if (type == 'database') {
+        grp.Items.push(GetIcon('table', 8, 8, 16, colorObj));
     }
-    else if(type == 'table'){
-        
-        rtn.push(GetIcon('sql', 8, 8, 16, colorObj));
-        if(obj.Columns)
-        {
-            for(var i in obj.Columns){
+    else if (type == 'table') {
+
+        grp.Items.push(GetIcon('sql', 8, 8, 16, colorObj));
+
+        grp = new Object;
+        grp.DisplayName = "Foreign Table";
+        grp.Items = new Array;
+
+        var isFirst = true;
+        if (obj.Columns) {
+            for (var i in obj.Columns) {
                 var col = obj.Columns[i];
-                if(col && col.obj && col.obj.foreign_table_name &&col.obj.foreign_column_name ){
-                    if(obj.JoinObjs){
-                        for(var  j in  obj.JoinObjs){
+                if (col && col.obj && col.obj.foreign_table_name && col.obj.foreign_column_name) {
+
+                    var tmp = new Array;
+                    if (obj.JoinObjs) {
+                        for (var j in obj.JoinObjs) {
                             var join = obj.JoinObjs[j];
-                            if(join && join.StartObj && join.EndObj){
-                                if(join.StartObj.TableName != col.obj.foreign_table_name &&
-                                    join.EndObj.TableName != col.obj.foreign_table_name ){
-                
-                                    var icon = GetIcon('table', 8, 8, 16, colorObj);
-                                    icon.DisplayName = col.obj.foreign_table_name;
-                                    icon.TableName =  col.obj.foreign_table_name;
-                                    icon. IsShowDisplayName = true;
-                                                            
-                                        rtn.push(icon);
-                                    }
+                            if (join && join.StartObj && join.EndObj) {
+                                var v = join.StartJoinColumn + join.StartObj.TableName + join.EndJoinColumn + join.EndObj.TableName;
+                                var v2 = join.EndJoinColumn + join.EndObj.TableName + join.StartJoinColumn + join.StartObj.TableName;
+                                tmp.push(v);
+                                tmp.push(v2);
                             }
                         }
                     }
+
+                    var chk = col.obj.column_name + obj.TableName + col.obj.foreign_column_name + col.obj.foreign_table_name;
+                    var isNext = false;
+                    for (var k in tmp) {
+                        if (tmp[k] == chk) {
+                            isNext = true;
+                            break;
+                        }
+                    }
+                    if (!isNext) {
+                        var icon = GetIcon('table', 8, 8, 16, colorObj);
+                        icon.DisplayName = col.obj.foreign_table_name;
+                        icon.TableName = col.obj.foreign_table_name;
+                        icon.IsShowDisplayName = true;
+
+                        grp.Items.push(icon);
+                        if (isFirst) {
+                            rtn.push(grp);
+                            isFirst = false;
+                        }
+                    }
+
                 }
             }
-        
+
         }
     }
-    else if(type == 'sql'){
+    else if (type == 'sql') {
         rtn.push(GetIcon('sql', 8, 8, 16, colorObj));
     }
-   
+
     return rtn;
 }
 export function GetIcon(type, x, y, size, colorObj) {
@@ -179,18 +205,18 @@ export function GetRect(x1, y1, x2, y2) {
 
 
     return rect;
-} 
+}
 
-export function ExcelCellName(index){
-    var arry = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+export function ExcelCellName(index) {
+    var arry = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     var len = arry.length;
-    
-    var share = Math.floor((index/len +1));
-    var rest  = index%len;
-    var rtn ='';
 
-    for(var i =0;i<share;i++){
-    rtn +=arry[rest];
+    var share = Math.floor((index / len + 1));
+    var rest = index % len;
+    var rtn = '';
+
+    for (var i = 0; i < share; i++) {
+        rtn += arry[rest];
     }
     return rtn;
 }

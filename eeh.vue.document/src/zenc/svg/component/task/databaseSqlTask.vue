@@ -31,9 +31,7 @@ import {DataTableToGridData} from "@/zenc/js/Common"
 
 
 import svgPanel from "@/zenc/svg/component/svgPanel.vue"
-import DrawPicker from '@/zenc/svg/js/DrawPicker'
-import DrawSqlPicker from '@/zenc/svg/js/DrawSqlPicker'
-import { Alert } from "@vicons/ionicons5";
+
 const store = useStore()
 const svgPanelCtrl = ref();
 const props = defineProps({ Item: { type: Object } })
@@ -51,27 +49,45 @@ onMounted(async () => {
     picker.OnBeforeDrawIcon =async (item)=>{
         
         if(item.IconType == 'table'){
-            await BindingColumn(item,'dfdf');
+            await BindingColumn(item,ExcelCellName(picker.JoinList.length+1));
         }
     }
     picker.OnAfeterDrawIcon = (item) =>{
-        console.log(item.JoinObjs)
-        // if (item.JoinObjs) {
-        //     for (var i in item.JoinObjs)
-        //     {
-        //         var joinObj = item.JoinObjs[j];
-        //         var startObj = joinObj.StartObj;
-        //         for(var j in startObj.Columns){
-        //             var col = startObj.Columns[j];
-        //             col.obj.foreign_table_name
-        //         }
+        console.log(item)
+        console.log(svgPanelCtrl.value.Picker.ObjList)
+        if (item.JoinObjs) {
+            for (var i in item.JoinObjs)
+            {
+                var joinObj = item.JoinObjs[i];
+                var startObj = joinObj.StartObj;
+                for(var j in startObj.Columns){
+                    var col = startObj.Columns[j];
+                    
+                    if(col.obj.foreign_table_name == item.TableName){
+                    var isNext = false;
+                        if(startObj.JoinObjs){
+                            for(var k in startObj.JoinObjs){
+                               var sJoin = startObj.JoinObjs[k];
+                               if(sJoin.StartJoinColumn == col.obj.column_name || sJoin.EndJoinColumn == col.obj.column_name){
+                                isNext = true;
+                                break;
+                               }
+                            }
+                        }
 
-        //         if (joinObj && !joinObj.StartJoinColumn && !joinObj.EndJoinColumn) {
-        //             joinObj.StartJoinColumn = col.obj.column_name;
-        //             joinObj.EndJoinColumn = col.obj.foreign_column_name;
-        //         }
-        //     }
-        // }
+                        if(!isNext){
+                            joinObj.StartJoinColumn = col.obj.column_name;
+                            joinObj.EndJoinColumn = col.obj.foreign_column_name;
+                            return;
+                        }
+                    }
+                    
+                }
+
+              
+            }
+        }
+        
     }
     var joins = props.Item.JoinObjs;
     if (joins) {
