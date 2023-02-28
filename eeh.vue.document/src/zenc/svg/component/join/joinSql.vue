@@ -27,7 +27,7 @@
             <path :d="props.Item.Path2" :stroke="props.Item.StrokeColor" :fill="props.Item.FillColor" stroke-width="0.5"
                   :marker-end="props.Item.EndType" :marker-start="props.Item.StartType" />
 
-            <foreignObject :x="props.Item.ColumnSP.X" :y="props.Item.ColumnSP.Y" style="overflow:visible;"
+            <foreignObject v-if="!props.Picker.IsDown" :x="props.Item.ColumnSP.X" :y="props.Item.ColumnSP.Y" style="overflow:visible;"
                   :width="props.Item.ColumnSP.W">
                   <n-space>
                         <n-popselect v-model:value="props.Item.StartJoinColumn" :options="props.Item.StartObj.Columns" trigger="click"
@@ -41,7 +41,7 @@
                         </n-popselect>
                   </n-space>
             </foreignObject>
-            <foreignObject :x="props.Item.ColumnEP.X" :y="props.Item.ColumnEP.Y" style="overflow:visible;"
+            <foreignObject  v-if="!props.Picker.IsDown" :x="props.Item.ColumnEP.X" :y="props.Item.ColumnEP.Y" style="overflow:visible;"
                   :width="props.Item.ColumnEP.W">
                   <n-space>
                         <n-popselect v-model:value="props.Item.EndJoinColumn" :options="props.Item.EndObj.Columns" trigger="click"
@@ -60,7 +60,7 @@
 <script setup>
 
 import { ref, defineProps } from 'vue'
-const props = defineProps({ Item: { type: Object } })
+const props = defineProps({ Item: { type: Object },Picker:{type:Object} })
 
 const OnJoinType = (item) => {
       if (item.JoinArrow == "START") {

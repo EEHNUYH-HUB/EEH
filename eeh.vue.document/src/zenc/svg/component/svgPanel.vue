@@ -11,7 +11,7 @@
             </g>
 
             <path :d="Picker.DrawItem" fill="none" stroke="#38474E" opacity="0.3" />
-            <joinFactory v-for="item, index in Picker.JoinList" :key="index" :Item="item"></joinFactory>
+            <joinFactory v-for="item, index in Picker.JoinList" :key="index" :Item="item" :Picker="Picker"></joinFactory>
             <markerList></markerList>
         </svg>
         <iconsPop ref="iconSelecter" :ColorObj="Picker.ColorObj" @OnSelectedIcon="OnSelectedIcon"></iconsPop>
