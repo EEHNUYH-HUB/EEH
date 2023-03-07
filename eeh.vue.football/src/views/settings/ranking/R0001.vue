@@ -5,7 +5,9 @@
       <n-grid cols="1 s:1 m:2 l:2 xl:3 2xl:4" :x-gap="12" :y-gap="8" responsive="screen">
         <n-gi v-for="(item, index) in data" :key="index">
           <n-card :title="item.title" :id="'id' + item.type">
-            <n-data-table :columns="item.columns" :data="item.data" :bordered="true" :single-line="false" single-column
+            <n-data-table :columns="item.columns" :data="item.data"
+            :pagination="pageSize"
+            :bordered="true" :single-line="false" single-column
               size="small" />
           </n-card>
         </n-gi>
@@ -29,7 +31,7 @@ import {WinRate} from '@/zenc/js/Common'
 const store = useStore()
 const data = ref(null)
 const AnchorItems = ref(new Array);
-
+const pageSize = ref(10);
 onMounted(async () => {
   var dt = await store.state.apiClient.ExecDataTable('SQL', 'SELRANKING', null);
 
@@ -43,16 +45,19 @@ onMounted(async () => {
     row.rate = WinRate(row.wincnt,row.tiecnt,row.losscnt);
   }
 
-  data.value.push(convertTo('rate', dt2));
   data.value.push(convertTo('score', dt));
+  data.value.push(convertTo('rate', dt2));  
+  data.value.push(convertTo('goalrate', dt));
   data.value.push(convertTo('goal', dt));
   data.value.push(convertTo('assist', dt));
   data.value.push(convertTo('save', dt));
   
   
+  
   AnchorItems.value = new Array;
   AnchorItems.value.push({ Title: '승률 순위', ID: '#idrate' });
   AnchorItems.value.push({ Title: '종합 순위', ID: '#idscore' });
+  AnchorItems.value.push({ Title: '게임당 득점률 순위', ID: '#idgoalRATE' });
   AnchorItems.value.push({ Title: '골 순위', ID: '#idgoal' });
   AnchorItems.value.push({ Title: '도움 순위', ID: '#idassist' });
   AnchorItems.value.push({ Title: '수비 순위', ID: '#idsave' });
@@ -97,6 +102,11 @@ const convertTo = (type, data) => {
     rtn.columns.push({ title: '승률(%)', key: 'rate', width: 80, align: 'center' })
     sortData = data.sort(compareRate);
   }
+  else if(type == 'goalrate'){
+    rtn.title = "게임당 골득점률 순위"
+    rtn.columns.push({ title: '골득점률(%)', key: 'goalrate', width: 80, align: 'center' })
+    sortData = data.sort(compareGoalRate);
+  }
   var beforeValue = 0;
   var rank = 0;
   for (var i in sortData) {
@@ -110,6 +120,7 @@ const convertTo = (type, data) => {
     obj.score = tmp.score;
     obj.col_name = tmp.col_name;
     obj.rate = tmp.rate;
+    obj.goalrate= tmp.goalrate;
     var chkValue;
     if (type == 'goal') {
       chkValue  = obj.goalcnt;
@@ -126,7 +137,9 @@ const convertTo = (type, data) => {
     else if (type == 'rate') {
       chkValue  = obj.rate;
     }
-
+    else if (type == 'goalrate') {
+      chkValue  = obj.goalrate;
+    }
     if(beforeValue ==0){
       rank +=1;
     }
@@ -139,7 +152,7 @@ const convertTo = (type, data) => {
     beforeValue = chkValue;
     obj.ranking = rank + '위';
     
-    if (rank > 10 || chkValue == 0) break;
+    //if (rank > 10 || chkValue == 0) break;
     rtn.data.push(obj)
     
   }
@@ -157,7 +170,16 @@ function compareGoal(a, b) {
   // a must be equal to b
   return 0;
 }
-
+function compareGoalRate(a,b){
+  if (a.goalrate > b.goalrate) {
+    return -1;
+  }
+  if (a.goalrate < b.goalrate) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}
 function compareAssist(a, b) {
   if (a.assistcnt > b.assistcnt) {
     return -1;
