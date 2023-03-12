@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="imageFolder\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="imageFolder\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="imageFolder\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="imageFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Npgsql" Version="7.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
@@ -16,11 +27,6 @@
     <ProjectReference Include="..\EEH.FOOTBALL.BIZ\EEH.FOOTBALL.BIZ.csproj" />
     <ProjectReference Include="..\EEH.WEB\EEH.WEB.csproj" />
     <ProjectReference Include="..\EEH\EEH.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="imageFolder\" />
   </ItemGroup>
 
   <ItemGroup>
