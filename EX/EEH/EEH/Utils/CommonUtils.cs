@@ -1,15 +1,27 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EEH.Utils
 {
-    public class FileUtil
+    public class CommonUtils
     {
+        public static string APPLICATIONDATAFOLDER { get; }
+        public static string DATAFOLDER { get; }
+        public const string ROOTFOLDER = "EEH";
+        public const string DATAFOLDERNAME = "DATA";
+        public static long GetTimeStamp()
+        {
+            return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+        }
+
+        static CommonUtils()
+        {
+            APPLICATIONDATAFOLDER = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            DATAFOLDER = CommonUtils.APPLICATIONDATAFOLDER.ExCombine(CommonUtils.ROOTFOLDER, CommonUtils.DATAFOLDERNAME).ExCreateDirectory();
+        }
+
         public static bool IsExists(string path)
         {
             if (System.IO.File.Exists(path))
@@ -166,8 +178,8 @@ namespace EEH.Utils
         public delegate bool UploadFileSpliteHandler(long totalSize, long readSize, byte[] readByte);
         public static void FileSpliter(string path, int bufferSize, UploadFileSpliteHandler progressHandler)
         {
-            
-            
+
+
             int totalReadSize = 0;
             int readSize;
 
@@ -202,10 +214,11 @@ namespace EEH.Utils
                         {
                             break;
                         }
-                        
+
                     }
                 }
             }
         }
+
     }
 }

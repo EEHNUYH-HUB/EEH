@@ -23,7 +23,7 @@ namespace EEH
 
         public static string ExCreateDirectory(this string directoryFullPath)
         {
-            return FileUtil.CreateDirectory(directoryFullPath);
+            return CommonUtils.CreateDirectory(directoryFullPath);
         }
 
 
@@ -291,7 +291,7 @@ namespace EEH
 
         public static bool ExIsExists(this string path)
         {
-            return FileUtil.IsExists(path);
+            return CommonUtils.IsExists(path);
         }
 
 
@@ -316,7 +316,7 @@ namespace EEH
                         }
 
                         int loopCount = 0;
-                        while (FileUtil.IsFileLocked(file)) // 만약 파일이 잠겨있다면 루프를 도는데
+                        while (CommonUtils.IsFileLocked(file)) // 만약 파일이 잠겨있다면 루프를 도는데
                         {
                             if (loopCount >= 13) // 3초까지만 돕니다.
                             {
@@ -327,7 +327,7 @@ namespace EEH
 
                         }
 
-                        return FileUtil.RunWipe(filePath);
+                        return CommonUtils.RunWipe(filePath);
                     }
                 }
 
@@ -376,11 +376,11 @@ namespace EEH
         }
         public static bool ExIsFile(this string path)
         {
-            return FileUtil.IsFile(path);
+            return CommonUtils.IsFile(path);
         }
         public static bool ExIsDirectory(this string path)
         {
-            return FileUtil.IsDirectory(path);
+            return CommonUtils.IsDirectory(path);
         }
         public static string ExEncryptString(this string str)
         {
