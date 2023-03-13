@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\EEH.csproj": {}
+    "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj": {}
   },
   "projects": {
-    "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\EEH.csproj": {
+    "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\EEH.csproj",
+        "projectUniqueName": "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj",
         "projectName": "EEH",
-        "projectPath": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\EEH.csproj",
-        "packagesPath": "C:\\Users\\eehnu\\.nuget\\packages\\",
-        "outputPath": "D:\\01 EEHNUYH_HUB_EEH\\EEH\\EEH\\obj\\",
+        "projectPath": "D:\\831228 EEH\\EEH\\EEH\\EEH.csproj",
+        "packagesPath": "C:\\Users\\hhlee\\.nuget\\packages\\",
+        "outputPath": "D:\\831228 EEH\\EEH\\EEH\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\eehnu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hhlee\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -70,7 +74,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

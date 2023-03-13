@@ -58,5 +58,41 @@ namespace EEH {
                 this["KeywordSearchNaverSecret"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OpenApiNaverClientID {
+            get {
+                return ((string)(this["OpenApiNaverClientID"]));
+            }
+            set {
+                this["OpenApiNaverClientID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OpenApiNaverSecret {
+            get {
+                return ((string)(this["OpenApiNaverSecret"]));
+            }
+            set {
+                this["OpenApiNaverSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OpenApi11StKey {
+            get {
+                return ((string)(this["OpenApi11StKey"]));
+            }
+            set {
+                this["OpenApi11StKey"] = value;
+            }
+        }
     }
 }
